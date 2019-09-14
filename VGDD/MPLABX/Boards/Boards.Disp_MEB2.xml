@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="MEB2_DISPLAY"
+   Description="MEB2 Integrated Display - AMTouch P3003-02-1-01 4.3in. w/PCAP"
+   Type="Display"
+   Img="Disp_MEB2.png"
+   Width="480"
+   Height="272"
+   DefaultOrientation="90">
+  <Note>
+  </Note>
+  <CompatibleOptions>
+      <Option>chkPCAP</Option>
+  </CompatibleOptions>
+    <CompatibleExpansionBoard ID="MEB2_BOARD" />
+    <AddGroup Name="PCAP" />
+  <Project>
+  </Project>
+  <Code>
+    <Section Name="HardwareProfileHead">
+<![CDATA[
+]]>
+    </Section>
+
+    <Section Name="HardwareProfile">
+<![CDATA[
+]]>
+    </Section>
+      <Section Name="MainHeader">
+<![CDATA[
+]]>
+      </Section>
+  </Code>
+</Board>

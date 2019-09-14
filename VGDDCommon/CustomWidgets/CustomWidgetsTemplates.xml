@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VGDDCustomWidgetsTemplate>
+    <Grid>
+        <Definition>
+            <Bitmap FileName="Grid.jpg" />
+            <ToolboxBitmap FileName="Grid.ico" />
+            <Property Name="left" Type="Int" Defaultvalue="0" Category="Layout" Eval="Left" Description="Left X coordinate of the upper-left edge" />
+            <Property Name="top" Type="Int" Defaultvalue="0" Category="Layout" Eval="Top" Description="Top Y coordinate of the upper-left edge" />
+            <Property Name="right" Type="Int" Defaultvalue="100" Category="Layout" Eval="Left+Width" Description="Right X coordinate of the lower-right edge" />
+            <Property Name="bottom" Type="Int" Defaultvalue="50" Category="Layout" Eval="Top+Height" Description="Bottom Y coordinate of the lower-right edge" />
+            <Property Name="Scheme" Type="String" Defaultvalue="" Category="Layout" Description="Colour scheme for the grid" />
+            <Property Name="numColumns" Type="Int" Defaultvalue="3" Category="Misc" Description="Sets the number of columns for the grid" />
+            <Property Name="numRows" Type="Int" Defaultvalue="3" Category="Misc" Description="Sets the number of rows for the grid" />
+            <Property Name="cellWidth" Type="Int" Defaultvalue="10" Category="Misc" Description="Sets the width of each cell of the grid" />
+            <Property Name="cellHeight" Type="Int" Defaultvalue="10" Category="Misc" Description="Sets the height of each cell of the grid" />
+            <Property Name="Disabled" Type="Bool" Defaultvalue="False" Category="State" DestProperty="STATE" Description="Status of the grid" />
+            <Property Name="Hidden" Type="Bool" Defaultvalue="False" Category="State" DestProperty="STATE" Description="Visibility of the grid" />
+            <Property Name="Public" Type="Bool" Defaultvalue="False" Category="VGDD" Description="Has the Widget to be declared public when generating code?" />
+        </Definition>
+        <CodeGen>
+            <Header>
+                #define ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]   [NEXT_NUMID]
+            </Header>
+            <GraphicsConfig>
+                USE_GRID
+            </GraphicsConfig>
+            <Constructor>
+                GRID *p[CONTROLID];
+            </Constructor>
+            <Code>
+                p[CONTROLID] = GridCreate(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX],[LEFT],[TOP],[RIGHT],[BOTTOM],[STATE],[NUMCOLUMNS],[NUMROWS],[CELLWIDTH],[CELLHEIGHT],GOLScheme_[SCHEME]);
+            </Code>
+            <State>
+                <Disabled True="GRID_DRAW_ALL|GRID_DISABLED" False="GRID_DRAW_ALL" />
+                <Hidden False="GRID_DRAW_ALL" True="GRID_HIDE" />
+            </State>
+        </CodeGen>
+        <Events>
+            <Event Name="GRID_MSG_TOUCHED" Description="Grid touched" />
+        </Events>
+        <Actions>
+            <Action Name="Use Widget ID" Code="ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]" />
+            <Action Name="Hide Grid" Code="SetState(GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), GRID_HIDE);[NEWLINE]" />
+            <Action Name="Show/Update Grid" Code="SetState(GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), GRID_DRAW_ALL);[NEWLINE]" />
+        </Actions>
+    </Grid>
+    <DigitalMeter>
+        <Definition>
+            <Bitmap FileName="DigitalMeter.png" />
+            <ToolboxBitmap FileName="DigitalMeter.ico" />
+            <Property Name="left" Type="Int" Defaultvalue="10" Category="GOL" Eval="Left" Description="Left X coordinate of the upper-left edge" />
+            <Property Name="top" Type="Int" Defaultvalue="10" Category="GOL" Eval="Top" Description="Top Y coordinate of the upper-left edge" />
+            <Property Name="right" Type="Int" Defaultvalue="200" Category="GOL" Eval="Left+Width" Description="Right X coordinate of the lower-right edge" />
+            <Property Name="bottom" Type="Int" Defaultvalue="150" Category="GOL" Eval="Top+Height" Description="Bottom Y coordinate of the lower-right edge" />
+            <Property Name="Scheme" Type="String" Defaultvalue="" Category="GOL" Description="Colour scheme for the DigitalMeter" />
+            <Property Name="NoOfDigits" Type="Int" Defaultvalue="5" Category="GOL" Description="Sets the number of digits to display in the DigitalMeter" />
+            <Property Name="DotPos" Type="Int" Defaultvalue="3" Category="GOL" Description="Sets the position of the decimal dot" />
+            <Property Name="Value" Type="Float" Defaultvalue="0" Category="GOL" Description="Sets the value to display" />
+            <Property Name="Disabled" Type="Bool" Defaultvalue="False" Category="State" DestProperty="STATE" Description="Status of the DigitalMeter" />
+            <Property Name="Hidden" Type="Bool" Defaultvalue="False" Category="State" DestProperty="STATE" Description="Visibility of the DigitalMeter" />
+            <Property Name="Align" Type="HorizAlign" Defaultvalue="Left" Category="GOL" DestProperty="STATE" Description="Alignement of the DigitalMeter" />
+            <Property Name="Frame" Type="Bool" Defaultvalue="False" Category="GOL" DestProperty="STATE" Description="Draw a frame around the DigitalMeter?" />
+            <Property Name="Public" Type="Bool" Defaultvalue="False" Category="VGDD" Description="Has the Widget to be declared public when generating code?" />
+        </Definition>
+        <CodeGen>
+            <Header>
+                #define ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]   [NEXT_NUMID]
+            </Header>
+            <GraphicsConfig>
+                USE_DIGITALMETER
+            </GraphicsConfig>
+            <Constructor>
+                DIGITALMETER *p[CONTROLID];
+            </Constructor>
+            <Code>
+                p[CONTROLID] = DmCreate(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX],[LEFT],[TOP],[RIGHT],[BOTTOM],[STATE],[VALUE],[NOOFDIGITS],[DOTPOS],GOLScheme_[SCHEME]);
+            </Code>
+            <State>
+                <Disabled True="DM_DRAW|DM_DISABLED" False="DM_DRAW" />
+                <Hidden False="DM_DRAW" True="DM_HIDE" />
+                <Align Left="DM_DRAW" Right="DM_RIGHT_ALIGN" Center="DM_CENTER_ALIGN" />
+                <Frame True="DM_FRAME" False="DM_DRAW" />
+            </State>
+        </CodeGen>
+        <Events>
+            <Event Name="DM_MSG_SELECTED" Description="DigitalMeter touched" />
+        </Events>
+        <Actions>
+            <Action Name="Use Widget ID" Code="ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]" />
+            <Action Name="Hide DigitalMeter" Code="SetState((DIGITALMETER *)GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), DM_HIDE);[NEWLINE]" />
+            <Action Name="Show/Update DigitalMeter" Code="SetState((DIGITALMETER *)GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), DM_DRAW);[NEWLINE]" />
+            <Action Name="Set DigitalMeter Value" Code="DmSetValue((DIGITALMETER *)GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), VALUE);[NEWLINE]" />
+        </Actions>
+    </DigitalMeter>
+    <AnalogClock>
+        <Definition>
+            <Bitmap FileName="alarm.png" />
+            <ToolboxBitmap FileName="alarm.ico" />
+            <Property Name="left" Type="Int" Defaultvalue="0" Category="Layout" Eval="Left" Description="Left edge of the clock" />
+            <Property Name="top" Type="Int" Defaultvalue="0" Category="Layout" Eval="Top" Description="Top edge of the clock" />
+            <Property Name="right" Type="Int" Defaultvalue="100" Category="Layout" Eval="Left + Width" Description="Right edge of the clock" />
+            <Property Name="bottom" Type="Int" Defaultvalue="100" Category="Layout" Eval="Top + Height" Description="Bottom edge for the clock" />
+            <Property Name="hour" Type="Int" Defaultvalue="12" Category="Misc" Eval="" Description="Hour value for the clock" />
+            <Property Name="minute" Type="Int" Defaultvalue="0" Category="Misc" Eval="" Description="Minute value for the clock" />
+            <Property Name="radius" Type="Int" Defaultvalue="10" Category="Misc" Eval="" Description="Radius of the clock" />
+            <Property Name="sechand" Type="Bool" Defaultvalue="false" Category="Misc" Eval="" Description="Flag to draw second hand or not." />
+            <Property Name="Bitmap" Type="Bitmap" Defaultvalue="" Category="Appearance" Eval="" Description="Background bitmap used on the face of the button. Dimension of the bitmap must match the dimension of the button" />
+            <Property Name="Scheme" Type="String" Defaultvalue="" Category="Appearance" Eval="" Description="Style scheme used" />
+            <Property Name="Disabled" Type="Bool" Defaultvalue="False" Category="Appearance" Eval="" Description="Disable the clock" DestProperty="STATE" />
+            <Property Name="Public" Type="Bool" Defaultvalue="False" Category="VGDD" Description="Has the Widget to be declared public when generating code?" />
+        </Definition>
+        <CodeGen>
+            <Header>
+                #define ID_[CONTROLID_NOINDEX][CONTROLID_INDEX] [NEXT_NUMID]
+            </Header>
+            <GraphicsConfig>
+                USE_ANALOGCLOCK
+            </GraphicsConfig>
+            <Constructor>
+                ANALOGCLOCK *p[CONTROLID];
+            </Constructor>
+            <Code>
+                p[CONTROLID] = AcCreate(ID_[CONTROLID], [LEFT], [TOP], [RIGHT], [BOTTOM], [HOUR], [MINUTE], [RADIUS], [SECHAND], [STATE], [BITMAP], GOLScheme_[SCHEME]);
+            </Code>
+            <State>
+                <Disabled True="AC_DRAW|AC_DISABLED" False="AC_DRAW" />
+            </State>
+        </CodeGen>
+        <Events />
+        <Actions />
+    </AnalogClock>
+</VGDDCustomWidgetsTemplate>

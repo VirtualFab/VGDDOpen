@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="EXP_NONE"
+       Description="None"
+       Type="Expansion"
+       Class=""
+       Img=""
+       PartNumber=""
+       URL="">
+    <Note>
+    Placeholder for no Expansion board
+    </Note>
+    <CompatibleDisplay ID="*" />
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="Yes" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+</Board>

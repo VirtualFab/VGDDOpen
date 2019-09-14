@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="TRULY_7"
+     Description="Graphics Display Truly 7in. 800x480 Board"
+     Type="Display"
+     Img="Disp_Truly7.png"
+     Width="800"
+     Height="480"
+     PartNumber="AC164127-9"
+     URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=AC164127-9"
+     DefaultOrientation="0">
+  <Note>
+  </Note>
+  <Project>
+  </Project>
+  <AddGroup Name="TouchScreenResistive" />
+  <Code>
+    <Section Name="HardwareProfileHead">
+<![CDATA[
+#define GFX_USE_DISPLAY_PANEL_TFT_800480_33_E	
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+]]>
+    </Section>
+
+    <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+#define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   6
+#if (DISP_ORIENTATION == 0)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+	  #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#elif (DISP_ORIENTATION == 90)
+#elif (DISP_ORIENTATION == 180)	
+  	#define TOUCHSCREEN_RESISTIVE_SWAP_XY
+#elif (DISP_ORIENTATION == 270)	
+	  #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#endif	            
+
+#define DISP_HOR_RESOLUTION		800
+#define DISP_VER_RESOLUTION		480
+#define DISP_HOR_PULSE_WIDTH  128
+#define DISP_HOR_BACK_PORCH   129
+#define DISP_HOR_FRONT_PORCH    2
+#define DISP_VER_PULSE_WIDTH    2
+#define DISP_VER_BACK_PORCH    41
+#define DISP_VER_FRONT_PORCH    2
+#define DISP_DATA_WIDTH        24
+#define GFX_LCD_TYPE  GFX_LCD_TFT
+
+#define GFX_GCLK_DIVIDER 38
+
+#define BACKLIGHT_ENABLE_LEVEL      0	
+#define BACKLIGHT_DISABLE_LEVEL     1	
+
+]]>
+    </Section>
+    <MLALegacy>
+        <Section Name="MainHeader">
+            <![CDATA[
+#include "TouchScreen.h"
+]]>
+        </Section>
+    </MLALegacy>
+    <MLA>
+      <Section Name="SystemHead">
+<![CDATA[
+#include "driver/touch_screen/drv_touch_screen.h"
+]]>
+      </Section>
+    </MLA>
+    <Harmony>
+      <Section Name="HardwareProfile">
+<![CDATA[
+#define TCON_MODULE NULL
+#define DISP_INV_LSHIFT         1
+]]>
+      </Section>
+    </Harmony>
+  </Code>
+</Board>

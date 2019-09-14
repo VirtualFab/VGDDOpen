@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="VIRTUALFAB_PIC32_MPP"
+	   Type="Development"
+	   Description="VirtualFab PIC32-MPP"
+	   Compiler="C32"
+	   Img="Dev_VirtualFab_PIC32-MPP.png"
+       PartNumber="PIC32-MPP"
+	   URL="http://virtualfab.it/VGDD/">
+  <Note>
+
+  </Note>
+  <CompatibleDisplay ID="VIRTUALFAB_SSD1963_TY700" />
+  <CompatibleOptions>
+    <Option>chkPutImageFromSD</Option>
+    <Option>chkPMP16</Option>
+  </CompatibleOptions>
+  <Project>
+    <Folder Name="Header Files/Board Support Package">
+      <AddFile>$USERTEMPLATESFOLDER/Boards/MPP/BSP.h</AddFile>
+    </Folder>
+    <Folder Name="Source Files/Board Support Package">
+      <AddFile>$USERTEMPLATESFOLDER/Boards/MPP/BSP.c</AddFile>
+    </Folder>
+    <Folder Name="Source Files/Common">
+      <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+    </Folder>
+    <SetConfig Section="[COMPILER]-LD" key="heap-size" value="3000"/>
+  </Project>
+  <Code>
+    <Section Name="ConfigBits">
+      <![CDATA[
+#pragma config UPLLEN = ON          // USB PLL Enabled
+#pragma config FPLLMUL = MUL_16     // PLL Multiplier
+#pragma config UPLLIDIV = DIV_3     // USB PLL Input Divider
+#pragma config FPLLIDIV = DIV_4     // PLL Input Divider
+#pragma config FPLLODIV = DIV_1     // PLL Output Divider
+#pragma config FPBDIV = DIV_2       // Peripheral Clock divisor
+#pragma config FWDTEN = OFF         // Watchdog Timer
+#pragma config WDTPS = PS1          // Watchdog Timer Postscale
+#pragma config FCKSM = CSDCMD       // Clock Switching & Fail Safe Clock Monitor
+#pragma config OSCIOFNC = OFF       // CLKO Enable
+#pragma config POSCMOD = HS         // Primary Oscillator
+#pragma config IESO = OFF           // Internal/External Switch-over
+#pragma config FSOSCEN = ON         // Secondary Oscillator Enable (KLO was off)
+#pragma config FNOSC = PRIPLL       // Oscillator Selection
+#pragma config CP = OFF             // Code Protect
+#pragma config BWP = OFF            // Boot Flash Write Protect
+#pragma config PWP = OFF            // Program Flash Write Protect
+#pragma config ICESEL = ICS_PGx1    // ICE/ICD Comm Channel Select
+]]>
+    </Section>
+    <Section Name="InitializeBoard">
+      <![CDATA[
+    AD1PCFG = 0x0ffff; // Tutti gli ingressi AN0-AN15 come DIGITALI (di default sono analogici)
+    INTEnableSystemMultiVectoredInt();
+    SYSTEMConfigPerformance(GetSystemClock());
+    GOLInit();                   // Initialize graphics library and crete default style scheme for GOL
+    TickInit();                  // initialize the timer that manages the tick counter
+    TouchInit(NVMWrite, NVMRead, NVMSectorErase, NULL); // initialize the components for Resistive Touch Screen
+    HardwareButtonInit();        // Initialize the hardware buttons
+]]>
+    </Section>
+    <Section Name="HardwareProfileHead">
+      <![CDATA[
+#include <plib.h>
+
+#define GetSystemClock()        (80000000ul)
+#define GetPeripheralClock()    (GetSystemClock() / (1 << OSCCONbits.PBDIV))
+#define GetInstructionClock()   (GetSystemClock())
+]]>
+    </Section>
+    <Section Name="HardwareProfile">
+      <![CDATA[
+#define self_power          1
+#define USB_BUS_SENSE       1
+
+// -----------------------------------------------
+// IOS FOR THE BEEPER
+// -----------------------------------------------
+#define BEEP_TRIS_BIT   _TRISC1
+#define BEEP_LAT_BIT    _LATC1
+
+// -----------------------------------------------
+// IOS FOR THE UART
+// -----------------------------------------------
+#define TX_TRIS _TRISF8
+#define RX_TRIS _TRISF2
+
+// -----------------------------------------------
+// UART SETTINGS
+// -----------------------------------------------
+#define BAUDRATE2               115200UL
+#define BRG_DIV2                4
+#define BRGH2                   1
+
+// -----------------------------------------------
+// IOS FOR THE SWITCHES (SIDE BUTTONS)
+// -----------------------------------------------
+typedef enum
+{
+    HW_BUTTON_PRESS = 0,
+    HW_BUTTON_RELEASE = 1
+} HW_BUTTON_STATE;
+#define HardwareButtonInit()        UserPeriphInit() // in BSD.c
+#define GetHWButtonProgram()        (PORTAbits.RA0)
+#define GetHWButtonScanDown()       //(HW_BUTTON_RELEASE)
+#define GetHWButtonScanUp()         //(HW_BUTTON_RELEASE)  
+#define GetHWButtonCR()             (PORTAbits.RA0)
+#define GetHWButtonFocus()          //(PORTDbits.RD7 & PORTDbits.RD13)
+]]>
+    </Section>
+    <Section Name="HardwareProfile" Option="chkPutImageFromSD">
+      <![CDATA[
+#define SD_CS               PORTDbits.RD11
+#define SD_CS_TRIS          TRISDbits.TRISD11
+#define SD_CD               PORTBbits.RB8
+#define SD_CD_TRIS          TRISBbits.TRISB8
+#define SD_WE               PORTBbits.RB9
+#define SD_WE_TRIS          TRISBbits.TRISB9
+#define SPICON1             SPI1ACON
+#define SPISTAT             SPI1ASTAT
+#define SPIBUF              SPI1ABUF
+#define SPISTAT_RBF         SPI1ASTATbits.SPIRBF
+#define SPICON1bits         SPI1ACONbits
+#define SPISTATbits         SPI1ASTATbits
+#define SPIENABLE           SPI1ACONbits.ON
+#define SPIBRG              SPI1ABRG
+#define SPICLOCK            TRISDbits.TRISD10
+#define SPIIN               TRISCbits.TRISC4
+#define SPIOUT              TRISDbits.TRISD0
+#define putcSPI(data)       SpiChnPutC(SPI_CHANNEL1, data)
+#define getcSPI()           SpiChnGetC(SPI_CHANNEL1)
+#define OpenSPI(config1, config2)   SpiChnOpen(SPI_CHANNEL1, config1, config2)
+]]>
+    </Section>
+  </Code>
+  <AddGroup Name="GOL" />
+  <AddGroup Name="RTCC" />
+  <AddGroup Name="PutImageFromSD" />
+  <AddGroup Name="FlashProgrammer" />
+  <AddGroup Name="USBhost" />
+</Board>

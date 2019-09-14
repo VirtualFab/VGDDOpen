@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="TINTAGLIA"
+       Description="Tintaglia, 4.3in. 480x272"
+       Type="Display"
+       Img="Tintaglia.png"
+       Width="480"
+       Height="272"
+	   DefaultOrientation="0">
+    <Note>
+    </Note>
+    <Project>
+    </Project>
+    <Code>
+        <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION	0
+#define DISP_HOR_RESOLUTION	480
+#define DISP_VER_RESOLUTION	272
+#define DISP_DATA_WIDTH		24
+#define DISP_HOR_PULSE_WIDTH    41
+#define DISP_HOR_BACK_PORCH     2
+#define DISP_HOR_FRONT_PORCH    2
+#define DISP_VER_PULSE_WIDTH    10
+#define DISP_VER_BACK_PORCH     2
+#define DISP_VER_FRONT_PORCH    2
+#define GFX_LCD_TYPE            GFX_LCD_TFT 
+#define USE_GFX_PMP
+
+#define PMP_DATA_SETUP_TIME     (18)    
+#define PMP_DATA_WAIT_TIME      (82)  // based on the minimum pulse width requirement of CS signal of SSD1926     
+#define PMP_DATA_HOLD_TIME      (0)  
+
+#define BACKLIGHT_ENABLE_LEVEL  1
+#define BACKLIGHT_DISABLE_LEVEL 0
+]]>
+        </Section>
+    </Code>
+</Board>

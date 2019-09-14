@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="MEB_BOARD"
+       Description="Multimedia Expansion Board"
+       Type="Expansion"
+       Img="Exp_MEB.png"
+       PartNumber="DM320005"
+       URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=DM320005">
+    <Note>
+
+    </Note>
+    <CompatibleDisplay ID="TRULY_3_2" />
+    <CompatibleOptions>
+        <Option>chkUSBhost</Option>
+        <Option>chkPutImageFromSD</Option>
+        <Option>chkPMP8</Option>
+        <Option>chkPMP16</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <Project>
+        <MLALegacy>
+            <ClearFolder Name="Source Files/Display Driver" />
+            <ClearFolder Name="Header Files/Display Driver" />
+            <Folder Name="Header Files/Display Driver">
+                <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+                <AddFile>$MAL/Include/Graphics/SSD1926.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Display Driver">
+                <AddFile>$MAL/Graphics/Drivers/SSD1926.c</AddFile>
+                <AddFile>$MAL/Graphics/Drivers/TCON_SSD1289.c</AddFile>
+                <!--<AddFile>$MAL/Graphics/Drivers/gfxepmp.c</AddFile>-->
+            </Folder>
+            <Folder Name="Source Files/Board Support Package">
+                <AddFile>$MAL/../Board Support Package/cpld.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Common">
+                <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+            </Folder>
+        </MLALegacy>
+        <Harmony>
+            <ExcludeAllFilesInFolder Folder="Source Files/framework/driver/gfx" />
+            <ExcludeAllFilesInFolder Folder="Header Files/framework/driver/gfx" />
+            <Folder Name="Header Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/controller/ssd1926/drv_gfx_ssd1926.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/controller/ssd1926/src/drv_gfx_ssd1926.c</AddFile>
+                <AddFile>$MAL/framework/driver/pmp/src/dynamic/drv_pmp_dynamic.c</AddFile>
+            </Folder>
+        </Harmony>
+    </Project>
+    <Code>
+        <MLALegacy>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    CPLDInitialize();
+    CPLDSetGraphicsConfiguration(GRAPHICS_HW_CONFIG);
+    CPLDSetSPIFlashConfiguration(SPI_FLASH_CHANNEL);
+]]>
+            </Section>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#define MEB_BOARD
+#define USE_16BIT_PMP
+#define USE_GFX_PMP
+#define PMP_DATA_SETUP_TIME (18)    
+#define PMP_DATA_WAIT_TIME  (82)  // based on the minimum pulse width requirement of CS signal of SSD1926     
+#define PMP_DATA_HOLD_TIME  (0)    
+#define GFX_USE_DISPLAY_CONTROLLER_SSD1926
+#define USE_XC2C64A                // use the CPLD on the board    
+#define USE_ACCELEROMETER_BMA150   // use the accelerometer module    
+#define USE_JOYSTICK_MEB           // use the joystick
+]]>
+            </Section>
+            <Section Name="HardwareProfileHead" Option="chkPMP8">
+<![CDATA[
+        // --------------------------------------------------------------------
+        // * Configuration for the CPLD
+        // --------------------------------------------------------------------
+        #define GRAPHICS_HW_CONFIG     CPLD_GFX_CONFIG_8BIT
+]]>
+            </Section>
+            <Section Name="HardwareProfileHead" Option="chkPMP16">
+<![CDATA[
+        // --------------------------------------------------------------------
+        // * Configuration for the CPLD
+        // --------------------------------------------------------------------
+        #define GRAPHICS_HW_CONFIG     CPLD_GFX_CONFIG_16BIT
+]]>
+            </Section>
+
+            <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE
+// --------------------------------------------------------------------
+// Definitions for reset pin
+#define DisplayResetConfig()           TRISACLR = _TRISA_TRISA10_MASK    
+#define DisplayResetEnable()           LATACLR = _LATA_LATA10_MASK
+#define DisplayResetDisable()          LATASET = _LATA_LATA10_MASK
+	
+// Definitions for RS pin
+#define DisplayCmdDataConfig()         AD1PCFGSET = _AD1PCFG_PCFG10_MASK, TRISBCLR = _TRISB_TRISB10_MASK
+#define DisplaySetCommand()            LATBCLR = _LATB_LATB10_MASK
+#define DisplaySetData()               LATBSET = _LATB_LATB10_MASK
+	
+// Definitions for CS pin
+#define DisplayConfig()                TRISGCLR = _TRISG_TRISG13_MASK
+#define DisplayEnable()                LATGCLR = _LATG_LATG13_MASK
+#define DisplayDisable()               LATGSET = _LATG_LATG13_MASK
+	
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()          
+#define DisplayFlashEnable()        
+#define DisplayFlashDisable()       
+	
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()        
+#define DisplayPowerOn()            
+#define DisplayPowerOff()           
+	
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)  
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)   
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR THE SPI FLASH MEMORY
+// --------------------------------------------------------------------
+// this is dependent on the Starter Kit used
+#if defined (PIC32_GP_SK) || defined (PIC32_USB_SK) || defined (dsPIC33E_SK)
+	#define SST25_SPI_CHANNEL 2
+#elif defined (PIC32_ETH_SK)
+	#define SST25_SPI_CHANNEL 4
+#else
+	#error "Please define the starter kit that you are using"
+#endif
+
+/* Define all the SPI channels that will be used here.
+    These will be used to determine how the SPI Driver (drv_spi)
+    will be compiled.
+*/
+#if (SST25_SPI_CHANNEL == 1)
+    #define SPI_CHANNEL_1_ENABLE
+#elif (SST25_SPI_CHANNEL == 2)
+    #define SPI_CHANNEL_2_ENABLE
+#elif (SST25_SPI_CHANNEL == 3)
+    #define SPI_CHANNEL_3_ENABLE
+#elif (SST25_SPI_CHANNEL == 4)
+    #define SPI_CHANNEL_4_ENABLE
+#endif
+
+// Chip Select, SCLK, SDI and SDO signals used 
+// this is dependent on the Starter Kit used
+// define the CPLD SPI selection and chip select     
+#if (SST25_SPI_CHANNEL == 2)
+    #define SST25_CS_TRIS       TRISGbits.TRISG9
+    #define SST25_CS_LAT        LATGbits.LATG9
+    #define SPI_FLASH_CHANNEL   CPLD_SPI2
+#elif (SST25_SPI_CHANNEL == 3)
+    #define SST25_CS_TRIS       TRISGbits.TRISG9
+    #define SST25_CS_LAT        LATGbits.LATG9
+    #define SPI_FLASH_CHANNEL   CPLD_SPI2A
+#elif (SST25_SPI_CHANNEL == 4)
+    #define SST25_CS_TRIS       TRISFbits.TRISF12
+    #define SST25_CS_LAT        LATFbits.LATF12
+    #define SPI_FLASH_CHANNEL   CPLD_SPI3A
+#else
+    #error "MultiMedia Expansion Board (MEB) needs to use SPI channels 2,3 or 4 (SST25_SPI_CHANNEL == 2, 3 or 4) for for SPI Flash"
+#endif
+#define SPIFlashConfigurePins() { \
+	SST25_SDO_ANS  = 0; \
+	SST25_SDI_ANS  = 0; \
+	SST25_CS_LAT   = 1; \
+	SST25_CS_TRIS  = 0; \
+	SST25_SCK_TRIS = 0; \
+	SST25_SDO_TRIS = 0; \
+	SST25_SDI_TRIS = 1; \
+}
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR THE RESISTIVE TOUCHSCREEN 
+// --------------------------------------------------------------------
+#define USE_TOUCHSCREEN_RESISTIVE         // use 4-wire resistive touch screen driver
+#define TOUCH_ADC_INPUT_SEL   AD1CHS      
+#define TOUCH_ADC_START       AD1CON1bits.SAMP 
+#define TOUCH_ADC_DONE        AD1CON1bits.DONE
+#define ADC_XPOS    ADC_CH0_POS_SAMPLEA_AN11
+#define ADC_YPOS    ADC_CH0_POS_SAMPLEA_AN14
+#define ADPCFG_XPOS AD1PCFGbits.PCFG11
+#define ADPCFG_YPOS AD1PCFGbits.PCFG14
+#define RESISTIVETOUCH_ANALOG  0
+#define RESISTIVETOUCH_DIGITAL 1
+
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+//#define LAT_XPOS    LATBbits.LATB11
+//#define TRIS_XPOS   TRISBbits.TRISB11
+//#define LAT_XNEG    LATBbits.LATB13
+//#define TRIS_XNEG   AD1PCFGbits.PCFG13 = 1, TRISBbits.TRISB13
+//#define LAT_YPOS    LATBbits.LATB14
+//#define TRIS_YPOS   TRISBbits.TRISB14
+//#define LAT_YNEG    LATBbits.LATB12 
+//#define TRIS_YNEG   AD1PCFGbits.PCFG12 = 1, TRISBbits.TRISB12
+
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+#define ResistiveTouchScreen_XPlus_Config_As_Input() (TRISBbits.TRISB11 = 1)
+#define ResistiveTouchScreen_XPlus_Config_As_Output() (TRISBbits.TRISB11 = 0)
+#define ResistiveTouchScreen_YPlus_Config_As_Input() (TRISBbits.TRISB14 = 1)
+#define ResistiveTouchScreen_YPlus_Config_As_Output() (TRISBbits.TRISB14 = 0)
+#define ResistiveTouchScreen_YMinus_Config_As_Input() (AD1PCFGbits.PCFG12 = 1, TRISBbits.TRISB12 = 1)
+#define ResistiveTouchScreen_YMinus_Config_As_Output() (AD1PCFGbits.PCFG12 = 1, TRISBbits.TRISB12 = 0)
+#define ResistiveTouchScreen_YMinus_Drive_Low() (LATBbits.LATB12 = 0)
+#define ResistiveTouchScreen_XPlus_Drive_High() (LATBbits.LATB11 = 1)
+#define ResistiveTouchScreen_YPlus_Drive_High() (LATBbits.LATB14 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Input() (AD1PCFGbits.PCFG13 = 1, TRISBbits.TRISB13 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Output() (AD1PCFGbits.PCFG13 = 1, TRISBbits.TRISB13 = 0)
+#define ResistiveTouchScreen_XMinus_Drive_Low() (LATBbits.LATB13 = 0)
+
+// --------------------------------------------------------------------
+// Touch Screen Non-Volatile Memory Storage Macros
+// --------------------------------------------------------------------
+#define ADDRESS_RESISTIVE_TOUCH_VERSION	(unsigned long)0xFFFFFFFE
+#define ADDRESS_RESISTIVE_TOUCH_ULX   (unsigned long)0xFFFFFFFC
+#define ADDRESS_RESISTIVE_TOUCH_ULY   (unsigned long)0xFFFFFFFA
+#define ADDRESS_RESISTIVE_TOUCH_URX   (unsigned long)0xFFFFFFF8
+#define ADDRESS_RESISTIVE_TOUCH_URY   (unsigned long)0xFFFFFFF6
+
+#define ADDRESS_RESISTIVE_TOUCH_LLX   (unsigned long)0xFFFFFFF4
+#define ADDRESS_RESISTIVE_TOUCH_LLY   (unsigned long)0xFFFFFFF2
+#define ADDRESS_RESISTIVE_TOUCH_LRX   (unsigned long)0xFFFFFFF0
+#define ADDRESS_RESISTIVE_TOUCH_LRY   (unsigned long)0xFFFFFFEE
+
+#define NVMSectorErase                  ((NVM_SECTORERASE_FUNC)&SST25SectorErase)
+#define NVMWrite                        ((NVM_WRITE_FUNC)&SST25WriteWord)
+#define NVMRead                         ((NVM_READ_FUNC)&SST25ReadWord)
+
+// --------------------------------------------------------------------
+// * MMB LEDs
+// --------------------------------------------------------------------
+typedef enum {
+    LED_2,
+    LED_3,
+    LED_4,
+    LED_5,
+    LED_10
+} MMB_LED;
+        
+extern inline void __attribute__((always_inline)) SetLEDDirection(void) {
+    PORTSetPinsDigitalOut(IOPORT_D, (BIT_1 | BIT_2 | BIT_3));
+    PORTSetPinsDigitalOut(IOPORT_C, (BIT_1 | BIT_2));
+}
+        
+extern inline void __attribute__((always_inline)) TurnLEDOn(MMB_LED led) {
+    if(led == LED_2)        PORTSetBits(IOPORT_D, BIT_1);
+    if(led == LED_3)        PORTSetBits(IOPORT_D, BIT_2);
+    if(led == LED_4)        PORTSetBits(IOPORT_D, BIT_3);
+    if(led == LED_5)        PORTSetBits(IOPORT_C, BIT_1);
+    if(led == LED_10)       PORTSetBits(IOPORT_C, BIT_2);
+}
+        
+extern inline void __attribute__((always_inline)) TurnLEDOff(MMB_LED led) {
+    if(led == LED_2)        PORTClearBits(IOPORT_D, BIT_1);
+    if(led == LED_3)        PORTClearBits(IOPORT_D, BIT_2);
+    if(led == LED_4)        PORTClearBits(IOPORT_D, BIT_3);
+    if(led == LED_5)        PORTClearBits(IOPORT_C, BIT_1);
+    if(led == LED_10)       PORTClearBits(IOPORT_C, BIT_2);
+}
+        
+extern inline void __attribute__((always_inline)) ToggleLED(MMB_LED led) {
+    if(led == LED_2)        PORTToggleBits(IOPORT_D, BIT_1);
+    if(led == LED_3)        PORTToggleBits(IOPORT_D, BIT_2);
+    if(led == LED_4)        PORTToggleBits(IOPORT_D, BIT_3);
+    if(led == LED_5)        PORTToggleBits(IOPORT_C, BIT_1);
+    if(led == LED_10)       PORTToggleBits(IOPORT_C, BIT_2);
+}
+        
+extern inline void __attribute__((always_inline)) TurnLEDAllOn(void) {
+        PORTSetBits(IOPORT_D, BIT_1);
+        PORTSetBits(IOPORT_D, BIT_2);
+        PORTSetBits(IOPORT_D, BIT_3);
+        PORTSetBits(IOPORT_C, BIT_1);
+        PORTSetBits(IOPORT_C, BIT_2);
+}
+        
+extern inline void __attribute__((always_inline)) TurnLEDAllOff(void) {
+        PORTClearBits(IOPORT_D, BIT_1);
+        PORTClearBits(IOPORT_D, BIT_2);
+        PORTClearBits(IOPORT_D, BIT_3);
+        PORTClearBits(IOPORT_C, BIT_1);
+        PORTClearBits(IOPORT_C, BIT_2);
+}
+// The MCHP25LC256 chip select signal, even if not used must be
+// driven to high so it does not interfere with other SPI peripherals
+// that uses the same SPI signals. 
+#if defined(__dsPIC33FJ128GP804__) || defined(__PIC24HJ128GP504__)
+	#define MCHP25LC256_CS_TRIS  TRISAbits.TRISA0
+	#define MCHP25LC256_CS_LAT   LATAbits.LATA0
+#elif defined(__PIC24FJ256GB110__)
+	// This PIM has RD12 rerouted to RG0
+	#define MCHP25LC256_CS_TRIS  TRISGbits.TRISG0
+	#define MCHP25LC256_CS_LAT   LATGbits.LATG0
+#else
+	#define MCHP25LC256_CS_TRIS  TRISDbits.TRISD12
+	#define MCHP25LC256_CS_LAT   LATDbits.LATD12
+#endif
+]]>
+            </Section>
+            <Section Name="MainHeader">
+<![CDATA[
+#include "cpld.h"
+]]>
+            </Section>
+        </MLALegacy>
+        <Harmony>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+            #define GFX_USE_DISPLAY_CONTROLLER_SSD1926
+
+            #include "system/touch/sys_touch.h"
+
+            /*** Interrupt System Service Configuration ***/
+            #define SYS_INT                     true
+
+            /*** Ports System Service Configuration ***/
+            #define SYS_PORT_AD1PCFG        ~0xffff
+            #define SYS_PORT_CNPUE          0x0
+            #define SYS_PORT_CNEN           0x0
+
+            #define SYS_PORT_D_TRIS         0xfff8
+            #define SYS_PORT_D_LAT          0x0
+            #define SYS_PORT_D_ODC          0x0
+
+            /*** Console System Service Configuration DISABLED ***/
+            #define SYS_CONSOLE_MESSAGE(message)
+            #define SYS_CONSOLE_PRINT(fmt, ...)
+
+            /*** Command Processor System Service Configuration DISABLED ***/
+            #define SYS_CMD_MESSAGE(message)
+            #define SYS_CMD_PRINT(fmt, ...)
+            #define SYS_CMD_READY_TO_READ()
+            
+	// ADC Sample Start 
+	#define TOUCH_ADC_START   AD1CON1bits.SAMP 
+
+	// ADC Status
+	#define TOUCH_ADC_DONE   AD1CON1bits.DONE
+    
+    // ADC Input Channel Selector
+    #define TOUCH_ADC_INPUT_SEL   AD1CHS
+
+    #define ADC_CH0_POS_SAMPLEA_AN11  (0xB << _AD1CHS_CH0SA_POSITION)
+    #define ADC_CH0_POS_SAMPLEA_AN14  (0xE << _AD1CHS_CH0SA_POSITION)    
+    #define ADC_XPOS    ADC_CH0_POS_SAMPLEA_AN11
+    #define ADC_YPOS    ADC_CH0_POS_SAMPLEA_AN14
+	
+    // ADC Port Control Bits
+    #define ADPCFG_XPOS AD1PCFGbits.PCFG11
+    #define ADPCFG_YPOS AD1PCFGbits.PCFG14
+    #define RESISTIVETOUCH_ANALOG  0
+    #define RESISTIVETOUCH_DIGITAL 1
+
+    // ADC channel constants
+    // X port definitions
+    #define ResistiveTouchScreen_XPlus_Drive_High()         LATBbits.LATB11   = 1
+    #define ResistiveTouchScreen_XPlus_Drive_Low()          LATBbits.LATB11   = 0
+    #define ResistiveTouchScreen_XPlus_Config_As_Input()    TRISBbits.TRISB11 = 1
+    #define ResistiveTouchScreen_XPlus_Config_As_Output()   TRISBbits.TRISB11 = 0
+			
+    #define ResistiveTouchScreen_XMinus_Drive_High()        LATBbits.LATB13   = 1   
+    #define ResistiveTouchScreen_XMinus_Drive_Low()         LATBbits.LATB13   = 0
+    #define ResistiveTouchScreen_XMinus_Config_As_Input()   {AD1PCFGbits.PCFG13 = 1; TRISBbits.TRISB13 = 1;}  
+    #define ResistiveTouchScreen_XMinus_Config_As_Output()  {AD1PCFGbits.PCFG13 = 1; TRISBbits.TRISB13 = 0;}
+
+    // Y port definitions
+    #define ResistiveTouchScreen_YPlus_Drive_High()         LATBbits.LATB14   = 1
+    #define ResistiveTouchScreen_YPlus_Drive_Low()          LATBbits.LATB14   = 0
+    #define ResistiveTouchScreen_YPlus_Config_As_Input()    TRISBbits.TRISB14 = 1
+    #define ResistiveTouchScreen_YPlus_Config_As_Output()   TRISBbits.TRISB14 = 0
+			
+    #define ResistiveTouchScreen_YMinus_Drive_High()        LATBbits.LATB12   = 1   
+    #define ResistiveTouchScreen_YMinus_Drive_Low()         LATBbits.LATB12   = 0
+    #define ResistiveTouchScreen_YMinus_Config_As_Input()   {AD1PCFGbits.PCFG12 = 1;  TRISBbits.TRISB12 = 1;}  
+    #define ResistiveTouchScreen_YMinus_Config_As_Output()  {AD1PCFGbits.PCFG12 = 1;  TRISBbits.TRISB12 = 0;}
+
+]]>
+        </Section>
+        <Section Name="SystemDefinitions">
+<![CDATA[
+//#include "bsp_config.h"
+#include "driver/gfx/controller/ssd1926/drv_gfx_ssd1926.h"
+#include "driver/cpld/xc2c64a/drv_xc2c64a.h"
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    SYS_DEVCON_SystemUnlock();
+    PLIB_OSC_FRCDivisorSelect(OSC_ID_0, OSC_FRC_DIV_2);
+    /* Enable Peripheral Bus 1 */
+    PLIB_OSC_PBClockDivisorSet(OSC_ID_0, 0, 1);
+    SYS_DEVCON_SystemLock();
+    sysObj.sysDevcon = SYS_DEVCON_Initialize(SYS_DEVCON_INDEX_0, (SYS_MODULE_INIT*)&sysDevconInit);
+    SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
+    SYS_DEVCON_JTAGDisable();
+    /* AN and CN Pins Initialization */
+    PLIB_PORTS_AnPinsModeSelect(PORTS_ID_0, SYS_PORT_AD1PCFG, PORTS_PIN_MODE_DIGITAL);
+    PLIB_PORTS_CnPinsPullUpEnable(PORTS_ID_0, SYS_PORT_CNPUE);
+    PLIB_PORTS_CnPinsEnable(PORTS_ID_0, SYS_PORT_CNEN);
+    PLIB_PORTS_ChangeNoticeEnable(PORTS_ID_0);
+    
+    /* PORT D Initialization */
+    PLIB_PORTS_DirectionOutputSet( PORTS_ID_0, PORT_CHANNEL_D,  SYS_PORT_D_TRIS ^ 0xFFFF);
+    PLIB_PORTS_Toggle( PORTS_ID_0, PORT_CHANNEL_D,  SYS_PORT_D_LAT);
+    PLIB_PORTS_OpenDrainEnable(PORTS_ID_0, PORT_CHANNEL_D, SYS_PORT_D_ODC);
+    sysObj.sysDma = SYS_DMA_Initialize((SYS_MODULE_INIT *)&sysDmaInit);
+    /* Board Support Package Initialization */
+    //BSP_Initialize();
+
+    /* Initialize Drivers */
+   /*Initialize PMP0 */
+    DRV_PMP0_Initialize();
+    DRV_PMP0_ModeConfig();
+
+    DRV_GFX_SSD1926_Initialize(GFX_INDEX_0, (SYS_MODULE_INIT*)&drvGfxInit);
+
+    /* Initialize System Services */
+    SYS_INT_Initialize();  
+
+    /* Initialize Middleware */
+
+    sysObj.gfxObject0 = GFX_Initialize(GFX_INDEX_0, (SYS_MODULE_INIT *)&gfxInit0);
+    /* Enable Global Interrupts */
+    SYS_INT_Enable();
+
+    /* Initialize the Application */
+    APP_Initialize();
+    ]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="3">
+<![CDATA[
+   /* Switch off all the LEDS */ 
+    PLIB_PORTS_PinClear( PORTS_ID_0, PORT_CHANNEL_D, BSP_LED_1 );
+    PLIB_PORTS_PinClear( PORTS_ID_0, PORT_CHANNEL_D, BSP_LED_2 );
+    PLIB_PORTS_PinClear( PORTS_ID_0, PORT_CHANNEL_D, BSP_LED_3 );
+
+    /* Initialize CPLD */
+    CPLDInitialize();
+]]>
+            </Section>
+            <Section Name="SystemObjects">
+<![CDATA[
+    SYS_MODULE_OBJ  sysMsg0;
+//    SYS_MODULE_OBJ  drvI2C0;
+    SYS_MODULE_OBJ  sysTouchObject0;
+//    SYS_MODULE_OBJ  drvMtch6301;
+]]>
+            </Section>
+            <Section Name="InitializeObjects">
+<![CDATA[
+    GFX_INIT gfxInit0 ={
+        .drvInitialize = DRV_GFX_SSD1926_Initialize,
+        .drvOpen = DRV_GFX_SSD1926_Open,
+        .drvInterfaceSet = DRV_GFX_SSD1926_InterfaceSet,
+        .driverInitData.orientation = DISP_ORIENTATION,
+        .driverInitData.horizontalResolution = DISP_HOR_RESOLUTION,
+        .driverInitData.verticalResolution = DISP_VER_RESOLUTION,
+        .driverInitData.dataWidth = DISP_DATA_WIDTH,
+        .driverInitData.horizontalPulseWidth = DISP_HOR_PULSE_WIDTH,
+        .driverInitData.horizontalBackPorch = DISP_HOR_BACK_PORCH,
+        .driverInitData.horizontalFrontPorch = DISP_HOR_FRONT_PORCH,
+        .driverInitData.verticalPulseWidth = DISP_VER_PULSE_WIDTH,
+        .driverInitData.verticalBackPorch = DISP_VER_BACK_PORCH,
+        .driverInitData.verticalFrontPorch = DISP_VER_FRONT_PORCH,
+        .driverInitData.logicShift = DISP_INV_LSHIFT,
+        .driverInitData.LCDType = 1,
+        .driverInitData.colorType = 0,
+        .driverInitData.TCON_Init = TCON_MODULE,
+    };
+//<editor-fold defaultstate="collapsed" desc="SYS_DMA Configuration">
+
+/*** System DMA Initialization Data ***/
+
+const SYS_DMA_INIT sysDmaInit =
+{
+	.sidl = SYS_DMA_SIDL_DISABLE,
+
+};
+
+// </editor-fold>
+//<editor-fold defaultstate="collapsed" desc="SYS_MSG Configuration">
+// ---------------------------------------------------------
+// Message System Initialization Data
+// ---------------------------------------------------------
+static uint16_t queuePriorities0[2] = { 64, 32 };
+SYS_MSG_INIT msg0Init =
+{
+    .nMaxMsgsDelivered = 1,
+    .nMessagePriorities = 1,
+};
+// </editor-fold>
+]]>
+            </Section>
+            <Section Name="InitializeObjects">
+<![CDATA[
+//<editor-fold defaultstate="collapsed" desc="DRV_GFX_SSD1926 Configuration">
+
+/*** DRV GFX Initialization Data ***/
+
+DRV_GFX_INIT drvGfxInit =
+{
+    .orientation             = DISP_ORIENTATION,
+    .horizontalResolution    = DISP_HOR_RESOLUTION,
+    .verticalResolution      = DISP_VER_RESOLUTION,
+    .dataWidth               = DISP_DATA_WIDTH,
+    .horizontalPulseWidth    = DISP_HOR_PULSE_WIDTH,
+    .horizontalBackPorch     = DISP_HOR_BACK_PORCH,
+    .horizontalFrontPorch    = DISP_HOR_FRONT_PORCH,
+    .verticalPulseWidth      = DISP_VER_PULSE_WIDTH,
+    .verticalBackPorch       = DISP_VER_BACK_PORCH,
+    .verticalFrontPorch      = DISP_VER_FRONT_PORCH,
+    .logicShift              = DISP_INV_LSHIFT,
+    .LCDType                 = 1,
+    .colorType               = 0,
+    .TCON_Init               = TCON_MODULE,
+};
+
+// </editor-fold>
+]]>
+            </Section>
+        </Harmony>
+    </Code>
+</Board>

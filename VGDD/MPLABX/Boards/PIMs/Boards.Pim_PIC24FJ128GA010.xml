@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="PIM_PIC24FJ128GA010"
+       Description="PIM PIC24FJ128GA010"
+       Type="PIM"
+       Compiler="XC16"
+       Img="PIM_PIC24FJ128GA010.png"
+       PartNumber="MA240011"
+       URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=MA240011">
+    <Note>
+
+    </Note>
+    <CompatibleDevBoard ID="EXPLORER16" />
+    <CompatibleDisplay ID="*" />
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="Yes" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <Project>
+    </Project>
+    <Code>
+            <Section Name="ConfigBits" Option="!chkMCC">
+<![CDATA[
+// *****************************************************************************
+// Configuration bits
+// *****************************************************************************
+// PIC24FJ128GA010 Configuration Bit Settings
+// CONFIG2
+#pragma config POSCMOD = XT             // Primary Oscillator Select (XT Oscillator mode selected)
+#pragma config OSCIOFNC = OFF           // Primary Oscillator Output Function (OSC2/CLKO/RC15 functions as CLKO (FOSC/2))
+#pragma config FCKSM = CSDCMD           // Clock Switching and Monitor (Clock switching and Fail-Safe Clock Monitor are disabled)
+#pragma config FNOSC = PRIPLL           // Oscillator Select (Primary Oscillator with PLL module (HSPLL, ECPLL))
+#pragma config IESO = ON                // Internal External Switch Over Mode (IESO mode (Two-Speed Start-up) enabled)
+
+// CONFIG1
+#pragma config WDTPS = PS32768          // Watchdog Timer Postscaler (1:32,768)
+#pragma config FWPSA = PR128            // WDT Prescaler (Prescaler ratio of 1:128)
+#pragma config WINDIS = ON              // Watchdog Timer Window (Standard Watchdog Timer enabled,(Windowed-mode is disabled))
+#pragma config FWDTEN = OFF             // Watchdog Timer Enable (Watchdog Timer is disabled)
+#pragma config ICS = PGx2               // Comm Channel Select (Emulator/debugger uses EMUC2/EMUD2)
+#pragma config GWRP = OFF               // General Code Segment Write Protect (Writes to program memory are allowed)
+#pragma config GCP = OFF                // General Code Segment Code Protect (Code protection is disabled)
+#pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
+
+
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0" Option="!chkMCC">
+<![CDATA[
+     // set pins with analog features to be digital
+//    ANSAbits.ANSA7  = 0;        // display reset pin
+//    ANSAbits.ANSA6  = 0;        // display RS pin
+//    ANSDbits.ANSD11 = 0;        // display CS pin
+//
+//    ANSEbits.ANSE4  = 0;        // PMP Data (PMD4)
+//    ANSEbits.ANSE5  = 0;        // PMP Data (PMD5)
+//    ANSEbits.ANSE6  = 0;        // PMP Data (PMD6)
+//    ANSEbits.ANSE7  = 0;        // PMP Data (PMD7)
+//
+//    ANSDbits.ANSD6  = 0;        // PMP Data (PMD14)
+//    ANSDbits.ANSD7  = 0;        // PMP Data (PMD15)
+//
+//    ANSBbits.ANSB4  = 0;
+//    ANSBbits.ANSB3  = 0;
+
+    TRISDbits.TRISD13 = 1;
+]]>
+            </Section>
+    </Code>
+</Board>

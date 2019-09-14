@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="PIC32_USB_SK2"
+	   Type="Development"
+	   Description="PIC32 USB Starter Kit II"
+	   Compiler="C32"
+	   Img="Dev_PIC32_USB_SK2.png"
+     PartNumber="DM320003-2"
+	   URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=DM320003-2">
+    <Note>
+
+    </Note>
+    <CompatibleExpansionBoard ID="MEB_BOARD" />
+    <CompatibleExpansionBoard ID="LCC_BOARD" />
+    <CompatibleExpansionBoard ID="GFX_SSD1926" />
+    <CompatibleExpansionBoard ID="GFX_S1D13517" />
+    <CompatibleExpansionBoard ID="TECHTOYS_SSD1963_EVK" />
+    <CompatibleExpansionBoard ID="TECHTOYS_SSD1963_EVK_R3B" />
+    <CompatibleOptions>
+    <AddGroup Name="GOL" />
+        <Option>chkSPIFlash</Option>
+        <Option>chkDEE</Option>
+        <Option>chkTCPIP</Option>
+        <Option>chkWiFi</Option>
+        <Option>chkMPFS</Option>
+        <Option>chkFSIO</Option>
+        <Option>chkFatFs</Option>
+        <Option>chkUSBhost</Option>
+        <Option>chkRTCC</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <AddGroup Name="GOL" />
+    <AddGroup Name="RTCC" />
+    <AddGroup Name="PutImageFromSD" />
+    <AddGroup Name="FileSystem" />
+    <AddGroup Name="FlashProgrammer" />
+    <AddGroup Name="USBhost" />
+    <AddGroup Name="TcpIp" />
+    <AddGroup Name="WiFi" />
+    <AddGroup Name="SPIFlash" />
+    <AddGroup Name="DEEEmulation" />
+    <Project>
+        <SetConfig Section="[COMPILER]-LD" key="heap-size" value="[HEAPSIZE]"/>
+        <MLALegacy>
+            <AddConfig Section="[COMPILER]" key="preprocessor-macros" value="_SUPPRESS_PLIB_WARNING"/>
+            <AddConfig Section="[COMPILER]" key="preprocessor-macros" value="_DISABLE_OPENADC10_CONFIGPORT_WARNING"/>
+        </MLALegacy>
+            <Harmony>
+            <SetConfig Section="[COMPILER]" key="preprocessor-macros" value="PLIB_INLINE_API=&quot;static inline&quot;;PLIB_INLINE=&quot;static inline&quot;"/>
+            <Folder Name="Header Files/framework/driver/pmp">
+                <AddFile>$MAL/framework/driver/pmp/drv_pmp.h</AddFile>
+            </Folder>
+            <!--<Folder Name="Header Files/framework/driver/spi/private/dynamic">
+                <AddFile>$MAL/framework/driver/spi/src/dynamic/drv_spi_internal.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver/spi/private">
+                <AddFile>$MAL/framework/driver/spi/src/drv_spi_sys_queue.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver/spi/private">
+                <AddFile>$MAL/framework/driver/spi/src/drv_spi_sys_queue_local_fifo.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver/spi">
+                <AddFile>$MAL/framework/driver/spi/drv_spi.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver/spi_flash/sst25vf016b">
+                <AddFile>$MAL/framework/driver/spi_flash/sst25vf016b/drv_sst25vf016b.h</AddFile>
+            </Folder>-->
+            <Folder Name="Header Files/framework/driver">
+                <AddFile>$MAL/framework/driver/driver.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/common">
+                <AddFile>$MAL/framework/system/common/sys_common.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/common">
+                <AddFile>$MAL/framework/system/common/sys_module.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/devcon">
+                <AddFile>$MAL/framework/system/devcon/sys_devcon.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/int">
+                <AddFile>$MAL/framework/system/int/sys_int.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/msg">
+                <AddFile>$MAL/framework/system/msg/sys_msg.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/ports">
+                <AddFile>$MAL/framework/system/ports/sys_ports.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system">
+                <AddFile>$MAL/framework/system/system.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/pmp/src/dynamic">
+                <AddFile>$MAL/framework/driver/pmp/src/dynamic/drv_pmp_dynamic.c</AddFile>
+            </Folder>
+            <!--<Folder Name="Source Files/framework/driver/spi/dynamic">
+                <AddFile>$MAL/framework/driver/spi/src/dynamic/drv_spi.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/spi/dynamic">
+                <AddFile>$MAL/framework/driver/spi/src/dynamic/drv_spi_api.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/spi">
+                <AddFile>$MAL/framework/driver/spi/src/drv_spi_sys_queue_fifo.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/spi_flash/sst25vf016b/src/dynamic">
+                <AddFile>$MAL/framework/driver/spi_flash/sst25vf016b/src/dynamic/drv_sst25vf016b.c</AddFile>
+            </Folder>-->
+            <Folder Name="Source Files/framework/system/clk">
+                <AddVGDDFile>sys_clk_static_pic32mx.c</AddVGDDFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/devcon/src">
+                <AddFile>$MAL/framework/system/devcon/src/sys_devcon.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/devcon/src">
+                <AddFile>$MAL/framework/system/devcon/src/sys_devcon_pic32mx.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/int/src">
+                <AddFile>$MAL/framework/system/int/src/sys_int_pic32.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/msg/src">
+                <AddFile>$MAL/framework/system/msg/src/sys_msg.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/ports/src">
+                <AddFile>$MAL/framework/system/ports/src/sys_ports.c</AddFile>
+            </Folder>
+        </Harmony>
+    </Project>
+    <Code>
+        <Section Name="ConfigBits">
+<![CDATA[
+#pragma config UPLLEN = ON          // USB PLL Enabled
+#pragma config FPLLMUL = MUL_20     // PLL Multiplier - Xtal 8MHz 8/2*20=80Mhz
+#pragma config UPLLIDIV = DIV_2     // USB PLL Input Divider
+#pragma config FPLLIDIV = DIV_2     // PLL Input Divider
+#pragma config FPLLODIV = DIV_1     // PLL Output Divider
+#pragma config FPBDIV = DIV_2       // Peripheral Clock divisor
+#pragma config FWDTEN = OFF         // Watchdog Timer
+#pragma config WDTPS = PS1          // Watchdog Timer Postscale
+#pragma config FCKSM = CSDCMD       // Clock Switching & Fail Safe Clock Monitor
+#pragma config OSCIOFNC = OFF       // CLKO Enable
+#pragma config POSCMOD = HS         // Primary Oscillator
+#pragma config IESO = OFF           // Internal/External Switch-over
+#pragma config FNOSC = PRIPLL       // Oscillator Selection
+#pragma config CP = OFF             // Code Protect
+#pragma config BWP = OFF            // Boot Flash Write Protect
+#pragma config PWP = OFF            // Program Flash Write Protect
+#pragma config ICESEL = ICS_PGx2    // ICE/ICD Comm Channel Select
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead">
+<![CDATA[
+#define PIC32_SK
+#define PIC32_USB_SK
+]]>
+        </Section>
+        <MLALegacy>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#include <plib.h>
+
+#define GetSystemClock()        (80000000ul)
+#define GetPeripheralClock()    (GetSystemClock() / (1 << OSCCONbits.PBDIV))
+#define GetInstructionClock()   (GetSystemClock())
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#define tris_self_power     TRISAbits.TRISA2    // Input
+#define self_power          1
+#define tris_usb_bus_sense  TRISBbits.TRISB5    // Input
+#define USB_BUS_SENSE       U1OTGSTATbits.SESVD // Special considerations required if using SESVD for this purpose.  See documentation.
+#define COMM_PKT_RX_MAX_SIZE    (1024)
+
+// --------------------------------------------------------------------
+// IOS FOR THE SWITCHES (SIDE BUTTONS)
+// --------------------------------------------------------------------
+/*typedef enum
+{
+    HW_BUTTON_PRESS = 0,
+    HW_BUTTON_RELEASE = 1
+} HW_BUTTON_STATE;*/
+#ifdef USE_16BIT_PMP
+    #define HardwareButtonInit()
+    #define GetHWButtonProgram()        (HW_BUTTON_RELEASE)
+    #define GetHWButtonScanDown()       (HW_BUTTON_RELEASE)
+    #define GetHWButtonScanUp()         (HW_BUTTON_RELEASE)
+    #define GetHWButtonCR()             (HW_BUTTON_RELEASE)
+    #define GetHWButtonFocus()          (HW_BUTTON_RELEASE)
+#else
+    #define HardwareButtonInit()        (CNPUESET = _CNPUE_CNPUE16_MASK | _CNPUE_CNPUE15_MASK | _CNPUE_CNPUE19_MASK)
+    #define GetHWButtonProgram()        (PORTDbits.RD6)
+    #define GetHWButtonScanDown()       (HW_BUTTON_RELEASE)
+    #define GetHWButtonScanUp()         (HW_BUTTON_RELEASE)  
+    #define GetHWButtonCR()             (PORTDbits.RD6)
+    #define GetHWButtonFocus()          (PORTDbits.RD7 & PORTDbits.RD13)
+#endif
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    AD1PCFG = 0x0000FFFF;        // all ADC channels set to digital except the ADC pins for Resistive Touch Panel
+    INTEnableSystemMultiVectoredInt();
+    SYSTEMConfigPerformance(GetSystemClock());
+    mOSCSetPBDIV(OSC_PB_DIV_1);	 // Use 1:1 CPU Core:Peripheral clocks
+    GOLInit();                   // Initialize graphics library and create default style scheme for GOL
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="5">
+<![CDATA[
+#if defined(USE_TOUCHSCREEN_RESISTIVE)
+    TickTouchInit();             // Initialize the timer that manages the tick counter for Touch panel
+    TouchInit(NVMWrite, NVMRead, NVMSectorErase, NULL); // initialize the components for Resistive Touch Screen
+#endif
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="6">
+<![CDATA[
+    HardwareButtonInit();        // Initialize the hardware buttons
+]]>
+            </Section>
+        </MLALegacy>
+        <MLA>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#include <plib.h>
+
+#define SYS_CLK_FrequencySystemGet()        (80000000ul)
+#define SYS_CLK_FrequencyPeripheralGet()    (SYS_CLK_FrequencySystemGet() / 2)
+#define SYS_CLK_FrequencyInstructionGet()   (SYS_CLK_FrequencySystemGet() / 2)
+#define FCY                                 (SYS_CLK_FrequencyInstructionGet())
+#define PIC32_SK
+#define PIC32_USB_SK
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    AD1PCFG = 0x0000FFFF;        // all ADC channel set to digital except the ADC pins for Resistive Touch Panel
+    INTEnableSystemMultiVectoredInt();
+    SYSTEMConfigPerformance(GetSystemClock());
+    mOSCSetPBDIV(OSC_PB_DIV_1);	 // Use 1:1 CPU Core:Peripheral clocks
+    DRV_GFX_Initialize();
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="5">
+<![CDATA[
+    SYSTEM_TickInit();           // Initialize system tick counter
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="6" Option="chkGOL">
+    <![CDATA[
+#if defined(USE_TOUCHSCREEN_RESISTIVE)
+    TickTouchInit();             // Initialize the timer that manages the tick counter for Touch panel
+    TouchInit(NVMWrite, NVMRead, NVMSectorErase, NULL); // initialize the components for Resistive Touch Screen
+#endif
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="7">
+<![CDATA[
+HardwareButtonInit();        // Initialize the hardware buttons
+]]>
+            </Section>
+        </MLA>
+        <Harmony>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+// *****************************************************************************
+/* Clock System Service Configuration Options
+*/
+#define SYS_CLK_FREQ                        80000000ul
+#define SYS_CLK_BUS_PERIPHERAL_1            80000000ul
+#define SYS_CLK_UPLL_BEFORE_DIV2_FREQ       48000000ul
+#define SYS_CLK_CONFIG_PRIMARY_XTAL         8000000ul
+#define SYS_CLK_CONFIG_SECONDARY_XTAL       32768ul
+#define SYS_CLK_CONFIGBIT_USBPLL_ENABLE                 true
+#define SYS_CLK_CONFIGBIT_USBPLL_DIVISOR                2
+#define SYS_CLK_CONFIG_SYSPLL_INP_DIVISOR               2
+#define SYS_CLK_CONFIG_EXTERNAL_CLOCK                   40000000UL
+#define SYS_CLK_CONFIG_FREQ_ERROR_LIMIT                 10
+#define SYS_CLK_CONFIG_REFCLK_EDIT_SYSPLL               true
+#define SYS_CLOCK_USB_CLOCK                             48000000
+
+#define SYS_TMR_MAX_CLIENT_OBJECTS      5
+#define SYS_TMR_FREQUENCY_TOLERANCE     10
+#define SYS_TMR_UNIT_RESOLUTION         10000
+#define SYS_TMR_CLIENT_TOLERANCE        10
+
+#define SYS_DEVCON_SYSTEM_CLOCK        80000000L // System clock frequency 
+#define SYS_DEVCON_PIC32MX_MAX_PB_FREQ 80000000L // Maximum peripheral bus frequency
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+/*** Interrupt System Service Configuration ***/
+
+#define SYS_INT                     true
+
+/*** Ports System Service Configuration ***/
+
+#define SYS_PORT_AD1PCFG        ~0xffff
+#define SYS_PORT_CNPUE          0x0
+#define SYS_PORT_CNEN           0x0
+
+#define SYS_PORT_D_TRIS         0xfff8
+#define SYS_PORT_D_ODC          0x0
+
+/*** Console System Service Configuration DISABLED ***/
+#define SYS_CONSOLE_MESSAGE(message)
+#define SYS_CONSOLE_PRINT(fmt, ...)
+
+/*** Message System Service Configuration ***/
+//#define SYS_MSG_MAX_MAILBOXES        1
+//#define SYS_MSG_MAX_TYPES            1
+
+/*** Command Processor System Service Configuration DISABLED ***/
+#define SYS_CMD_MESSAGE(message)
+#define SYS_CMD_PRINT(fmt, ...)
+#define SYS_CMD_READY_TO_READ()
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Driver Configuration
+// *****************************************************************************
+// *****************************************************************************
+
+/*** SPI Driver Configuration ***/
+/*** Driver Compilation and static configuration options. ***/
+/*** Select SPI compilation units.***/
+#define DRV_SPI_ISR 				0
+#define DRV_SPI_POLLED 				1
+#define DRV_SPI_MASTER 				1
+#define DRV_SPI_SLAVE 				0
+#define DRV_SPI_RM 				1
+#define DRV_SPI_EBM 				0
+#define DRV_SPI_8BIT 				1
+#define DRV_SPI_16BIT				0
+#define DRV_SPI_32BIT 				0
+#define DRV_SPI_DMA 				0
+
+/*** SPI Driver Static Allocation Options ***/
+#define DRV_SPI_INSTANCES_NUMBER 		1
+#define DRV_SPI_CLIENTS_NUMBER 			1
+#define DRV_SPI_ELEMENTS_PER_QUEUE 		10
+
+/*** SPI Driver Index 0 configuration ***/
+#define DRV_SPI_SPI_ID_IDX0 			SPI_ID_2
+#define DRV_SPI_TASK_MODE_IDX0 			DRV_SPI_TASK_MODE_POLLED
+#define DRV_SPI_SPI_MODE_IDX0 			DRV_SPI_MODE_MASTER
+#define DRV_SPI_ALLOW_IDLE_RUN_IDX0 		false
+#define DRV_SPI_SPI_PROTOCOL_TYPE_IDX0 		DRV_SPI_PROTOCOL_TYPE_STANDARD
+#define DRV_SPI_COMM_WIDTH_IDX0 		SPI_COMMUNICATION_WIDTH_8BITS
+#define DRV_SPI_SPI_CLOCK_IDX0 			CLK_BUS_PERIPHERAL_2
+#define DRV_SPI_BAUD_RATE_IDX0 			1
+#define DRV_SPI_BUFFER_TYPE_IDX0 		DRV_SPI_BUFFER_TYPE_STANDARD
+#define DRV_SPI_CLOCK_MODE_IDX0 		DRV_SPI_CLOCK_MODE_IDLE_LOW_EDGE_FALL
+#define DRV_SPI_INPUT_PHASE_IDX0 		SPI_INPUT_SAMPLING_PHASE_AT_END
+#define DRV_SPI_TX_INT_SOURCE_IDX0 		INT_SOURCE_SPI_2_TRANSMIT
+#define DRV_SPI_RX_INT_SOURCE_IDX0 		INT_SOURCE_SPI_2_RECEIVE
+#define DRV_SPI_ERROR_INT_SOURCE_IDX0 		INT_SOURCE_SPI_2_ERROR
+#define DRV_SPI_QUEUE_SIZE_IDX0 		20
+#define DRV_SPI_RESERVED_JOB_IDX0 		10
+#define DRV_SPI_TRANS_PER_SM_RUN_IDX0 		16
+
+/*** ADC10BIT Driver Configuration ***/
+#define DRV_TOUCH_TYPE_RESISTIVE                    true
+#define DRV_TOUCH_ADC10BIT_CALIBRATION_SCALE_FACTOR 8
+#define DRV_TOUCH_ADC10BIT_PRESS_THRESHOLD          256
+#define DRV_TOUCH_ADC10BIT_CALIBRATION_INSET        20
+
+#define DRV_TOUCH_ADC10BIT_XPLUS_PORT        PORT_CHANNEL_B
+#define DRV_TOUCH_ADC10BIT_XPLUS_PIN         11
+#define DRV_TOUCH_ADC10BIT_XPLUS_PIN_MASK    0b0000100000000000
+
+#define DRV_TOUCH_ADC10BIT_YPLUS_PORT        PORT_CHANNEL_B
+#define DRV_TOUCH_ADC10BIT_YPLUS_PIN         10
+#define DRV_TOUCH_ADC10BIT_YPLUS_PIN_MASK    0b0000010000000000
+
+#define DRV_TOUCH_ADC10BIT_XMINUS_PORT       PORT_CHANNEL_D
+#define DRV_TOUCH_ADC10BIT_XMINUS_PIN        0x09
+#define DRV_TOUCH_ADC10BIT_XMINUS_PIN_MASK   0b0000001000000000
+
+#define DRV_TOUCH_ADC10BIT_YMINUS_PORT       PORT_CHANNEL_D
+#define DRV_TOUCH_ADC10BIT_YMINUS_PIN        0x08
+#define DRV_TOUCH_ADC10BIT_YMINUS_PIN_MASK   0b0000000100000000
+
+#define DRV_TOUCH_ADC10BIT_MUX_TYPE          ADC_MUX_A
+
+// *****************************************************************************
+// SST25VF016B Driver Configuration Options
+// *****************************************************************************
+#define DRV_SST25VF016B_QUEUE_DEPTH_COMBINED                    16
+#define DRV_SST25VF016B_CLIENTS_NUMBER                          1
+#define DRV_SST25VF016B_INSTANCES_NUMBER                        1
+
+#define DRV_SST25VF016B_POWER_STATE_IDX0                        SYS_MODULE_POWER_RUN_FULL
+#define DRV_SST25VF016B_SPI_DRIVER_INSTANCE_IDX0                0
+#define DRV_SST25VF016B_HOLD_PIN_PORT_CHANNEL_IDX0
+#define DRV_SST25VF016B_HOLD_PIN_PORT_BIT_POS_IDX0
+#define DRV_SST25VF016B_WRITE_PROTECT_PIN_PORT_CHANNEL_IDX0
+#define DRV_SST25VF016B_WRITE_PROTECT_PIN_BIT_POS_IDX0
+#define DRV_SST25VF016B_CHIP_SELECT_PORT_CHANNEL_IDX0           PORT_CHANNEL_D
+#define DRV_SST25VF016B_CHIP_SELECT_PORT_BIT_POS_IDX0           PORTS_BIT_POS_1
+#define DRV_SST25VF016B_QUEUE_SIZE_IDX0                         10
+
+// -------------------------------------------------------------------
+
+#define BSP_OSC_FREQUENCY 8000000
+typedef enum
+{
+     BSP_SWITCH_1 = PORTS_BIT_POS_6,
+     BSP_SWITCH_2 = PORTS_BIT_POS_7,
+     BSP_SWITCH_3 = PORTS_BIT_POS_13
+} BSP_SWITCH;
+
+typedef enum
+{
+    BSP_SWITCH_STATE_PRESSED = 0,
+    BSP_SWITCH_STATE_RELEASED = 1
+} BSP_SWITCH_STATE;
+
+typedef enum
+{
+    BSP_LED_1 = PORTS_BIT_POS_0,
+    BSP_LED_2 = PORTS_BIT_POS_1,
+    BSP_LED_3 = PORTS_BIT_POS_2,
+} BSP_LED;
+
+typedef enum
+{
+    BSP_LED_STATE_OFF = 0,
+    BSP_LED_STATE_ON = 1,
+} BSP_LED_STATE;
+
+void BSP_LEDStateSet(BSP_LED led, BSP_LED_STATE state);
+BSP_LED_STATE BSP_LEDStateGet(BSP_LED led);
+void BSP_LEDToggle(BSP_LED led);
+void BSP_LEDOn(BSP_LED led);
+void BSP_LEDOff(BSP_LED led);
+BSP_SWITCH_STATE BSP_SwitchStateGet(BSP_SWITCH bspSwitch);
+
+]]>
+            </Section>
+            <Section Name="SystemSettings" Order="0">
+<![CDATA[
+/* Structure to hold the object handles for the modules in the system. */
+SYSTEM_OBJECTS sysObj;
+SYS_MODULE_OBJ gPmpDriverObject;
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+/* Core Processor Initialization */
+    SYS_CLK_Initialize( NULL );
+    sysObj.sysDevcon = SYS_DEVCON_Initialize(SYS_DEVCON_INDEX_0, (SYS_MODULE_INIT*)&sysDevconInit);
+    SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
+    SYS_DEVCON_JTAGDisable();
+    //SYS_PORTS_Initialize();
+    /* AN and CN Pins Initialization */
+    PLIB_PORTS_AnPinsModeSelect(PORTS_ID_0, SYS_PORT_AD1PCFG, PORTS_PIN_MODE_DIGITAL);
+    PLIB_PORTS_CnPinsPullUpEnable(PORTS_ID_0, SYS_PORT_CNPUE);
+    PLIB_PORTS_CnPinsEnable(PORTS_ID_0, SYS_PORT_CNEN);
+    PLIB_PORTS_ChangeNoticeEnable(PORTS_ID_0);
+
+    /* PORT D Initialization */
+    PLIB_PORTS_DirectionOutputSet( PORTS_ID_0, PORT_CHANNEL_D,  SYS_PORT_D_TRIS ^ 0xFFFF);
+    PLIB_PORTS_OpenDrainEnable(PORTS_ID_0, PORT_CHANNEL_D, SYS_PORT_D_ODC);
+
+    /* Board Support Package Initialization */
+    //BSP_Initialize();
+    /* Switch off all the LEDS */ 
+    PLIB_PORTS_PinClear( PORTS_ID_0, PORT_CHANNEL_D, BSP_LED_1 );
+    PLIB_PORTS_PinClear( PORTS_ID_0, PORT_CHANNEL_D, BSP_LED_2 );
+    PLIB_PORTS_PinClear( PORTS_ID_0, PORT_CHANNEL_D, BSP_LED_3 );
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="5">
+<![CDATA[
+
+    /* Initialize System Services */
+    SYS_INT_Initialize();
+    msg0Init.nQSizes = queuePriorities0;
+    sysObj.sysMsg0 = SYS_MSG_Initialize(SYS_MSG_0, (SYS_OBJ_HANDLE)&msg0Init);
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="9">
+<![CDATA[
+    /* Enable Global Interrupts */
+    SYS_INT_Enable();
+
+    /* Initialize the Application */
+    APP_Initialize();
+]]>
+            </Section>
+            <Section Name="InitializeObjects" Order="4">
+<![CDATA[
+// PMP init configuration structure
+DRV_PMP_INIT     pmpInit = {
+    .polarity.addressLatchPolarity = PMP_POLARITY_ACTIVE_HIGH,
+    .polarity.rwStrobePolarity = PMP_POLARITY_ACTIVE_LOW,
+    .polarity.writeEnableStrobePolarity = PMP_POLARITY_ACTIVE_LOW,
+    .polarity.chipselect1Polarity = PMP_POLARITY_ACTIVE_HIGH,
+    .polarity.chipselect2Polarity = PMP_POLARITY_ACTIVE_LOW,
+    .ports.readWriteStrobe = PORT_ENABLE,
+    .ports.writeEnableStrobe = PORT_ENABLE,
+    .moduleInit.value = SYS_MODULE_POWER_RUN_FULL,
+    .pmpID            = PMP_ID_0,
+    .stopInIdle       = false,
+    .muxMode          = PMP_MUX_NONE
+};
+
+//<editor-fold defaultstate="collapsed" desc="SYS_DEVCON Configuration">
+// ---------------------------------------------------------
+// System Device Control Initialization Data
+// ---------------------------------------------------------
+const SYS_DEVCON_INIT sysDevconInit =
+{
+    .moduleInit = {0},
+};
+
+// </editor-fold>
+]]>
+            </Section>
+            <Section Name="SystemDefinitions">
+<![CDATA[
+#include "system/clk/sys_clk.h"
+#include "peripheral/ports/plib_ports.h"
+#include "peripheral/int/plib_int.h"
+]]>
+            </Section>
+</Harmony>
+    </Code>
+</Board>

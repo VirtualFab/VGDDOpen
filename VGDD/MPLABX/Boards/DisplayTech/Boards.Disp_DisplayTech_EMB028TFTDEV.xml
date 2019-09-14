@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="DISPLAYTECH_EMB028TFTDEV"
+	   Description="Displaytech EMB028TFTDEV 2.8in. 240x320 Board"
+	   Type="Display"
+	   Img="DisplayTech_EMB028TFTDEV.png"
+	   Width="240"
+	   Height="320"
+       PartNumber="EMB028TFTDEV"
+	   URL="http://www.displaytech-us.com/emb028tftdev"
+	   DefaultOrientation="90">
+    <Note>
+
+    </Note>
+    <CompatibleOptions>
+        <Option>chkPMP8</Option>
+        <Option>chkPMP16</Option>
+    </CompatibleOptions>
+    <Project>
+        <MLA>
+            <Folder Name="Header Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/drv_gfx_display.h</AddFile>
+                <AddFile>$MAL/framework/driver/gfx/drv_gfx_epmp.h</AddFile>
+                <AddFile>$MAL/framework/driver/gfx/drv_gfx_tft003.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/src/drv_gfx_epmp.c</AddFile>
+                <AddFile>$MAL/framework/driver/gfx/src/drv_gfx_tft003.c</AddFile>
+            </Folder>
+        </MLA>
+    </Project>
+    <AddGroup Name="TouchScreenResistive" />
+    <Code>
+        <MLA>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#define USE_16BIT_PMP
+#define GFX_USE_DISPLAY_CONTROLLER_ILI9341
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+/*********************************************************************
+* DISPLAY PARALLEL INTERFACE
+*********************************************************************/
+#define USE_GFX_EPMP
+/*********************************************************************
+* PARALLEL MASTER PORT INTERFACE TIMING AND POLARITIES
+*********************************************************************/
+// based on the ILI9341 data sheet
+#define EPMPCS1_DATA_SETUP_TIME   (10)
+#define EPMPCS1_DATA_WAIT_TIME    (15)
+#define EPMPCS1_DATA_HOLD_TIME    (10)
+
+#define EPMPCS1_READ_DATA_SETUP_TIME   (10)
+#define EPMPCS1_READ_DATA_WAIT_TIME    (355)
+#define EPMPCS1_READ_DATA_HOLD_TIME    (10)
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 0)	
+    #define RESISTIVETOUCH_SWAP_XY
+#elif (DISP_ORIENTATION == 180)	
+    #define RESISTIVETOUCH_SWAP_XY
+    #define RESISTIVETOUCH_FLIP_Y
+#elif (DISP_ORIENTATION == 270)	
+    #define RESISTIVETOUCH_FLIP_Y
+#endif	
+            
+#define DISP_HOR_RESOLUTION 240
+#define DISP_VER_RESOLUTION 320
+
+#define BACKLIGHT_ENABLE_LEVEL      1
+#define BACKLIGHT_DISABLE_LEVEL     0
+
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISAbits.TRISA7 = 0
+#define DisplayResetEnable()        LATAbits.LATA7 = 0
+#define DisplayResetDisable()       LATAbits.LATA7 = 1
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISAbits.TRISA6 = 0
+#define DisplaySetCommand()         LATAbits.LATA6 = 0
+#define DisplaySetData()            LATAbits.LATA6 = 1
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISDbits.TRISD11 = 0
+#define DisplayEnable()             LATDbits.LATD11 = 0
+#define DisplayDisable()            LATDbits.LATD11 = 1
+
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()
+#define DisplayFlashEnable()
+#define DisplayFlashDisable()
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()
+#define DisplayPowerOn()
+#define DisplayPowerOff()
+
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)
+
+/*********************************************************************
+* IOS FOR THE RESISTIVE TOUCHSCREEN
+*********************************************************************/
+// definitions for resistive touch screen
+// ADC Input Channel Selector
+#define RESISTIVETOUCH_ADC_INPUT_SEL        AD1CHS
+// ADC Sample Start
+#define RESISTIVETOUCH_ADC_START            AD1CON1bits.SAMP
+// ADC Status
+#define RESISTIVETOUCH_ADC_DONE             AD1CON1bits.DONE
+
+// resistive touch screen analog pins
+#define RESISTIVETOUCH_ADC_XPOS             0
+#define RESISTIVETOUCH_ADC_YPOS             1
+
+#define RESISTIVETOUCH_ADPCFG_XPOS          ANSBbits.ANSB0
+#define RESISTIVETOUCH_ADPCFG_YPOS          ANSBbits.ANSB1
+
+#define RESISTIVETOUCH_ANALOG               1
+#define RESISTIVETOUCH_DIGITAL              0
+
+// X port definitions
+#define RESISTIVETOUCH_XP_Signal            LATBbits.LATB0
+#define RESISTIVETOUCH_XM_Signal            LATFbits.LATF6
+#define RESISTIVETOUCH_XP_Direction         TRISBbits.TRISB0
+#define RESISTIVETOUCH_XM_Direction         TRISFbits.TRISF6
+
+// Y port definitions
+#define RESISTIVETOUCH_YP_Signal            LATBbits.LATB1
+#define RESISTIVETOUCH_YM_Signal            LATBbits.LATB3
+#define RESISTIVETOUCH_YP_Direction         TRISBbits.TRISB1
+#define RESISTIVETOUCH_YM_Direction         TRISBbits.TRISB3
+
+]]>
+            </Section>
+            <Section Name="SystemHead">
+<![CDATA[
+#include "driver/touch_screen/drv_touch_screen.h"
+]]>
+            </Section>
+        </MLA>
+    </Code>
+</Board>

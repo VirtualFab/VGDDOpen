@@ -1,0 +1,140 @@
+~inc:header.inc~
+<div id="content">
+    <div id="status">
+        <div id="loading" style="display:none">
+            Error:<br />
+            Connection to demo board was lost.</div>
+        <div id="display">
+            <div>
+                Temperature: <span id="Temperature" style="font-weight:normal; font-size:32px">
+                ---</span> °C &nbsp;&nbsp;
+                <span style="float:right;font-size:9px;font-weight:normal;padding-top:8px;text-indent:0px">
+                (use +/- buttons to set)</span>
+                <input onclick="newAJAXCommand('temp.cgi?op=D');" type="button" value="  -  " />
+                <input onclick="newAJAXCommand('temp.cgi?op=U');" type="button" value="  +  " />
+            </div>
+            <br />
+            <div>
+                <p>
+                    LEDs:<br />
+                    <span class="leds">
+                    <span style="float:right;font-size:9px;font-weight:normal;padding-top:8px;text-indent:0px">
+                    (click to toggle)</span> <a id="led0" 
+                        onclick="newAJAXCommand('leds.cgi?led=0');">•</a> <a id="led1" 
+                        onclick="newAJAXCommand('leds.cgi?led=1');">•</a> <a id="led2" 
+                        onclick="newAJAXCommand('leds.cgi?led=2');">•</a> <a id="led3" 
+                        onclick="newAJAXCommand('leds.cgi?led=3');">•</a> </span>
+                </p>
+            </div>
+        </div>
+        <br />
+        Last Message: <span id="TFTMessage"></span>
+        <form method="post">
+        <div class="examplebox">
+            <b>TFT message:</b>
+            <input maxlength="32" name="tft" type="text" /> &nbsp;
+            <input type="submit" value="Save" />
+        </div>
+        </form>
+    </div>
+    <h1>
+        Welcome!</h1>
+    <table style="padding-left: 10px;">
+        <tr>
+            <td>
+                <b>Stack Version:</b></td>
+            <td>
+                &nbsp;</td>
+            <td>
+                ~version~</td>
+        </tr>
+        <tr>
+            <td>
+                <b>Build Date:</b></td>
+            <td>
+                &nbsp;</td>
+            <td>
+                ~builddate~</td>
+        </tr>
+    </table>
+    <p>
+        This site demonstrates the power, flexibility, and scalability of a 16 or 32-bit 
+        embedded web server. Everything you see is powered by a Microchip PIC 
+        microcontroller running the Microchip TCP/IP Stack <b>along with Microchip 
+        Graphics Library</b>.</p>
+    <p>
+        Up above you&#39;ll see the current status of the demo board. For a quick example, 
+        you can either click the LEDs on the browser OR touch them on the TFT screen. In 
+        both cases the virtual LEDs on the TFT display and on the browser will toggle 
+        and a message will be displayed on the TFT and the browser.</p>
+    <p>
+        As you can see the GUI can be used either from the internet or on the physical 
+        device via the touch screen.</p>
+    <p>
+        This examples uses AJAX techniques to provide real-time feedback.</p>
+    <p>
+        This site is provided as a tutorial for the various features of the HTTP web 
+        server, including:</p>
+    <ul>
+        <li><b>Dynamic Variable Substitution</b> - display real-time data</li>
+        <li><b>Form Processing</b> - handle input from the client</li>
+        <li><b>Authentication</b> - require a user name and password</li>
+        <li><b>Cookies</b> - store session state information for richer applications</li>
+        <li><b>File Uploads</b> - parse files for configuration settings and more</li>
+    </ul>
+    <p>
+        Several example applications are also provided for updating configuration 
+        parameters, sending e-mails, and controlling the Dynamic DNS client.
+    </p>
+    <p>
+        There is also an NTP client example running on the demo board. The date/time 
+        displayed in the upper right corner on the TFT has been taken from the Internet 
+        via Network Time Protocol and used to initialize the PIC&#39;s RTCC.<br />
+        If a 32KHz crystal is mounted on the board, then the time will start updating, 
+        otherwise it will stay still.</p>
+    <p>
+        For more information on the Microchip TCP/IP Stack, please refer to the TCP/IP 
+        Stack API installed with the stack. This manual can be launched from your 
+        Windows Start menu.</p>
+</div>
+
+<script type="text/javascript">
+<!--
+// Parses the xmlResponse from status.xml and updates the status box
+function updateStatus(xmlData) {
+	var mainstat = document.getElementById('display').style.display;
+	var loadstat = document.getElementById('loading').style.display;
+
+	// Check if a timeout occurred
+	if(!xmlData)
+	{
+		mainstat = 'none';
+		loadstat = 'block';
+		return;
+	}
+
+	// Make sure we're displaying the status display
+	mainstat = 'block';
+	loadstat = 'none';
+
+	// Loop over all the LEDs
+	for(i = 0; i < 4; i++)
+		document.getElementById('led' + i).style.color = (getXMLValue(xmlData, 'led' + i) == '1') ? '#090' : '#ddd';
+
+	// Update the POT value
+	document.getElementById('Temperature').innerHTML = getXMLValue(xmlData, 'Temperature');
+
+	// Update the TFT message
+	document.getElementById('TFTMessage').innerHTML = getXMLValue(xmlData, 'TFTMessage');
+}
+setTimeout("newAJAXCommand('status.xml', updateStatus, true)",1000);
+//-->
+</script>
+
+<script type="text/javascript">
+<!--
+document.getElementById('hello').innerHTML = "~hellomsg~";
+//-->
+</script>
+
+~inc:footer.inc~

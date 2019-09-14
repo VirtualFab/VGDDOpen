@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="OLIMEX_PIC32_MAXI_WEB"
+       Type="Development"
+       Description="Olimex PIC32-MAXI-WEB"
+       Compiler="C32"
+       Img="Dev_Olimex_PIC32-MAXI-WEB.png"
+       PartNumber="PIC32-MAXI-WEB"
+       URL="https://www.olimex.com/Products/PIC/Development/PIC32-MAXI-WEB/">
+    <Note>
+
+    </Note>
+    <CompatibleExpansionBoard ID="EXP_NONE" />
+    <CompatibleDisplay ID="OLIMEX_PIC32_MAXI_WEB_DISPLAY" />
+    <CompatibleOptions>
+        <Option>chkPutImageFromSD</Option>
+        <Option>chkPMP16</Option>
+        <Option>chkTCPIP</Option>
+        <Option>chkDEE</Option>
+        <Option>chkMPFS</Option>
+        <Option>chkFSIO</Option>
+        <Option>chkFatFs</Option>
+        <Option>chkRTCC</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+    <AddGroup Name="GOL" />
+    <AddGroup Name="RTCC" />
+    <AddGroup Name="PutImageFromSD" />
+    <AddGroup Name="FlashProgrammer" />
+    <AddGroup Name="USBhost" />
+    <AddGroup Name="TcpIp" />
+    <AddGroup Name="FileSystem" />
+    <AddGroup Name="DEEEmulation" />
+    <Project>
+        <MLALegacy>
+            <ClearFolder Name="Source Files/Display Driver" />
+            <ClearFolder Name="Header Files/Display Driver" />
+            <Folder Name="Header Files/Board Support Package">
+                <AddVGDDFile>Olimex_PIC32-MAXI-WEB/BSP.h</AddVGDDFile>
+            </Folder>
+            <Folder Name="Source Files/Board Support Package">
+                <AddVGDDFile>Olimex_PIC32-MAXI-WEB/BSP.c</AddVGDDFile>
+            </Folder>
+            <Folder Name="Header Files/Display Driver">
+                <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+                <AddVGDDFile>drvILI9320_Olimex.h</AddVGDDFile>
+            </Folder>
+            <Folder Name="Source Files/Display Driver">
+                <AddVGDDFile>drvILI9320_Olimex.c</AddVGDDFile>
+                <AddFile>$MAL/Graphics/Drivers/gfxepmp.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Common">
+                <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/TCPIP Stack" Option="chkTCPIP">
+                <AddFile>$MAL/TCPIP Stack/ETHPIC32ExtPhy.c</AddFile>
+                <AddFile>$MAL/TCPIP Stack/ETHPIC32ExtPhySMSC8720.c</AddFile>
+            </Folder>
+            <SetConfig Section="[COMPILER]-LD" key="heap-size" value="[HEAPSIZE]"/>
+        </MLALegacy>
+    </Project>
+    <Code>
+        <Section Name="ConfigBits">
+<![CDATA[
+#pragma config UPLLEN = ON          // USB PLL Enabled
+#pragma config FPLLIDIV = DIV_2     // PLL Input Divider - Xtal 8MHz 8/2=4Mhz
+#pragma config FPLLMUL = MUL_20     // PLL Multiplier - 4MHz*20=80MHz
+#pragma config UPLLIDIV = DIV_2     // USB PLL Input Divider - 8MHz/2=4MHz
+#pragma config FPLLODIV = DIV_1     // PLL Output Divider
+#pragma config FPBDIV = DIV_2       // Peripheral Clock divisor
+#pragma config FWDTEN = OFF         // Watchdog Timer
+#pragma config WDTPS = PS1          // Watchdog Timer Postscale
+#pragma config FCKSM = CSDCMD       // Clock Switching & Fail Safe Clock Monitor
+#pragma config OSCIOFNC = OFF       // CLKO Enable
+#pragma config POSCMOD = HS         // Primary Oscillator
+#pragma config IESO = OFF           // Internal/External Switch-over
+#pragma config FNOSC = PRIPLL       // Oscillator Selection
+#pragma config CP = OFF             // Code Protect
+#pragma config BWP = OFF            // Boot Flash Write Protect
+#pragma config PWP = OFF            // Program Flash Write Protect
+#pragma config ICESEL = ICS_PGx2    // ICE/ICD Comm Channel Select
+]]>
+        </Section>
+        <Section Name="ConfigBits" Option="chkTCPIP">
+<![CDATA[
+#pragma config FMIIEN = OFF, FETHIO = OFF // external PHY in RMII/alternate configuration
+]]>
+        </Section>
+        <Section Name="InitializeBoard" Order="2">
+<![CDATA[
+    INTEnableSystemMultiVectoredInt();
+    SYSTEMConfigPerformance(GetSystemClock());
+    GOLInit();                   // Initialize graphics library and create default style scheme for GOL
+    TickTouchInit();             // Initialize the timer that manages the tick counter for Touch panel
+    TouchInit(NVMWrite, NVMRead, NVMSectorErase, NULL); // initialize the components for Resistive Touch Screen
+    HardwareButtonInit();        // Initialize the hardware buttons
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead">
+<![CDATA[
+#include <plib.h>
+
+#define GetSystemClock()        (80000000ul)
+#define GetPeripheralClock()    (GetSystemClock() / (1 << OSCCONbits.PBDIV))
+#define GetInstructionClock()   (GetSystemClock())
+#define USE_16BIT_PMP
+#define GFX_USE_DISPLAY_CONTROLLER_ILI9320
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+#define self_power          1
+#define USB_BUS_SENSE       1
+
+// -----------------------------------------------
+// IOS FOR THE SWITCHES (SIDE BUTTONS)
+// -----------------------------------------------
+/*typedef enum
+{
+    HW_BUTTON_PRESS = 0,
+    HW_BUTTON_RELEASE = 1
+} HW_BUTTON_STATE;*/
+#define HardwareButtonInit()        UserPeriphInit() // in BSD.c
+#define GetHWButtonProgram()        (PORTDbits.RD6)
+#define GetHWButtonScanDown()       (HW_BUTTON_RELEASE)
+#define GetHWButtonScanUp()         (HW_BUTTON_RELEASE)  
+#define GetHWButtonCR()             (PORTDbits.RD6)
+#define GetHWButtonFocus()          (PORTDbits.RD7 & PORTDbits.RD13)
+
+// --------------------------------------------------------------------
+// * HARDWARE PROFILE FOR THE POTENTIOMETER
+// --------------------------------------------------------------------
+#define ADC_POT        ADC_CH0_POS_SAMPLEA_AN8
+#define ADC_POT_PCFG   AD1PCFGbits.PCFG8
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR THE RESISTIVE TOUCHSCREEN 
+// --------------------------------------------------------------------
+#define TOUCH_ADC_INPUT_SEL AD1CHS      
+#define TOUCH_ADC_START     AD1CON1bits.SAMP 
+#define TOUCH_ADC_DONE      AD1CON1bits.DONE
+#define ADC_XPOS            ADC_CH0_POS_SAMPLEA_AN15
+#define ADC_YPOS            ADC_CH0_POS_SAMPLEA_AN11
+#define ADC_TEMP            ADC_CH0_POS_SAMPLEA_AN8
+#define ADPCFG_XPOS         AD1PCFGbits.PCFG15
+#define ADPCFG_YPOS	        AD1PCFGbits.PCFG11
+
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+//#define LAT_XPOS	    LATBbits.LATB12
+//#define TRIS_XPOS	    TRISBbits.TRISB12
+//#define LAT_XNEG	    LATBbits.LATB15
+//#define TRIS_XNEG	    TRISBbits.TRISB15
+//#define LAT_YPOS	    LATBbits.LATB11
+//#define TRIS_YPOS	    TRISBbits.TRISB11
+//#define LAT_YNEG	    LATBbits.LATB13
+//#define TRIS_YNEG	    TRISBbits.TRISB13
+
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+#define ResistiveTouchScreen_XPlus_Config_As_Input() (TRISBbits.TRISB12 = 1)
+#define ResistiveTouchScreen_XPlus_Config_As_Output() (TRISBbits.TRISB12 = 0)
+#define ResistiveTouchScreen_YPlus_Config_As_Input() (TRISBbits.TRISB11 = 1)
+#define ResistiveTouchScreen_YPlus_Config_As_Output() (TRISBbits.TRISB11 = 0)
+#define ResistiveTouchScreen_YMinus_Config_As_Input() (TRISBbits.TRISB13 = 1)
+#define ResistiveTouchScreen_YMinus_Config_As_Output() (TRISBbits.TRISB13 = 0)
+#define ResistiveTouchScreen_YMinus_Drive_Low() (LATBbits.LATB13 = 0)
+#define ResistiveTouchScreen_XPlus_Drive_High() (LATBbits.LATB12 = 1)
+#define ResistiveTouchScreen_YPlus_Drive_High() (LATBbits.LATB11 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Input() (TRISBbits.TRISB15 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Output() (TRISBbits.TRISB15 = 0)
+#define ResistiveTouchScreen_XMinus_Drive_Low() (LATBbits.LATB15 = 0)
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISACLR = _TRISA_TRISA7_MASK    
+#define DisplayResetEnable()        LATACLR = _LATA_LATA7_MASK
+#define DisplayResetDisable()       LATASET = _LATA_LATA7_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISACLR = _TRISA_TRISA10_MASK
+#define DisplaySetCommand()         LATACLR = _LATA_LATA10_MASK
+#define DisplaySetData()            LATASET = _LATA_LATA10_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISACLR = _TRISA_TRISA9_MASK
+#define DisplayEnable()             LATACLR = _LATA_LATA9_MASK
+#define DisplayDisable()            LATASET = _LATA_LATA9_MASK
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()          
+#define DisplayFlashEnable()        
+#define DisplayFlashDisable()       
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()        
+#define DisplayPowerOn()            
+#define DisplayPowerOff()            
+        
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD3 = 0)  
+#define DisplayBacklightOn()        (LATDbits.LATD3 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD3 = BACKLIGHT_DISABLE_LEVEL)   
+//#endif
+
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="!chkDEE">
+<![CDATA[
+// --------------------------------------------------------------------
+// Touch Screen Non-Volatile Memory Storage Macros
+// --------------------------------------------------------------------
+// There is not on-board NVM (EEPROM/SPI-FLASH) so no TouchScreen calibration storage without DEE
+#define NVMSectorErase                  (NULL)
+#define NVMWrite                        (NULL)
+#define NVMRead                         (NULL)
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkPutImageFromSD">
+<![CDATA[
+#define MEDIA_SOFT_DETECT
+#define SD_CS               PORTCbits.RC1
+#define SD_CS_TRIS          TRISCbits.TRISC1
+#define SD_CD               (0)
+#define SD_CD_TRIS          SD_CS_TRIS // OUTPUT - Set as SD_CS_TRIS
+#define SD_WE               (0)
+#define SD_WE_TRIS          SPIIN // INPUT - Set as SPIIN
+#define SPICON1             SPI3ACON
+#define SPISTAT             SPI3ASTAT
+#define SPIBUF              SPI3ABUF
+#define SPISTAT_RBF         SPI3ASTATbits.SPIRBF
+#define SPICON1bits         SPI3ACONbits
+#define SPISTATbits         SPI3ASTATbits
+#define SPIENABLE           SPI3ACONbits.ON
+#define SPIBRG              SPI3ABRG
+#define SPICLOCK            TRISFbits.TRISF13
+#define SPIIN               TRISFbits.TRISF4
+#define SPIOUT              TRISFbits.TRISF5
+#define putcSPI(data)       SpiChnPutC(SPI_CHANNEL3A, data)
+#define getcSPI()           SpiChnGetC(SPI_CHANNEL3A)
+#define OpenSPI(config1, config2)   SpiChnOpen(SPI_CHANNEL3A, config1, config2)
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkTCPIP">
+<![CDATA[
+// -----------------------------------------------
+// External National DP83848 PHY configuration
+// -----------------------------------------------
+#define	PHY_RMII              // external PHY runs in RMII mode
+#define	PHY_CONFIG_ALTERNATE	// alternate configuration used
+#define	PHY_ADDRESS    0x1    // the address of the National DP83848 PHY
+]]>
+        </Section>
+    </Code>
+</Board>

@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="IceFyre"
+       Type="Development"
+       Description="VinagronDigital IceFyre"
+       Compiler="C32"
+       Img="IceFyre.png"
+       PartNumber="ICEFYRE-REV1"
+       URL="https://www.vinagrondigital.com/IceFyre">
+    <Note>
+
+    </Note>
+    <CompatibleExpansionBoard ID="EXP_NONE" />
+    <CompatibleDisplay ID="TINTAGLIA" />
+    <CompatibleOptions>
+        <Option>chkPutImageFromSD</Option>
+        <Option>chkFSIO</Option>
+        <Option>chkFatFs</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <AddGroup Name="PutImageFromSD" />
+    <AddGroup Name="GOL" />
+    <!--<AddGroup Name="FileSystem" />-->
+    <Project>
+        <MLALegacy>
+            <ClearFolder Name="Source Files/Display Driver" />
+            <ClearFolder Name="Header Files/Display Driver" />
+            <Folder Name="Header Files/Board Support Package">
+                <AddVGDDFile DestFile="TouchScreenCapacitive.h">IceFyre-TouchScreenCapacitive.h</AddVGDDFile>
+                <AddVGDDFile DestFile="FT5306.h">FT5306.h</AddVGDDFile>
+                <AddVGDDFile DestFile="IceFyreBSP.h">IceFyreBSP.h</AddVGDDFile>
+                <AddVGDDFile DestFile="UARTComm.h">IceFyre-UARTComm.h</AddVGDDFile>
+                <AddVGDDFile DestFile="timers.h">IceFyre-timers.h</AddVGDDFile>
+            </Folder>
+            <Folder Name="Source Files/Board Support Package">
+                <AddVGDDFile DestFile="TouchScreenCapacitive.c">IceFyre-TouchScreenCapacitive.c</AddVGDDFile>
+                <AddVGDDFile DestFile="FT5306.c">FT5306.c</AddVGDDFile>
+                <AddVGDDFile DestFile="IceFyreBSP.c">IceFyreBSP.c</AddVGDDFile>
+                <AddVGDDFile DestFile="UARTComm.c">IceFyre-UARTComm.c</AddVGDDFile>
+                <AddVGDDFile DestFile="timers.c">IceFyre-timers.c</AddVGDDFile>
+            </Folder>
+            <Folder Name="Header Files/Display Driver">
+                <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+                <AddFile>$MAL/Include/Graphics/SSD1926.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Display Driver">
+                <AddFile>$MAL/Graphics/Drivers/SSD1926.c</AddFile>
+            </Folder>
+            <Folder Name="Header Files/Common">
+                <AddFile>$MAL/Include/TimeDelay.h</AddFile>
+                <AddFile>$MAL/Include/GenericTypeDefs.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Common">
+                <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+            </Folder>
+            <Folder Name="Header Files/MDD File System" Option="chkFSIO">
+                <AddVGDDFile DestFile="SSD1926_SDCard.h">IceFyre-SSD1926_SDCard.h</AddVGDDFile>
+                <AddVGDDFile DestFile="FSconfig.h">IceFyre-FSconfig.h</AddVGDDFile>
+                <AddFile>$MAL/Include/MDD File System/FSIO.h</AddFile>
+                <AddFile>$MAL/Include/MDD File System/FSDefs.h</AddFile>
+                <AddVGDDFile>FileSystem.h</AddVGDDFile>
+                <RemoveFile>ff.h</RemoveFile>
+                <RemoveFile>ffconf.h</RemoveFile>
+                <RemoveFile>diskio.h</RemoveFile>
+                <RemoveFile>integer.h</RemoveFile>
+            </Folder>
+            <Folder Name="Source Files/MDD File System" Option="chkFSIO">
+                <AddVGDDFile>FileSystem.c</AddVGDDFile>
+                <AddFile>$MAL/MDD File System/FSIO.c</AddFile>
+                <RemoveFile>ff.c</RemoveFile>
+                <RemoveFile>mmcPIC32.c</RemoveFile>
+                <RemoveFile>ccsbcs.c</RemoveFile>
+                <EnableDisableDefine File="HardwareProfile.h">
+                    <Disable>FILESYSTEM_USE_FATFS</Disable>
+                    <Disable>FILESYSTEM_USE_MPFS2</Disable>
+                    <Enable>FILESYSTEM_USE_MDD</Enable>
+                </EnableDisableDefine>
+            </Folder>
+            <Folder Name="Source Files/MDD File System" Option="!chkUSBHost,chkFSIO">
+                <AddVGDDFile DestFile="SSD1926_SDCard.c">IceFyre-SSD1926_SDCard.c</AddVGDDFile>
+                <EnableDisableDefine File="HardwareProfile.h">
+                    <Enable>USE_SSD1926_SDCARD</Enable>
+                </EnableDisableDefine>
+            </Folder>
+            <Folder Name="Header Files/MDD File System" Option="chkFatFs">
+                <AddVGDDFile DestFile="SSD1926_SDCard.h">IceFyre-SSD1926_SDCard.h</AddVGDDFile>
+                <AddVGDDFile DestFile="FSconfig.h">IceFyre-FSconfig.h</AddVGDDFile>
+                <AddVGDDFile>FileSystem.h</AddVGDDFile>
+                <AddVGDDFile>ff.h</AddVGDDFile>
+                <AddVGDDFile>ffconf.h</AddVGDDFile>
+                <AddVGDDFile>diskio.h</AddVGDDFile>
+                <AddVGDDFile>integer.h</AddVGDDFile>
+                <RemoveFile>FSIO.h</RemoveFile>
+                <RemoveFile>FSDefs.h</RemoveFile>
+            </Folder>
+            <Folder Name="Source Files/MDD File System" Option="chkFatFs">
+                <AddVGDDFile DestFile="SSD1926_SDCard.c">IceFyre-SSD1926_SDCard.c</AddVGDDFile>
+                <AddVGDDFile>FileSystem.c</AddVGDDFile>
+                <AddVGDDFile>ff.c</AddVGDDFile>
+                <AddVGDDFile>mmcPIC32.c</AddVGDDFile>
+                <AddVGDDFile>ccsbcs.c</AddVGDDFile>
+                <RemoveFile>FSIO.c</RemoveFile>
+                <RemoveFile>SD-SPI.c</RemoveFile>
+                <EnableDisableDefine File="HardwareProfile.h">
+                    <Enable>FILESYSTEM_USE_FATFS</Enable>
+                    <Disable>FILESYSTEM_USE_MPFS2</Disable>
+                    <Disable>FILESYSTEM_USE_MDD</Disable>
+                </EnableDisableDefine>
+            </Folder>
+            <AddConfig Section="[COMPILER]" key="preprocessor-macros" value="_SUPPRESS_PLIB_WARNING"/>
+            <AddConfig Section="[COMPILER]" key="preprocessor-macros" value="_DISABLE_OPENADC10_CONFIGPORT_WARNING"/>
+        </MLALegacy>
+        <SetConfig Section="[COMPILER]-LD" key="heap-size" value="[HEAPSIZE]"/>
+    </Project>
+    <Code>
+        <Section Name="ConfigBits">
+<![CDATA[
+#pragma config FPLLMUL  = MUL_20        // PLL Multiplier
+#pragma config FPLLIDIV = DIV_2         // PLL Input Divider
+#pragma config FPLLODIV = DIV_1         // PLL Output Divider
+#pragma config FPBDIV   = DIV_1         // Peripheral Clock divisor
+#pragma config FWDTEN   = OFF           // Watchdog Timer
+#pragma config WDTPS    = PS1           // Watchdog Timer Postscale
+#pragma config FCKSM    = CSDCMD        // Clock Switching & Fail Safe Clock Monitor
+#pragma config OSCIOFNC = OFF           // CLKO Enable
+#pragma config POSCMOD  = HS            // Primary Oscillator
+#pragma config IESO     = OFF           // Internal/External Switch-over
+#pragma config FSOSCEN  = OFF           // Secondary Oscillator Enable
+#pragma config FNOSC    = PRIPLL        // Oscillator Selection
+#pragma config CP       = OFF           // Code Protectofase
+#pragma config BWP      = OFF           // Boot Flash Write Protect
+#pragma config PWP      = OFF           // Program Flash Write Protect
+#pragma config ICESEL   = ICS_PGx1      // ICE/ICD Comm Channel Select
+]]>
+        </Section>
+        <MLALegacy>
+            <Section Name="InitializeBoard">
+<![CDATA[
+	extern WORD_VAL PCapX;
+	extern WORD_VAL PCapY;
+
+    IceFyre_Init();     // Initialize IceFyre
+    FT5306_Init();      // Initialize FT5306 PCT chip
+    GOLInit();          // Initialize GOL
+    TickTouchInit();    // Initialize the timer that manages the tick counter (not needed by the PCAP touch panel but used by other app functions)
+    
+    PCapX.Val = -1;
+    PCapY.Val = -1;
+]]>
+            </Section>
+            <Section Name="MainFinishedDraw">
+<![CDATA[
+            TouchGetMsg(&msg); // Get message from touch screen
+]]>
+            </Section>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+    #define VGDD_WILL_CONFIG	
+    #include "IceFyreBSP.h"
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#include <plib.h>
+
+#define GetSystemClock()        (80000000ul)
+#define GetPeripheralClock()    (GetSystemClock() / (1 << OSCCONbits.PBDIV))
+#define GetInstructionClock()   (GetSystemClock())
+
+#define USE_16BIT_PMP
+#define GFX_USE_DISPLAY_CONTROLLER_SSD1926
+
+#define self_power          1
+#define USB_BUS_SENSE       1
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISCCLR = _TRISC_TRISC1_MASK    
+#define DisplayResetEnable()        LATCCLR = _LATC_LATC1_MASK
+#define DisplayResetDisable()       LATCSET = _LATC_LATC1_MASK	
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISCCLR = _TRISC_TRISC2_MASK
+#define DisplaySetCommand()         LATCCLR = _LATC_LATC2_MASK
+#define DisplaySetData()            LATCSET = _LATC_LATC2_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISDCLR = _TRISD_TRISD10_MASK
+#define DisplayEnable()             LATDCLR = _LATD_LATD10_MASK
+#define DisplayDisable()            LATDSET = _LATD_LATD10_MASK
+
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)  
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()          
+#define DisplayFlashEnable()        
+#define DisplayFlashDisable()       
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()        
+#define DisplayPowerOn()            
+#define DisplayPowerOff()   
+]]>
+            </Section>
+        </MLALegacy>
+    </Code>
+</Board>

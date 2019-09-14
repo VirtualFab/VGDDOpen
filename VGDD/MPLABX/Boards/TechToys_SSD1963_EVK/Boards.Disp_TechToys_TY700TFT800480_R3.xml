@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="TECHTOYS_TY700TFT800480REVR3"
+   Description="TechToys TY700TFT800480_R3 7in. 800x480"
+   Type="Display"
+   Img="Disp_TechToys_SSD1963-TY700.png"
+   Width="800"
+   Height="480"
+   DefaultOrientation="0">
+  <Note>
+  </Note>
+  <Project>
+  </Project>
+  <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+  <CompatibleFrameworks Framework="MLA" Compatible="No" />
+  <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+  <Code>
+    <Section Name="HardwareProfileHead">
+<![CDATA[
+#define USE_TY700TFT800480_R3      // 7" TFT 800480 Rev3.0
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+#define USE_DRV_BAR
+]]>
+    </Section>
+    <Section Name="HardwareProfileHead" Option="chkPMP16">
+<![CDATA[
+#define USE_16BIT_PMP
+]]>
+    </Section>
+    <Section Name="HardwareProfileHead" Option="chkPMP8">
+<![CDATA[
+#define USE_8BIT_PMP
+]]>
+    </Section>
+    <Section Name="HardwareProfile">
+<![CDATA[
+
+// --------------------------------------------------------------------
+// Display TECHTOYS_TY700TFT800480REVR3
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION          [DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 0)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+#elif (DISP_ORIENTATION == 90)	
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#elif (DISP_ORIENTATION == 180)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#elif (DISP_ORIENTATION == 270)	
+#endif	
+#define DISP_HOR_RESOLUTION       800
+#define DISP_VER_RESOLUTION       480
+#define DISP_DATA_WIDTH           24
+
+// --------------------------------------------------------------------
+// Horizontal synchronization timing in pixels (from the glass datasheet).
+// --------------------------------------------------------------------
+#define DISP_HOR_PULSE_WIDTH         3
+#define DISP_HOR_BACK_PORCH         88
+#define DISP_HOR_FRONT_PORCH        37
+
+// --------------------------------------------------------------------
+// Vertical synchronization timing in lines (from the glass datasheet).
+// --------------------------------------------------------------------
+#define DISP_VER_PULSE_WIDTH        3
+#define DISP_VER_BACK_PORCH        32
+#define DISP_VER_FRONT_PORCH       10
+]]>
+    </Section>
+  </Code>
+</Board>

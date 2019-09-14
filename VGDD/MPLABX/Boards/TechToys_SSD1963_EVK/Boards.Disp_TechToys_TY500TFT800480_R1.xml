@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="TECHTOYS_TY500TFT800480Rev01"
+   Description="TechToys TY500TFT800480Rev01 5in. 800x480"
+   Type="Display"
+   Img="Disp_TechToys_SSD1963-TY500.png"
+   Width="800"
+   Height="480"
+   URL="http://www.techtoys.com.hk/Displays/TY500TFT800480/TY500TFT800480Rev01.htm"
+   DefaultOrientation="0">
+  <Note>
+  
+  </Note>
+  <Project>
+  </Project>
+  <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+  <CompatibleFrameworks Framework="MLA" Compatible="No" />
+  <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+  <Code>
+    <Section Name="HardwareProfileHead">
+<![CDATA[
+#define USE_TY500TFT800480      // 5 inch TFT 800480 Rev1.0
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+#define USE_DRV_BAR
+]]>
+    </Section>
+    <Section Name="HardwareProfileHead" Option="chkPMP16">
+<![CDATA[
+#define USE_16BIT_PMP
+]]>
+    </Section>
+    <Section Name="HardwareProfileHead" Option="chkPMP8">
+<![CDATA[
+#define USE_8BIT_PMP
+]]>
+    </Section>
+    <Section Name="HardwareProfile">
+<![CDATA[
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION          [DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 0)	
+#elif (DISP_ORIENTATION == 90)	
+#elif (DISP_ORIENTATION == 180)	
+#elif (DISP_ORIENTATION == 270)	
+#endif	
+#define DISP_HOR_RESOLUTION       800
+#define DISP_VER_RESOLUTION       480
+#define DISP_DATA_WIDTH           24
+
+// --------------------------------------------------------------------
+// * Overview: Horizontal synchronization timing in pixels
+// *                  (from the glass datasheet).
+// --------------------------------------------------------------------
+#define DISP_HOR_PULSE_WIDTH       128
+#define DISP_HOR_BACK_PORCH         88
+#define DISP_HOR_FRONT_PORCH        40
+
+// --------------------------------------------------------------------
+// * Overview: Vertical synchronization timing in lines
+// *                  (from the glass datasheet).
+// --------------------------------------------------------------------
+#define DISP_VER_PULSE_WIDTH        2
+#define DISP_VER_BACK_PORCH        25
+#define DISP_VER_FRONT_PORCH       18
+]]>
+    </Section>
+  </Code>
+</Board>

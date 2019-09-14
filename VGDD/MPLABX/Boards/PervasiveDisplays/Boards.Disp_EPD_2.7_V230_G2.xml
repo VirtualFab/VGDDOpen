@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="EPD_2.7_V230_G2"
+       Description="PervasiveDisplays EPD 2.71 V230 G2 264x176"
+       Type="Display"
+       Img="Disp_EPD270_G2.png"
+       Width="264"
+       Height="176"
+       PartNumber="E1271CS021"
+       URL="http://www.pervasivedisplays.com/products/271"
+       DefaultOrientation="0">
+	<Note>
+
+	</Note>
+    <CompatibleExpansionBoard ID="EPD_PICTAIL" />
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+    <Project>
+        <AddConfig Section="[COMPILER]" key="preprocessor-macros" value="COG_V230_G2"/>
+        <AddConfig Section="[COMPILER]" key="preprocessor-macros" value="USE_EPD_Type=EPD_270"/>
+    </Project>
+    <Code>
+        <Section Name="HardwareProfileHead">
+<![CDATA[
+#define GFX_USE_DISPLAY_CONTROLLER_EPD
+#include "Pervasive_Displays_small_EPD.h"
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+#define DISP_HOR_RESOLUTION		264		
+#define DISP_VER_RESOLUTION		176		
+]]>
+        </Section>
+</Code>
+</Board>

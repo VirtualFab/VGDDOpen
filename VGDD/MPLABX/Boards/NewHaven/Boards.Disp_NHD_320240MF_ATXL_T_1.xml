@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="NHD_320240MF"
+   Description="NewHaven NHD-3.5-320240MF-ATXL#-T-1-ND 3.5in. 320x240"
+   Type="Display"
+   Img="Disp_NewHaven_NHD_320240MF.png"
+   Width="320"
+   Height="240"
+   URL="http://www.newhavendisplay.com/specs/NHD-3.5-320240MF-ATXL-T-1.pdf"
+   DefaultOrientation="0">
+  <Note>
+  
+  </Note>
+  <AddGroup Name="TouchScreenResistive" />
+  <Project>
+  </Project>
+  <Code>
+    <Section Name="HardwareProfileHead">
+<![CDATA[
+#define GFX_USE_DISPLAY_PANEL_TFT_NHD_320240MF_ATXL_T_1
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+]]>
+    </Section>
+    <Section Name="HardwareProfile">
+<![CDATA[
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION          [DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 0)	
+#elif (DISP_ORIENTATION == 90)	
+	#define TOUCHSCREEN_RESISTIVE_SWAP_XY
+	#define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#elif (DISP_ORIENTATION == 180)	
+	#define TOUCHSCREEN_RESISTIVE_SWAP_XY
+	#define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   5     
+#elif (DISP_ORIENTATION == 270)	
+	#define TOUCHSCREEN_RESISTIVE_FLIP_Y
+	#define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   5     
+#endif	
+
+#define DISP_HOR_RESOLUTION       320
+#define DISP_VER_RESOLUTION       240
+#define DISP_INV_LSHIFT
+#define DISP_HOR_PULSE_WIDTH    30
+#define DISP_HOR_BACK_PORCH     40
+#define DISP_HOR_FRONT_PORCH    20
+#define DISP_VER_PULSE_WIDTH    4
+#define DISP_VER_BACK_PORCH     9
+#define DISP_VER_FRONT_PORCH    1
+#define DISP_DATA_WIDTH           24
+#define GFX_LCD_TYPE GFX_LCD_TFT		
+#define GFX_GCLK_DIVIDER       61
+
+#define BACKLIGHT_ENABLE_LEVEL      1
+#define BACKLIGHT_DISABLE_LEVEL     0
+
+]]>
+    </Section>
+      <MLALegacy>
+          <Section Name="MainHeader">
+<![CDATA[
+#include "TouchScreen.h"
+]]>
+          </Section>
+            <Section Name="InitializeBoard" Order="8" Option="chkSPIFlash">
+<![CDATA[
+    TouchInit(&SST25WriteWord, &SST25ReadWord, &SST25SectorErase, NULL); // initialize the components for Touch Screen
+]]>
+            </Section>
+      </MLALegacy>
+      <MLA>
+          <Section Name="SystemHead">
+<![CDATA[
+#include "driver/touch_screen/drv_touch_screen.h"
+]]>
+          </Section>
+      </MLA>
+      <Harmony>
+          <Section Name="HardwareProfile">
+<![CDATA[
+#define TCON_MODULE NULL
+            <Section Name="SystemDefinitions">
+<![CDATA[
+
+#define TOUCHCAL_ULX                             0x00C0
+#define TOUCHCAL_ULY                             0x00D4
+#define TOUCHCAL_URX                             0x037C
+#define TOUCHCAL_URY                             0x00D7
+#define TOUCHCAL_LLX                             0x00B9
+#define TOUCHCAL_LLY                             0x0350
+#define TOUCHCAL_LRX                             0x035A
+#define TOUCHCAL_LRY                             0x0333
+
+]]>
+          </Section>
+      </Harmony>
+  </Code>
+</Board>

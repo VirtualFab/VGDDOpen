@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="PIC24_DA210"
+       Description="PIC24FJ256DA210 Development Board"
+       Type="Development"
+       Compiler="C30"
+       Img="Dev_PIC24_DA210.png"
+       PartNumber="DM240312"
+       URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=DM240312">
+    <Note>
+
+    </Note>
+    <CompatibleExpansionBoard ID="EXP_NONE" />
+    <CompatibleDisplay ID="POWERTIP_4_3" />
+    <CompatibleDisplay ID="TRULY_3_2" />
+    <CompatibleDisplay ID="TRULY_7" />
+    <CompatibleDisplay ID="NHD_320240MF" />
+    <CompatibleOptions>
+        <Option>chkPutImageFromSD</Option>
+        <Option>chkSPIFlash</Option>
+        <Option>chkDEE</Option>
+        <Option>chkFlashProgrammer</Option>
+        <Option>chkTCPIP</Option>
+        <Option>chkWiFi</Option>
+        <Option>chkMPFS</Option>
+        <Option>chkFSIO</Option>
+        <Option>chkFatFs</Option>
+        <Option>chkUSBhost</Option>
+        <Option>chkRTCC</Option>
+        <Option>chkDA210InternalMemory</Option>
+        <Option>chkDA210ExternalMemory</Option>
+    </CompatibleOptions>
+  <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+  <CompatibleFrameworks Framework="MLA" Compatible="Yes" />
+  <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+    <AddGroup Name="SPIFlash" />
+    <AddGroup Name="SPI2Flash" />
+    <AddGroup Name="GOL" />
+    <AddGroup Name="RTCC" />
+    <AddGroup Name="PutImageFromSD" />
+    <AddGroup Name="FlashProgrammer" />
+    <AddGroup Name="USBhost" />
+    <AddGroup Name="TcpIp" />
+    <AddGroup Name="WiFi" />
+    <AddGroup Name="DEEEmulation" />
+    <AddGroup Name="FileSystem" />
+    <Project>
+        <MLALegacy>
+            <ClearFolder Name="Source Files/Display Driver" />
+            <ClearFolder Name="Header Files/Display Driver" />
+            <Folder Name="Header Files/Display Driver">
+                <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+                <AddFile>$MAL/Include/Graphics/mchpGfxDrv.h</AddFile>
+                <AddFile>$MAL/Include/Graphics/gfxtcon.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Display Driver">
+                <AddFile>$MAL/Graphics/Drivers/mchpGfxDrv.c</AddFile>
+                <AddFile Override="enable-large-arrays=true">$MAL/Graphics/Drivers/mchpGfxDrvBuffer.c</AddFile>
+                <AddFile>$MAL/Graphics/Drivers/gfxepmp.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Common">
+                <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+            </Folder>
+            <Folder Name="Header Files/Board Support Package">
+                <AddFile>$MAL/../Board Support Package/SST25VF016.h</AddFile>
+                <AddFile>$MAL/../Board Support Package/drv_spi.h</AddFile>
+                <AddFile>$MAL/../Board Support Package/Potentiometer.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Board Support Package">
+                <AddFile>$MAL/../Board Support Package/SST25VF016.c</AddFile>
+                <AddFile>$MAL/../Board Support Package/drv_spi.c</AddFile>
+            </Folder>
+            <SetConfig Section="C30" key="code-model" value="large-code"/>
+            <SetConfig Section="C30" key="const-model" value="const-in-code"/>
+            <SetConfig Section="C30" key="data-model" value="large-data"/>
+            <SetConfig Section="C30" key="scalar-model" value="large-scalar"/>
+            <SetConfig Section="C30-LD" key="heap-size" value="[HEAPSIZE]"/>
+        </MLALegacy>
+        <MLA>
+            <ExcludeAllFilesInFolder Folder="Source Files/framework/driver/gfx" />
+            <ExcludeAllFilesInFolder Folder="Header Files/framework/driver/gfx" />
+            <Folder Name="Header Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/drv_gfx_display.h</AddFile>
+                <AddFile>$MAL/framework/driver/gfx/drv_gfx_da210.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/src/drv_gfx_da210.c</AddFile>
+                <AddFile Override="enable-large-arrays=true">$MAL/framework/driver/gfx/src/drv_gfx_da210_buffer.c</AddFile>
+                <!--<AddFile>$MAL/Graphics/Drivers/gfxepmp.c</AddFile>-->
+            </Folder>
+            <Folder Name="Header Files/framework/driver/nvm">
+                <AddFile>$MAL/framework/driver/nvm/drv_nvm_flash_spi_sst25vf016.h</AddFile>
+                <!--<AddFile>$MAL/../Board Support Package/Potentiometer.h</AddFile>-->
+            </Folder>
+            <Folder Name="Source Files/framework/driver/nvm">
+                <AddFile>$MAL/framework/driver/nvm/src/drv_nvm_flash_spi_sst25vf016.c</AddFile>
+            </Folder>
+            <SetConfig Section="C30" key="code-model" value="large-code"/>
+            <SetConfig Section="C30" key="const-model" value="const-in-code"/>
+            <SetConfig Section="C30" key="data-model" value="large-data"/>
+            <SetConfig Section="C30" key="scalar-model" value="large-scalar"/>
+            <SetConfig Section="C30-LD" key="heap-size" value="[HEAPSIZE]"/>
+        </MLA>
+    </Project>
+    <Code>
+        <Section Name="ConfigBits">
+<![CDATA[
+// CONFIG3
+#pragma config WPFP = WPFP255           // Write Protection Flash Page Segment Boundary (Highest Page (same as page 170))
+#pragma config SOSCSEL = SOSC           // Secondary Oscillator Power Mode Select (Secondary oscillator is in Default (high drive strength) Oscillator mode)
+#pragma config WUTSEL = LEG             // Voltage Regulator Wake-up Time Select (Default regulator start-up time is used)
+#pragma config ALTPMP = ALTPMPEN        // Alternate PMP Pin Mapping (EPMP pins are in alternate location mode)
+#pragma config WPDIS = WPDIS            // Segment Write Protection Disable (Segmented code protection is disabled)
+#pragma config WPCFG = WPCFGDIS         // Write Protect Configuration Page Select (Last page (at the top of program memory) and Flash Configuration Words are not write-protected)
+#pragma config WPEND = WPENDMEM         // Segment Write Protection End Page Select (Protected code segment upper boundary is at the last page of program memory; the lower boundary is the code page specified by WPFP)
+
+// CONFIG2
+#pragma config POSCMOD = XT             // Primary Oscillator Select (XT Oscillator mode is selected)
+#pragma config IOL1WAY = OFF            // IOLOCK One-Way Set Enable (The IOLOCK bit can be set and cleared as needed, provided the unlock sequence has been completed)
+#pragma config OSCIOFNC = OFF           // OSCO Pin Configuration (OSCO/CLKO/RC15 functions as CLKO (FOSC/2))
+#pragma config FCKSM = CSDCMD           // Clock Switching and Fail-Safe Clock Monitor (Clock switching and Fail-Safe Clock Monitor are disabled)
+#pragma config FNOSC = PRIPLL           // Initial Oscillator Select (Primary Oscillator with PLL module (XTPLL, HSPLL, ECPLL))
+#pragma config PLL96MHZ = ON            // 96MHz PLL Startup Select (96 MHz PLL is enabled automatically on start-up)
+#pragma config PLLDIV = DIV2            // 96 MHz PLL Prescaler Select (Oscillator input is divided by 2 (8 MHz input))
+#pragma config IESO = OFF               // Internal External Switchover (IESO mode (Two-Speed Start-up) is disabled)
+
+// CONFIG1
+#pragma config WDTPS = PS32768          // Watchdog Timer Postscaler (1:32,768)
+#pragma config FWPSA = PR128            // WDT Prescaler (Prescaler ratio of 1:128)
+#pragma config ALTVREF = ALTVREDIS      // Alternate VREF location Enable (VREF is on a default pin (VREF+ on RA9 and VREF- on RA10))
+#pragma config WINDIS = OFF             // Windowed WDT (Standard Watchdog Timer enabled,(Windowed-mode is disabled))
+#pragma config FWDTEN = OFF             // Watchdog Timer (Watchdog Timer is disabled)
+#pragma config ICS = PGx2               // Emulator Pin Placement Select bits (Emulator functions are shared with PGEC2/PGED2)
+#pragma config GWRP = OFF               // General Segment Write Protect (Writes to program memory are allowed)
+#pragma config GCP = OFF                // General Segment Code Protect (Code protection is disabled)
+#pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
+]]>
+        </Section>
+        <Section Name="SystemHead">
+<![CDATA[
+#define SYS_CLK_FrequencySystemGet()        (32000000ul) // System clock frequency in Hertz - 8 MHz x 4 PLL for PIC24
+#define SYS_CLK_FrequencyPeripheralGet()    (SYS_CLK_FrequencySystemGet() / 2)
+#define SYS_CLK_FrequencyInstructionGet()   (SYS_CLK_FrequencySystemGet() / 2)
+#define FCY                                 (SYS_CLK_FrequencyInstructionGet())
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead">
+<![CDATA[
+#define PIC24FJ256DA210_DEV_BOARD
+//#define USE_16BIT_PMP
+#define GFX_USE_DISPLAY_CONTROLLER_MCHP_DA210
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead" Option="chkDA210InternalMemory">
+<![CDATA[
+// Options for PIC24FJ256DA210 using Internal Memory
+#define GFX_DISPLAY_BUFFER_START_ADDRESS 0x00004B00ul
+#define GFX_DISPLAY_BUFFER_LENGTH 0x0004B000ul
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead" Option="chkDA210ExternalMemory">
+<![CDATA[
+// Options for PIC24FJ256DA210 using External Memory (SDRAM)
+#define GFX_DISPLAY_BUFFER_START_ADDRESS 0x00020000ul
+#define GFX_DISPLAY_BUFFER_LENGTH 0x0003FC00ul
+#define GFX_EPMP_CS1_BASE_ADDRESS 0x00020000ul
+#define GFX_EPMP_CS1_MEMORY_SIZE 0x40000ul
+
+#define GFX_COMPRESSED_BUFFER_SIZE              (13950)
+#define GFX_DECOMPRESSED_BUFFER_SIZE            (19216)
+#define GFX_IPU_TEMP_DATA_TRANSFER_ARRAY_SIZE   (1024)
+
+#define DRV_SPI_CONFIG_CHANNEL_2_ENABLE // define the SPI channel used
+
+#define USE_GFX_EPMP						
+#define EPMPCS1_ENABLE                      // use this to enable the use of EPMP CS1
+#define EPMPCS1_ADDRESS_LINE_COUNT  (18)    // use 18 address lines (PMA[0:17]
+#define EPMPCS1_DATA_SETUP_TIME     (0)	    //
+#define EPMPCS1_DATA_WAIT_TIME		(10)    //
+#define EPMPCS1_DATA_HOLD_TIME		(0)     //
+
+#define EPMPCS1_CS_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_WR_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_RD_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_BE_POLARITY                 GFX_ACTIVE_LOW
+
+#define EPMPCS1_ACCESS_TIME                 (10)		// chip select 1 Alternate Master access time.
+
+#if defined (GFX_EPMP_CS1_BASE_ADDRESS)
+    #define EPMPCS1_CS_POLARITY	GFX_ACTIVE_LOW
+    #define EPMPCS1_WR_POLARITY	GFX_ACTIVE_LOW
+    #define EPMPCS1_RD_POLARITY	GFX_ACTIVE_LOW
+    #define EPMPCS1_BE_POLARITY	GFX_ACTIVE_LOW
+    #define EPMPCS1_ACCESS_TIME (10)			// chip select 1 Alternate Master access time.
+#endif
+
+#if defined (GFX_EPMP_CS2_BASE_ADDRESS)
+    #define EPMPCS2_CS_POLARITY	GFX_ACTIVE_LOW
+    #define EPMPCS2_WR_POLARITY	GFX_ACTIVE_LOW
+    #define EPMPCS2_RD_POLARITY	GFX_ACTIVE_LOW
+    #define EPMPCS2_BE_POLARITY	GFX_ACTIVE_LOW
+    #define EPMPCS2_ACCESS_TIME (55)			// chip select 1 Alternate Master access time.
+#endif
+#if defined (GFX_EPMP_CS2_BASE_ADDRESS)
+    #define USE_SST39LF400    // use the 4 Mbit (x16) Multi-Purpose (Parallel) Flash connected to EPMP CS 2 
+#else	
+    #define USE_SST25VF016    // use the 16 Mbit SPI Serial Flash 
+#endif 
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Order="0" Condition="GRAPHICS_LIBRARY_VERSION &lt; 400">
+<![CDATA[
+#include "Potentiometer.h"
+]]>
+</Section>
+        <Section Name="HardwareProfile" Order="0">
+<![CDATA[
+#define GetSystemClock()    (32000000ul)
+#define GetPeripheralClock()  (GetSystemClock() / 2)
+#define GetInstructionClock() (GetSystemClock() / 2)
+
+#define GFX_DISPLAYENABLE_ENABLE
+#define GFX_HSYNC_ENABLE
+#define GFX_VSYNC_ENABLE
+#define GFX_DISPLAYPOWER_ENABLE
+#define GFX_CLOCK_POLARITY          GFX_ACTIVE_HIGH
+#define GFX_DISPLAYENABLE_POLARITY  GFX_ACTIVE_HIGH
+#define GFX_HSYNC_POLARITY          GFX_ACTIVE_LOW
+#define GFX_VSYNC_POLARITY          GFX_ACTIVE_LOW
+#define GFX_DISPLAYPOWER_POLARITY   GFX_ACTIVE_HIGH
+
+//#define EPMPCS1_ENABLE
+//#define EPMPCS1_ADDRESS_LINE_COUNT (18)
+//#define EPMPCS1_DATA_SETUP_TIME    (0)
+//#define EPMPCS1_DATA_WAIT_TIME	   (10)
+//#define EPMPCS1_DATA_HOLD_TIME	   (0)
+
+//#define EPMPCS2_ENABLE
+//#define EPMPCS2_ADDRESS_LINE_COUNT (18)
+//#define EPMPCS2_DATA_SETUP_TIME    (0)
+//#define EPMPCS2_DATA_WAIT_TIME	   (55)
+//#define EPMPCS2_DATA_HOLD_TIME	   (0)
+
+// --------------------------------------------------------------------
+// Timing Controllers (TCON) used by some displays
+// --------------------------------------------------------------------
+#if defined (GFX_USE_DISPLAY_PANEL_TFT_G240320LTSW_118W_E) || defined (GFX_USE_DISPLAY_PANEL_35QVW0T)
+#define TCON_CS_LAT      LATAbits.LATA0   //_RA0
+#define TCON_CS_TRIS     TRISAbits.TRISA0 //_TRISA0
+#define TCON_CS_DIG()
+
+#define TCON_SCL_LAT     LATDbits.LATD8   //_RD8
+#define TCON_SCL_TRIS    TRISDbits.TRISD8 //_TRISD8
+#define TCON_SCL_DIG()
+
+#define TCON_SDO_LAT     LATBbits.LATB1   //_RB1
+#define TCON_SDO_TRIS    TRISBbits.TRISB1 //_TRISB1
+#define TCON_SDO_DIG()   _ANSB1 = 0;
+
+#define TCON_DC_LAT      LATBbits.LATB0   //_RB0
+#define TCON_DC_TRIS     TRISBbits.TRISB0 //_TRISB0
+#define TCON_DC_DIG()    _ANSB0 = 0;
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Order="1" Condition="GRAPHICS_LIBRARY_VERSION &gt;= 400">
+<![CDATA[
+// --------------------------------------------------------------------
+// TCON Timing Controller Write function
+// --------------------------------------------------------------------
+// 
+#define TCONWrite        ((TCON_WRITE_FUNC)&DRV_TCON_BB_CommandWrite)
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Order="2" Condition="DISPBOARDID != NHD_320240MF">
+<![CDATA[
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig() TRISAbits.TRISA5 = 0	 
+#define DisplayPowerOn()     LATAbits.LATA5 = 1		
+#define DisplayPowerOff()    LATAbits.LATA5 = 0		
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Order="2" Condition="DISPBOARDID = NHD_320240MF">
+<![CDATA[
+
+// Definitions for POWER ON pin for NewHaven NHD-3.5-320240MF
+#define DisplayPowerConfig() TRISDbits.TRISD0 = 0
+#define DisplayPowerOn()     LATDbits.LATD0 = 1
+#define DisplayPowerOff()    LATDbits.LATD0 = 0
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Order="3">
+<![CDATA[
+// Definitions for backlight control pin
+// Note that this pin can also be mapped (see JP12)
+// to the UART RX signal. So if UART is used, there will be no
+// control to the backlight and the display may flicker at startup
+#define DisplayBacklightConfig()        (TRISDbits.TRISD0 = 0)
+#define DisplayBacklightOn()            (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()           (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)
+
+// Dummy definitions
+// Definitions for reset pin
+#define DisplayResetConfig()			
+#define DisplayResetEnable()			
+#define DisplayResetDisable()			
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()			
+#define DisplaySetCommand()				
+#define DisplaySetData()				
+
+// Definitions for CS pin
+#define DisplayConfig()					     
+#define DisplayEnable()					
+#define DisplayDisable()				
+
+//#define ADC_POT			5	
+//#define ADC_XPOS		16	
+//#define ADC_YPOS		18	
+
+// ADC Port Control Bits
+//#define ADC_POT_PCFG	ANSBbits.ANSB5	
+//#define ADPCFG_XPOS		ANSCbits.ANSC4	
+//#define ADPCFG_YPOS		ANSGbits.ANSG7	
+
+/*********************************************************************
+* IOS FOR THE RESISTIVE TOUCHSCREEN
+*********************************************************************/
+// definitions for resistive touch screen
+// ADC Input Channel Selector
+#define RESISTIVETOUCH_ADC_INPUT_SEL        AD1CHS
+// ADC Sample Start
+#define RESISTIVETOUCH_ADC_START            AD1CON1bits.SAMP
+// ADC Status
+#define RESISTIVETOUCH_ADC_DONE             AD1CON1bits.DONE
+
+// resistive touch screen analog pins
+#define RESISTIVETOUCH_ADC_XPOS             16
+#define RESISTIVETOUCH_ADC_YPOS             18
+
+#define RESISTIVETOUCH_ADPCFG_XPOS          ANSCbits.ANSC4
+#define RESISTIVETOUCH_ADPCFG_YPOS          ANSGbits.ANSG7
+
+#define RESISTIVETOUCH_ANALOG               1
+#define RESISTIVETOUCH_DIGITAL              0
+
+// X port definitions
+#define RESISTIVETOUCH_XP_Signal            LATCbits.LATC4
+#define RESISTIVETOUCH_XM_Signal            LATAbits.LATA2
+#define RESISTIVETOUCH_XP_Direction         TRISCbits.TRISC4
+#define RESISTIVETOUCH_XM_Direction         TRISAbits.TRISA2
+
+// Y port definitions
+#define RESISTIVETOUCH_YP_Signal            LATGbits.LATG7
+#define RESISTIVETOUCH_YM_Signal            LATAbits.LATA1
+#define RESISTIVETOUCH_YP_Direction         TRISGbits.TRISG7
+#define RESISTIVETOUCH_YM_Direction         TRISAbits.TRISA1
+
+	
+#define MCHP25LC256_CS_TRIS  TRISDbits.TRISD12	
+#define MCHP25LC256_CS_LAT   LATDbits.LATD12	
+
+#define DRV_NVM_SST25_ChipSelectEnable()   (LATAbits.LATA14 = 0)
+#define DRV_NVM_SST25_ChipSelectDisable()  (LATAbits.LATA14 = 1)
+        
+
+// -----------------------------------------------
+// IOS FOR THE SWITCHES (SIDE BUTTONS)
+// -----------------------------------------------
+#if defined (__XC16__)
+typedef enum
+{
+    HW_BUTTON_PRESS = 0,
+    HW_BUTTON_RELEASE = 1
+} HW_BUTTON_STATE;
+#endif
+#define HardwareButtonInit()
+#define GetHWButtonProgram()        (PORTEbits.RE9)		
+#define GetHWButtonScanDown()       (HW_BUTTON_RELEASE)	
+#define GetHWButtonScanUp()         (HW_BUTTON_RELEASE) 
+#define GetHWButtonCR()             (PORTGbits.RG8)		
+#define GetHWButtonFocus()          (PORTEbits.RE9)		
+#define GetHWButtonLeft()           (PORTGbits.RG8)		
+#define GetHWButtonCenter()         (PORTEbits.RE9)		
+#define GetHWButtonRight()          (PORTBbits.RB5)		
+
+// --------------------------------------------------------------------
+// * IOS FOR THE UART
+// --------------------------------------------------------------------
+#define TX_TRIS TRISFbits.TRISF3
+#define RX_TRIS TRISDbits.TRISD0
+
+#define SD_CS       PORTGbits.RG6       // SD-SPI Chip Select Output bit			
+#define SD_CS_TRIS  TRISGbits.TRISG6    // SD-SPI Chip Select TRIS bit			
+#define SD_CD       PORTAbits.RA15      // SD-SPI Card Detect Input bit			
+#define SD_CD_TRIS  TRISAbits.TRISA15   // SD-SPI Card Detect TRIS bit			
+#define SD_WE       PORTAbits.RA7       // SD-SPI Write Protect Check Input bit	
+#define SD_WE_TRIS  TRISAbits.TRISA7    // SD-SPI Write Protect Check TRIS bit	
+
+// Registers for the SPI module you want to use
+#define SPICON1     SPI1CON1            // The main SPI control register		
+#define SPISTAT     SPI1STAT            // The SPI status register				
+#define SPIBUF      SPI1BUF             // The SPI Buffer						
+#define SPISTAT_RBF SPI1STATbits.SPIRBF // The receive buffer full bit in the SPI status register			
+#define SPICON1bits SPI1CON1bits        // The bitwise define for the SPI control register (i.e. _____bits)	
+#define SPISTATbits SPI1STATbits        // The bitwise define for the SPI status register (i.e. _____bits)	
+#define SPIENABLE   SPISTATbits.SPIEN   // The enable bit for the SPI module	
+
+// Tris pins for SCK/SDI/SDO lines for (PIC24FJ256GB110 SPI 1)
+#define SPICLOCK    TRISDbits.TRISD8    // The TRIS bit for the SCK pin			
+#define SPIIN       TRISBbits.TRISB1    // The TRIS bit for the SDI pin			
+#define SPIOUT      TRISBbits.TRISB0    // The TRIS bit for the SDO pin			
+
+#define tris_self_power     TRISAbits.TRISA2    // Input
+#define self_power          1
+
+]]>
+        </Section>
+    <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    //All pins to digital except those that are used as analog signals
+    ANSA = 0x0000;
+    ANSB = 0x0020;      // RB5 as potentiometer input,
+    ANSC = 0x0010;      // RC4 as touch screen X+, RC14 as Rx
+    ANSD = 0x0000;
+    ANSE = 0x0000;      // RE9 is S2
+    ANSF = 0x0000;
+    ANSG = 0x0080;      // RG7 as touch screen Y+, RG8 is S1
+    // ---------------------------------------------------------
+    // initialize the buttons on the PIC24FJ256DA210
+    // Development Board (S1, S2, & S3)
+    // ---------------------------------------------------------
+    ANSGbits.ANSG8    = 0;  // set pin as digital pin
+    ANSEbits.ANSE9    = 0;  // set pin as digital pin
+    ANSBbits.ANSB5    = 0;  // set pin as digital pin
+    TRISGbits.TRISG8  = 1;  // set as input
+    TRISEbits.TRISE9  = 1;  // set as input
+    TRISBbits.TRISB5  = 1;  // set as input
+    
+    // ---------------------------------------------------------
+    // PIC24FJ256DA210 Development Board - SPI-Flash Device pins 
+    // ---------------------------------------------------------
+    // chip select pin
+    TRISAbits.TRISA14 = 0;  // set as output
+    LATAbits.LATA14   = 1;  // initialize to 1 (not selected)
+    // spi-clock pin
+    TRISDbits.TRISD8  = 0;
+    // spi-output pin
+    TRISBbits.TRISB1  = 0;
+    // spi-intput pin
+    TRISBbits.TRISB0  = 1;
+
+    ANSBbits.ANSB0    = 0;  // set pin as digital pin
+    ANSBbits.ANSB1    = 0;  // set pin as digital pin
+
+    // set the PPS pins
+    __builtin_write_OSCCONL(OSCCON & 0xbf); // unlock PPS
+    RPOR1bits.RP2R = 11;                    // assign RP2 for SCK2
+    RPOR0bits.RP1R = 10;                    // assign RP1 for SDO2
+    RPINR22bits.SDI2R = 0;                  // assign RP0 for SDI2
+    __builtin_write_OSCCONL(OSCCON | 0x40); // lock   PPS    
+    
+    // ---------------------------------------------------------
+    // Make sure the display DO NOT flicker at start up
+    // ---------------------------------------------------------
+    DisplayBacklightConfig();
+    DisplayPowerConfig();
+    DisplayBacklightOff();
+]]>
+</Section>
+        <Section Name="InitializeBoard" Order="2" Condition="GRAPHICS_LIBRARY_VERSION &gt;= 400">
+<![CDATA[
+    // ---------------------------------------------------------
+    // Initialize the Display Driver
+    // ---------------------------------------------------------
+    DRV_GFX_Initialize();
+]]>
+        </Section>
+        <Section Name="InitializeBoard" Order="9" Option="chkGOL">
+<![CDATA[
+
+#if defined(USE_TOUCHSCREEN_RESISTIVE)
+    TickTouchInit();             // Initialize the timer that manages the tick counter for Touch panel
+    DisplayBacklightOn();        // Should the calibration screens appear
+    TouchInit(NVMWrite, NVMRead, NVMSectorErase, NULL); // initialize the components for Resistive Touch Screen
+#endif
+]]>
+        </Section>
+        <Section Name="InitializeBoard" Order="9">
+<![CDATA[
+    HardwareButtonInit();        // Initialize the hardware buttons
+]]>
+        </Section>
+        <MLALegacy>
+            <Section Name="HardwareProfile" Order="3">
+                <![CDATA[
+#define SST25_CS_TRIS   TRISAbits.TRISA14		
+#define SST25_CS_LAT    LATAbits.LATA14			
+
+#define SST25_SCK_TRIS  TRISDbits.TRISD8		
+#define SST25_SDO_TRIS  TRISBbits.TRISB1		
+#define SST25_SDI_TRIS  TRISBbits.TRISB0		
+        
+#define SST25_SDI_ANS   ANSBbits.ANSB0			
+#define SST25_SDO_ANS   ANSBbits.ANSB1			
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="2">
+                <![CDATA[
+    // Initialize graphics library and create default style scheme for GOL
+    GOLInit();
+]]>
+            </Section>
+
+        </MLALegacy>
+    </Code>
+</Board>

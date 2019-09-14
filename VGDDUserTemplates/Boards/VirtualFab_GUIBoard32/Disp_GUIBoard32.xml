@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="VIRTUALFAB_DispGUIBoard32"
+   Description="VirtualFab's GUIBoard32 integrated display 3.2in. 400x240 (R61509V)"
+   Type="Display"
+   Img="Disp_VirtualFab_GUIBoard32.png"
+   Width="400"
+   Height="240"
+   DefaultOrientation="90">
+  <Note>
+  </Note>
+  <Project>
+    <Folder Name="Header Files/Display Driver">
+      <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+      <AddFile>$USERTEMPLATESFOLDER/Boards/VirtualFab_GUIBoard32/R61509V.h</AddFile>
+    </Folder>
+    <Folder Name="Source Files/Display Driver">
+      <AddFile>$USERTEMPLATESFOLDER/Boards/VirtualFab_GUIBoard32/R61509V.c</AddFile>
+      <!--<AddFile>$MAL/Graphics/Drivers/gfxepmp.c</AddFile>-->
+    </Folder>
+    <Folder Name="Header Files/Board Support Package">
+      <AddFile>$MAL/../Board Support Package/TouchScreen.h</AddFile>
+      <AddFile>$MAL/../Board Support Package/TouchScreenResistive.h</AddFile>
+    </Folder>
+    <Folder Name="Source Files/Board Support Package">
+      <AddFile>$MAL/../Board Support Package/TouchScreen.c</AddFile>
+      <AddFile>$MAL/../Board Support Package/TouchScreenResistive.c</AddFile>
+    </Folder>
+  </Project>
+  <Code>
+    <Section Name="HardwareProfileHead">
+      <![CDATA[
+#define GFX_USE_DISPLAY_CONTROLLER_R61509V
+//#define USE_DRV_BAR
+]]>
+    </Section>
+    <Section Name="HardwareProfileHead" Option="chkPMP16">
+      <![CDATA[
+#define USE_16BIT_PMP
+]]>
+    </Section>
+    <Section Name="HardwareProfileHead" Option="chkPMP8">
+      <![CDATA[
+#define USE_8BIT_PMP
+]]>
+    </Section>
+    <Section Name="HardwareProfile">
+      <![CDATA[
+#define USE_TOUCHSCREEN_RESISTIVE
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR THE RESISTIVE TOUCHSCREEN 
+// --------------------------------------------------------------------
+#define TOUCHPANEL_NUMBER_SAMPLES_PER_POINT 1
+#define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   6
+#define TOUCH_ADC_INPUT_SEL AD1CHS      
+#define TOUCH_ADC_START     AD1CON1bits.SAMP 
+#define TOUCH_ADC_DONE      AD1CON1bits.DONE
+#define ADC_XPOS            ADC_CH0_POS_SAMPLEA_AN5
+#define ADC_YPOS            ADC_CH0_POS_SAMPLEA_AN2
+#define ADPCFG_XPOS         AD1PCFGbits.PCFG5
+#define ADPCFG_YPOS         AD1PCFGbits.PCFG2
+
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+//#define LAT_XPOS      LATBbits.LATB5
+//#define TRIS_XPOS     TRISBbits.TRISB5
+//#define LAT_XNEG      LATBbits.LATB3
+//#define TRIS_XNEG     TRISBbits.TRISB3
+//#define LAT_YPOS      LATBbits.LATB2
+//#define TRIS_YPOS     TRISBbits.TRISB2
+//#define LAT_YNEG      LATBbits.LATB4
+//#define TRIS_YNEG     TRISBbits.TRISB4
+
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+#define ResistiveTouchScreen_XPlus_Config_As_Input() (TRISBbits.TRISB5 = 1)
+#define ResistiveTouchScreen_XPlus_Config_As_Output() (TRISBbits.TRISB5 = 0)
+#define ResistiveTouchScreen_YPlus_Config_As_Input() (TRISBbits.TRISB2 = 1)
+#define ResistiveTouchScreen_YPlus_Config_As_Output() (TRISBbits.TRISB2 = 0)
+#define ResistiveTouchScreen_YMinus_Config_As_Input() (TRISBbits.TRISB4 = 1)
+#define ResistiveTouchScreen_YMinus_Config_As_Output() (TRISBbits.TRISB4 = 0)
+#define ResistiveTouchScreen_YMinus_Drive_Low() (LATBbits.LATB4 = 0)
+#define ResistiveTouchScreen_XPlus_Drive_High() (LATBbits.LATB5 = 1)
+#define ResistiveTouchScreen_YPlus_Drive_High() (LATBbits.LATB2 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Input() (TRISBbits.TRISB3 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Output() (TRISBbits.TRISB3 = 0)
+#define ResistiveTouchScreen_XMinus_Drive_Low() (LATBbits.LATB3 = 0)
+ 
+//#endif
+
+// --------------------------------------------------------------------
+// Touch Screen Non-Volatile Memory Storage Macros
+// --------------------------------------------------------------------
+#define ADDRESS_RESISTIVE_TOUCH_VERSION (unsigned long)0x00
+#define ADDRESS_RESISTIVE_TOUCH_ULX     (unsigned long)0x02
+#define ADDRESS_RESISTIVE_TOUCH_ULY     (unsigned long)0x04
+#define ADDRESS_RESISTIVE_TOUCH_URX     (unsigned long)0x06
+#define ADDRESS_RESISTIVE_TOUCH_URY     (unsigned long)0x08
+
+#define ADDRESS_RESISTIVE_TOUCH_LLX     (unsigned long)0x0a
+#define ADDRESS_RESISTIVE_TOUCH_LLY     (unsigned long)0x0c
+#define ADDRESS_RESISTIVE_TOUCH_LRX     (unsigned long)0x0e
+#define ADDRESS_RESISTIVE_TOUCH_LRY     (unsigned long)0x10
+
+#define NVMSectorErase                  (NULL)
+#define NVMWrite                        (TouchNVMWrite)
+#define NVMRead                         (TouchNVMRead)
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION          [DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 0)
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+#elif (DISP_ORIENTATION == 90)
+#elif (DISP_ORIENTATION == 180)
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+#elif (DISP_ORIENTATION == 270)
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#endif
+#define DISP_HOR_RESOLUTION       240
+#define DISP_VER_RESOLUTION       400
+#define DISP_DATA_WIDTH           16
+#define GFX_LCD_TYPE              GFX_LCD_TFT
+#define USE_GFX_PMP
+#define BACKLIGHT_ENABLE_LEVEL    1
+#define BACKLIGHT_DISABLE_LEVEL   0
+
+// *********************************************************************
+// * PMP SETTINGS
+// *********************************************************************
+#define PMP_DATA_SETUP_TIME 0
+#define PMP_DATA_WAIT_TIME 0
+#define PMP_DATA_HOLD_TIME 0
+
+#define BACKLIGHT_ENABLE_LEVEL    1
+#define BACKLIGHT_DISABLE_LEVEL   0
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISACLR = _TRISA_TRISA7_MASK    
+#define DisplayResetEnable()        LATACLR = _LATA_LATA7_MASK
+#define DisplayResetDisable()       LATASET = _LATA_LATA7_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISGCLR = _TRISG_TRISG14_MASK
+#define DisplaySetCommand()         LATGCLR = _LATG_LATG14_MASK
+#define DisplaySetData()            LATGSET = _LATG_LATG14_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISACLR = _TRISA_TRISA6_MASK
+#define DisplayEnable()             LATACLR = _LATA_LATA6_MASK
+#define DisplayDisable()            LATASET = _LATA_LATA6_MASK
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()        
+#define DisplayFlashEnable()        
+#define DisplayFlashDisable()       
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()        
+#define DisplayPowerOn()            
+#define DisplayPowerOff()           
+        
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISGbits.TRISG15 = 0)
+#define DisplayBacklightOn()        (LATGbits.LATG15 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATGbits.LATG15 = BACKLIGHT_DISABLE_LEVEL)
+]]>
+    </Section>
+  </Code>
+</Board>

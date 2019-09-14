@@ -1,0 +1,673 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="LCC_BOARD"
+       Description="Low-Cost Controllerless (LCC) Graphics PICtail Plus Daughter Board"
+       Type="Expansion"
+       Class="GFX_PICTAIL_V3"
+       Img="Exp_LCC.png"
+       PartNumber="AC164144"
+       URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=AC164144">
+    <Note>
+
+    </Note>
+    <CompatibleDisplay ID="POWERTIP_4_3" />
+    <CompatibleDisplay ID="TRULY_3_2" />
+    <CompatibleDisplay ID="TRULY_7" />
+    <CompatibleDisplay ID="NHD_480272EF_ATXL_CTP" />
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <Option Name="chkLCCInternalMemory" Description="Use Internal PIC RAM for frame buffer" AlternativeTo="chkLCCExternalMemory">
+<![CDATA[
+Enable this option to force usage of the internal PIC RAM for frame buffer (only small displays work in this mode)
+
+Note: set jumpers on the board on positions 1-2.
+]]>
+    </Option>
+    <Option Name="chkLCCExternalMemory" Description="Use External RAM for frame buffer" AlternativeTo="chkLCCInternalMemory">
+<![CDATA[
+Enable this option to use external RAM for frame buffer
+
+Note: set jumpers on the board on positions 2-3.
+]]>
+    </Option>
+    <CompatibleOptions>
+        <Option>chkUSBhost</Option>
+        <Option>chkPutImageFromSD</Option>
+        <Option>chkFlashProgrammer</Option>
+        <Option>chkLCCExternalMemory</Option>
+        <Option>chkLCCInternalMemory</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <AddGroup Name="SPI1Flash" />
+    <Project>
+        <MLALegacy>
+            <ClearFolder Name="Source Files/Display Driver" />
+            <ClearFolder Name="Header Files/Display Driver" />
+            <Folder Name="Source Files/Display Driver">
+                <AddFile>$MAL/Graphics/Drivers/mchpGfxLCC.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Common">
+                <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+            </Folder>
+            <Folder Name="Header Files/Display Driver">
+                <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+                <AddFile>$MAL/Include/Graphics/mchpGfxLCC.h</AddFile>
+            </Folder>
+        </MLALegacy>
+        <Harmony>
+            <ExcludeAllFilesInFolder Folder="Source Files/framework/driver/gfx" />
+            <ExcludeAllFilesInFolder Folder="Header Files/framework/driver/gfx" />
+            <Folder Name="Header Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/controller/lcc/drv_gfx_lcc.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/controller/lcc/src/drv_gfx_lcc_ext.c</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/dma">
+                <AddFile>$MAL/framework/system/dma/sys_dma.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/dma">
+                <AddFile>$MAL/framework/system/dma/src/sys_dma.c</AddFile>
+            </Folder>
+        </Harmony>
+    </Project>
+    <Code>
+        <Section Name="HardwareProfileHead" Order="1">
+<![CDATA[
+#define GFX_PICTAIL_LCC
+#define GFX_USE_DISPLAY_CONTROLLER_DMA
+//VGDD#warning "Warning: LCC Graphics driver (mchpGfxLCC.c) doesn't work with Optimization=1. In MPLAB X project, be sure to put an Override on that module."
+#define USE_GFX_PMP
+]]>
+        </Section>
+        <MLALegacy>
+            <Section Name="HardwareProfileHead" Option="chkLCCExternalMemory">
+<![CDATA[
+//VGDD#warning "Set jumpers on LCC board on 2-3 (right) position for EXTERNAL memory functionality"
+#define LCC_EXTERNAL_MEMORY
+]]>
+            </Section>
+            <Section Name="HardwareProfileHead" Option="chkLCCInternalMemory">
+<![CDATA[
+//VGDD#warning "Set jumpers on LCC board on 1-2 (left) position for INTERNAL memory functionality"
+#define LCC_INTERNAL_MEMORY
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#define PMP_DATA_SETUP_TIME                (18)
+#define PMP_DATA_WAIT_TIME                 (82)  // based on the minimum pulse width requirement of CS signal of SSD1926
+#define PMP_DATA_HOLD_TIME                 (0)
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR THE RESISTIVE TOUCHSCREEN 
+// --------------------------------------------------------------------
+#define USE_TOUCHSCREEN_RESISTIVE         // use 4-wire resistive touch screen driver
+#define TOUCH_ADC_INPUT_SEL   AD1CHS      
+#define TOUCH_ADC_START       AD1CON1bits.SAMP 
+#define TOUCH_ADC_DONE        AD1CON1bits.DONE
+#define ADC_XPOS    ADC_CH0_POS_SAMPLEA_AN0
+#define ADC_YPOS    ADC_CH0_POS_SAMPLEA_AN1
+#define ADPCFG_XPOS AD1PCFGbits.PCFG0
+#define ADPCFG_YPOS AD1PCFGbits.PCFG1
+
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE
+// --------------------------------------------------------------------
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISCCLR = _TRISC_TRISC1_MASK    
+#define DisplayResetEnable()        LATCCLR = _LATC_LATC1_MASK
+#define DisplayResetDisable()       LATCSET = _LATC_LATC1_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISCCLR = _TRISC_TRISC2_MASK
+#define DisplaySetCommand()         LATCCLR = _LATC_LATC2_MASK
+#define DisplaySetData()            LATCSET = _LATC_LATC2_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISDCLR = _TRISD_TRISD10_MASK
+#define DisplayEnable()             LATDCLR = _LATD_LATD10_MASK
+#define DisplayDisable()            LATDSET = _LATD_LATD10_MASK
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()          
+#define DisplayFlashEnable()        
+#define DisplayFlashDisable()       
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()        
+#define DisplayPowerOn()            
+#define DisplayPowerOff()            
+        
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)  
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)   
+]]>
+            </Section>
+            <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &lt; 306">
+<![CDATA[
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+#define LAT_XPOS    LATBbits.LATB0
+#define TRIS_XPOS   TRISBbits.TRISB0
+#define LAT_XNEG    LATDbits.LATD9
+#define TRIS_XNEG   TRISDbits.TRISD9
+#define LAT_YPOS    LATBbits.LATB1
+#define TRIS_YPOS   TRISBbits.TRISB1
+#define LAT_YNEG    LATBbits.LATB9
+#define TRIS_YNEG   TRISBbits.TRISB9
+]]>
+            </Section>
+            <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &gt; 305">
+<![CDATA[
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+#define ResistiveTouchScreen_XPlus_Config_As_Input() (TRISBbits.TRISB0 = 1)
+#define ResistiveTouchScreen_XPlus_Config_As_Output() (TRISBbits.TRISB0 = 0)
+#define ResistiveTouchScreen_YPlus_Config_As_Input() (TRISBbits.TRISB1 = 1)
+#define ResistiveTouchScreen_YPlus_Config_As_Output() (TRISBbits.TRISB1 = 0)
+#define ResistiveTouchScreen_YMinus_Config_As_Input() (TRISBbits.TRISB9 = 1)
+#define ResistiveTouchScreen_YMinus_Config_As_Output() (TRISBbits.TRISB9 = 0)
+#define ResistiveTouchScreen_YMinus_Drive_Low() (LATBbits.LATB9 = 0)
+#define ResistiveTouchScreen_XPlus_Drive_High() (LATBbits.LATB0 = 1)
+#define ResistiveTouchScreen_YPlus_Drive_High() (LATBbits.LATB1 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Input() (TRISDbits.TRISD9 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Output() (TRISDbits.TRISD9 = 0)
+#define ResistiveTouchScreen_XMinus_Drive_Low() (LATDbits.LATD9 = 0)
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISCCLR = _TRISC_TRISC1_MASK    
+#define DisplayResetEnable()        LATCCLR = _LATC_LATC1_MASK
+#define DisplayResetDisable()       LATCSET = _LATC_LATC1_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISCCLR = _TRISC_TRISC2_MASK
+#define DisplaySetCommand()         LATCCLR = _LATC_LATC2_MASK
+#define DisplaySetData()            LATCSET = _LATC_LATC2_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISDCLR = _TRISD_TRISD10_MASK
+#define DisplayEnable()             LATDCLR = _LATD_LATD10_MASK
+#define DisplayDisable()            LATDSET = _LATD_LATD10_MASK
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()          
+#define DisplayFlashEnable()        
+#define DisplayFlashDisable()       
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()        
+#define DisplayPowerOn()            
+#define DisplayPowerOff()            
+        
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)  
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)   
+
+// --------------------------------------------------------------------
+// Timing Controllers (TCON) used by some displays 
+// --------------------------------------------------------------------
+#if defined (GFX_USE_DISPLAY_PANEL_TFT_G240320LTSW_118W_E)
+		#define TCON_CS_LAT      LATCbits.LATC2   
+		#define TCON_CS_TRIS     TRISCbits.TRISC2 
+		#define TCON_CS_DIG()
+
+#if defined(__32MX795F512L__) 
+		#define TCON_SCL_LAT     LATDbits.LATD10   
+		#define TCON_SCL_TRIS    TRISDbits.TRISD10 
+		#define TCON_SCL_DIG()
+	    
+		#define TCON_SDO_LAT     LATDbits.LATD0   
+		#define TCON_SDO_TRIS    TRISDbits.TRISD0 
+		#define TCON_SDO_DIG()   1;
+#else
+		#define TCON_SCL_LAT     LATFbits.LATF6   
+		#define TCON_SCL_TRIS    TRISFbits.TRISF6 
+		#define TCON_SCL_DIG()
+	    
+		#define TCON_SDO_LAT     LATFbits.LATF8   
+		#define TCON_SDO_TRIS    TRISFbits.TRISF8 
+		#define TCON_SDO_DIG()   1;
+#endif   
+
+		#define TCON_DC_LAT      LATBbits.LATB3   
+		#define TCON_DC_TRIS     TRISBbits.TRISB3 
+		#define TCON_DC_DIG()    1;
+		
+#endif // #if defined (GFX_USE_DISPLAY_PANEL_TFT_G240320LTSW_118W_E)
+]]>
+            </Section>
+            <Section Name="HardwareProfile" Option="chkSPIFlash">
+<![CDATA[
+// Chip Select, SCLK, SDI and SDO signals used 
+#if defined(__dsPIC33FJ128GP804__) || defined(__PIC24HJ128GP504__)
+    #define SST25_CS_TRIS   TRISAbits.TRISA8
+    #define SST25_CS_LAT    LATAbits.LATA8
+    #define SST25_SCK_TRIS  TRISCbits.TRISC2
+    #define SST25_SDO_TRIS  TRISCbits.TRISC0
+    #define SST25_SDI_TRIS  TRISCbits.TRISC1
+#else
+    #define SST25_CS_TRIS   TRISDbits.TRISD1
+    #define SST25_CS_LAT    LATDbits.LATD1
+    #define SST25_SCK_TRIS  TRISGbits.TRISG6
+    #define SST25_SDO_TRIS  TRISGbits.TRISG8
+    #define SST25_SDI_TRIS  TRISGbits.TRISG7
+    #if defined (__dsPIC33E__) || defined(__PIC24E__)
+        #define SST25_SCK_LAT  	LATGbits.LATG6
+	    #define SST25_SCK_ANS   ANSELGbits.ANSG6
+	    #define SST25_SDO_ANS   ANSELGbits.ANSG8
+	    #define SST25_SDO_LAT  	LATGbits.LATG8
+	    #define SST25_SDI_LAT  	LATGbits.LATG7  
+	    #define SST25_SDI_ANS   ANSELGbits.ANSG7       		
+    #else            
+        #define SST25_SDI_ANS   ANSGbits.ANSG7
+    #endif
+#endif
+]]>
+            </Section>
+        </MLALegacy>
+        <Harmony>
+            <!--<Section Name="HardwareProfileHead" Order="0">
+<![CDATA[
+]]>
+            </Section>-->
+            <!--<Section Name="HardwareProfileHead" Option="chkLCCExternalMemory" Order="0">
+<![CDATA[
+#include "vgdd_main.h"
+]]>
+            </Section>-->
+        <Section Name="HardwareProfileHead" Option="chkLCCExternalMemory" Order="1">
+<![CDATA[
+//VGDD#warning "Set jumpers on LCC board on 2-3 (right) position for EXTERNAL memory functionality"
+#define DRV_GFX_CONFIG_LCC_EXTERNAL_MEMORY
+]]>
+            </Section>
+            <Section Name="HardwareProfileHead" Option="chkLCCInternalMemory" Order="1">
+<![CDATA[
+//VGDD#warning "Set jumpers on LCC board on 1-2 (left) position for INTERNAL memory functionality"
+#define DRV_GFX_CONFIG_LCC_INTERNAL_MEMORY
+]]>
+            </Section>
+            <Section Name="HardwareProfileHead" Order="0">
+<![CDATA[
+#define GFX_USE_DISPLAY_CONTROLLER_LCC
+#define GFX_INSTANCES_NUMBER                            1
+#define GFX_RUN_MODE                                    0
+#define GFX_SELF_PREEMPTION_LEVEL                       0
+]]>
+            </Section>
+            <Section Name="HardwareProfile" Option="chkSPIFlash">
+<![CDATA[
+#define SST25_CS_TRIS   TRISDbits.TRISD1
+#define SST25_CS_LAT    LATDbits.LATD1
+
+#define SST25_SPI_CHANNEL SPI_ID_1
+
+#define USE_SST25VF016
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#define GFX_USE_DISPLAY_CONTROLLER_LCC
+#define DRV_GFX_CONFIG_LCC_DMA_CHANNEL_INDEX            DMA_CHANNEL_1
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISCCLR = _TRISC_TRISC1_MASK
+#define DisplayResetEnable()        LATCCLR = _LATC_LATC1_MASK
+#define DisplayResetDisable()       LATCSET = _LATC_LATC1_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISCCLR = _TRISC_TRISC2_MASK
+#define DisplaySetCommand()         LATCCLR = _LATC_LATC2_MASK
+#define DisplaySetData()            LATCSET = _LATC_LATC2_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISDCLR = _TRISD_TRISD10_MASK
+#define DisplayEnable()             LATDCLR = _LATD_LATD10_MASK
+#define DisplayDisable()            LATDSET = _LATD_LATD10_MASK
+
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()
+#define DisplayFlashEnable()
+#define DisplayFlashDisable()
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()
+#define DisplayPowerOn()
+#define DisplayPowerOff()
+
+// ADC channel constants
+// resistive touch X and Y voltage sensing
+#define ADC_XPOS		 (0x0 << _AD1CHS_CH0SA_POSITION)
+#define ADC_YPOS		 (0x1 << _AD1CHS_CH0SA_POSITION)
+
+//#if defined(_AD1PCFG_PCFG_POSITION)
+    #define ADPCFG_XPOS AD1PCFGbits.PCFG0
+    #define ADPCFG_YPOS AD1PCFGbits.PCFG1
+    #define RESISTIVETOUCH_ANALOG  0
+    #define RESISTIVETOUCH_DIGITAL 1
+//#else //ANSEL
+//    #define ADPCFG_XPOS ANSELBbits.ANSB0
+//    #define ADPCFG_YPOS ANSELBbits.ANSB1
+//    #define RESISTIVETOUCH_ANALOG  1
+//    #define RESISTIVETOUCH_DIGITAL 0
+//#endif
+
+// X port definitions
+#define ResistiveTouchScreen_XPlus_Drive_High()             LATBbits.LATB0   = 1
+#define ResistiveTouchScreen_XPlus_Drive_Low()              LATBbits.LATB0   = 0
+#define ResistiveTouchScreen_XPlus_Config_As_Input()        TRISBbits.TRISB0 = 1
+#define ResistiveTouchScreen_XPlus_Config_As_Output()       TRISBbits.TRISB0 = 0
+
+#define ResistiveTouchScreen_XMinus_Drive_High()         LATDbits.LATD9    = 1
+#define ResistiveTouchScreen_XMinus_Drive_Low()          LATDbits.LATD9    = 0
+#define ResistiveTouchScreen_XMinus_Config_As_Input()    TRISDbits.TRISD9  = 1
+#define ResistiveTouchScreen_XMinus_Config_As_Output()   TRISDbits.TRISD9  = 0
+
+// Y port definitions
+#define ResistiveTouchScreen_YPlus_Drive_High()             LATBbits.LATB1   = 1
+#define ResistiveTouchScreen_YPlus_Drive_Low()              LATBbits.LATB1   = 0
+#define ResistiveTouchScreen_YPlus_Config_As_Input()        TRISBbits.TRISB1 = 1
+#define ResistiveTouchScreen_YPlus_Config_As_Output()       TRISBbits.TRISB1 = 0
+
+#define ResistiveTouchScreen_YMinus_Drive_High()            LATBbits.LATB9   = 1
+#define ResistiveTouchScreen_YMinus_Drive_Low()             LATBbits.LATB9   = 0
+#define ResistiveTouchScreen_YMinus_Config_As_Input()       TRISBbits.TRISB9 = 1
+#define ResistiveTouchScreen_YMinus_Config_As_Output()      TRISBbits.TRISB9 = 0
+
+
+// Potentiometer and Temperature sensor
+#define ADC_TEMP		 ADC_CH0_POS_SAMPLEA_AN4
+#define TOUCH_ADC_INPUT_SEL   AD1CHS
+
+// ADC Sample Start
+#define TOUCH_ADC_START   AD1CON1bits.SAMP
+
+// ADC Status
+#define TOUCH_ADC_DONE   AD1CON1bits.DONE
+
+#define ADDRESS_RESISTIVE_TOUCH_VERSION	(unsigned long)0xFFFFFFFE
+#define ADDRESS_RESISTIVE_TOUCH_ULX   (unsigned long)0xFFFFFFFC
+#define ADDRESS_RESISTIVE_TOUCH_ULY   (unsigned long)0xFFFFFFFA
+#define ADDRESS_RESISTIVE_TOUCH_URX   (unsigned long)0xFFFFFFF8
+#define ADDRESS_RESISTIVE_TOUCH_URY   (unsigned long)0xFFFFFFF6
+
+#define ADDRESS_RESISTIVE_TOUCH_LLX   (unsigned long)0xFFFFFFF4
+#define ADDRESS_RESISTIVE_TOUCH_LLY   (unsigned long)0xFFFFFFF2
+#define ADDRESS_RESISTIVE_TOUCH_LRX   (unsigned long)0xFFFFFFF0
+#define ADDRESS_RESISTIVE_TOUCH_LRY   (unsigned long)0xFFFFFFEE
+
+#define SST25_CS_TRIS   TRISDbits.TRISD1
+#define SST25_CS_LAT    LATDbits.LATD1
+
+#define SST25_SPI_CHANNEL SPI_ID_1
+
+#define USE_SST25VF016
+
+#if defined(__PIC32MX__)
+    /*Macros for timing signals*/
+    #define DATA_ENABLE      LATDbits.LATD2
+    #define DATA_ENABLE_TRIS TRISDbits.TRISD2
+    #define HSYNC            LATBbits.LATB8
+    #define HSYNC_TRIS       TRISBbits.TRISB8
+    #define VSYNC            LATCbits.LATC3
+    #define VSYNC_TRIS       TRISCbits.TRISC3
+
+    /*Macros for LCD IO*/
+    #define BACKLIGHT      LATDbits.LATD3
+    #define BACKLIGHT_TRIS TRISDbits.TRISD3
+    #define LCD_RESET      LATCbits.LATC1
+    #define LCD_RESET_TRIS TRISCbits.TRISC1
+    #define LCD_CS         LATCbits.LATC2
+    #define LCD_CS_TRIS    TRISCbits.TRISC2
+    #define LCD_DC         LATBbits.LATB3
+    #define LCD_DC_TRIS    TRISBbits.TRISB3
+#else
+    #define BACKLIGHT      LATJbits.LATJ6
+    #define BACKLIGHT_TRIS TRISJbits.TRISJ6
+    #define VSYNC            LATDbits.LATD15
+    #define VSYNC_TRIS       TRISDbits.TRISD15
+    #define LCD_CS         LATBbits.LATB12
+    #define LCD_CS_TRIS    TRISBbits.TRISB12
+    #define DATA_ENABLE      LATJbits.LATJ0
+    #define DATA_ENABLE_TRIS TRISJbits.TRISJ0
+    #define LCD_RESET      LATBbits.LATB11
+    #define LCD_RESET_TRIS TRISBbits.TRISB11
+    #define HSYNC            LATHbits.LATH15
+    #define HSYNC_TRIS       TRISHbits.TRISH15
+#endif
+/*Macros for External SRAM*/
+#define SRAM_CS       LATFbits.LATF13
+#define SRAM_TRIS     TRISFbits.TRISF13
+
+#define ADDR15        LATAbits.LATA15
+#define ADDR15_TRIS   TRISAbits.TRISA15
+#define ADDR16        LATDbits.LATD8
+#define ADDR16_TRIS   TRISDbits.TRISD8
+#define ADDR17        LATEbits.LATE9
+#define ADDR17_TRIS   TRISEbits.TRISE9
+#define ADDR18        LATFbits.LATF12
+#define ADDR18_TRIS   TRISFbits.TRISF12
+
+#define PIXELCLOCK        LATDbits.LATD4
+#define PIXELCLOCK_TRIS   TRISDbits.TRISD4
+
+#define PMP_INTERRUPT IEC1bits.PMPIE
+#define  PMADDR_OVERFLOW               32768
+
+#define TCON_CS_LAT      LATCbits.LATC2
+#define TCON_CS_TRIS     TRISCbits.TRISC2
+#define TCON_CS_DIG()
+
+#if defined(__32MX795F512L__)
+    #define TCON_SCL_LAT     LATDbits.LATD10
+    #define TCON_SCL_TRIS    TRISDbits.TRISD10
+    #define TCON_SCL_DIG()
+
+    #define TCON_SDO_LAT     LATDbits.LATD0
+    #define TCON_SDO_TRIS    TRISDbits.TRISD0
+    #define TCON_SDO_DIG()   1;
+#else
+    #define TCON_SCL_LAT     LATFbits.LATF6
+    #define TCON_SCL_TRIS    TRISFbits.TRISF6
+    #define TCON_SCL_DIG()
+
+    #define TCON_SDO_LAT     LATFbits.LATF8
+    #define TCON_SDO_TRIS    TRISFbits.TRISF8
+    #define TCON_SDO_DIG()   1;
+#endif
+
+#define TCON_DC_LAT      LATBbits.LATB3
+#define TCON_DC_TRIS     TRISBbits.TRISB3
+#define TCON_DC_DIG()    1;
+
+#define DRV_GFX_LCC_DMA_CHANNEL_INDEX                 DMA_CHANNEL_1
+#define DRV_GFX_LCC_DMA_TRIGGER_SOURCE                DMA_TRIGGER_TIMER_2
+#define DRV_GFX_LCC_DMA_TRANSFER_LENGTH               2
+#define DRV_GFX_LCC_TMR_INDEX                         TMR_ID_2
+
+]]>
+            </Section>
+            <Section Name="SystemDefinitions">
+<![CDATA[
+#include "driver/gfx/controller/lcc/drv_gfx_lcc.h"
+#include "system/dma/sys_dma.h"
+#include "system/devcon/sys_devcon.h"
+#include "system/int/sys_int.h"
+#include "system/ports/sys_ports.h"
+#include "system/touch/sys_touch.h"
+#include "driver/touch/adc10bit/drv_adc10bit.h"
+]]>
+            </Section>
+            <Section Name="SystemObjects">
+<![CDATA[
+    SYS_MODULE_OBJ  sysMsg0;
+    SYS_MODULE_OBJ  sysTouchObject0;
+    SYS_MODULE_OBJ  drvAdc10bit;
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="1">
+<![CDATA[
+
+    /* Initialize Drivers */
+    sysObj.sysDma = SYS_DMA_Initialize((SYS_MODULE_INIT *)&sysDmaInit);
+
+    sysObj.drvAdc10bit = DRV_TOUCH_ADC10BIT_Initialize(DRV_TOUCH_INDEX_0, (SYS_MODULE_INIT *)&drvAdc10bitInitData);
+
+    DRV_GFX_LCC_Initialize(GFX_INDEX_0, (SYS_MODULE_INIT*)&drvGfxInit);
+
+    /* Setting priority for LCC Refresh ISR */
+    SYS_INT_VectorPrioritySet(INT_VECTOR_DMA1, INT_PRIORITY_LEVEL1);
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="6" Option="chkGOL">
+<![CDATA[
+    sysObj.sysTouchObject0 = SYS_TOUCH_Initialize(SYS_TOUCH_INDEX_0, (SYS_MODULE_INIT*)&sysTouchInit0);
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="7">
+<![CDATA[
+    /* Initialize Middleware */
+    sysObj.gfxObject0 = GFX_Initialize(GFX_INDEX_0, (SYS_MODULE_INIT *)&gfxInit0);
+]]>
+            </Section>
+            <Section Name="InitializeObjects">
+<![CDATA[
+//<editor-fold defaultstate="collapsed" desc="GFX Configuration">
+
+/*** GFX Initialization Data ***/
+
+const GFX_INIT gfxInit0 =
+{
+    .drvInitialize    = NULL,
+    .drvOpen          = DRV_GFX_LCC_Open,
+    .drvInterfaceSet  = DRV_GFX_LCC_InterfaceSet,
+    .preemptionLevel  = GFX_SELF_PREEMPTION_LEVEL
+};
+
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="DRV_GFX_LCC Configuration">
+
+/*** DRV GFX Initialization Data ***/
+
+DRV_GFX_INIT drvGfxInit =
+{
+    .orientation             = DISP_ORIENTATION,
+    .horizontalResolution    = DISP_HOR_RESOLUTION,
+    .verticalResolution      = DISP_VER_RESOLUTION,
+    .dataWidth               = DISP_DATA_WIDTH,
+    .horizontalPulseWidth    = DISP_HOR_PULSE_WIDTH,
+    .horizontalBackPorch     = DISP_HOR_BACK_PORCH,
+    .horizontalFrontPorch    = DISP_HOR_FRONT_PORCH,
+    .verticalPulseWidth      = DISP_VER_PULSE_WIDTH,
+    .verticalBackPorch       = DISP_VER_BACK_PORCH,
+    .verticalFrontPorch      = DISP_VER_FRONT_PORCH,
+    .logicShift              = DISP_INV_LSHIFT,
+    .LCDType                 = 1,
+    .colorType               = 0,
+    .TCON_Init               = TCON_MODULE,
+};
+
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="SYS_DMA Configuration">
+
+/*** System DMA Initialization Data ***/
+
+const SYS_DMA_INIT sysDmaInit =
+{
+	.sidl = SYS_DMA_SIDL_DISABLE,
+
+};
+
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="DRV_TOUCH_ADC10BIT Configuration">
+
+/*** ADC10BIT Driver Initialization Data ***/
+
+const DRV_TOUCH_INIT drvAdc10bitInitData =
+{
+    .moduleInit           = {0},
+    .touchId              = DRV_TOUCH_INDEX_0,
+    .drvInitialize        = NULL,
+    .orientation          = DISP_ORIENTATION,
+    .horizontalResolution = DISP_HOR_RESOLUTION,
+    .verticalResolution   = DISP_VER_RESOLUTION,
+};
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="SYS_TOUCH Configuration">
+// ---------------------------------------------------------
+// System Touch Initialization Data
+// ---------------------------------------------------------
+const DRV_TOUCH_INIT sysTouchInit0 =
+{
+    .drvInitialize           = DRV_TOUCH_ADC10BIT_Initialize,
+    .drvOpen                 = DRV_TOUCH_ADC10BIT_Open,
+    .drvTouchStatus          = DRV_TOUCH_ADC10BIT_TouchStatus,
+    .drvTouchDataRead        = DRV_TOUCH_ADC10BIT_TouchDataRead,
+    .drvCalibrationSet       = DRV_TOUCH_ADC10BIT_CalibrationSet,
+    .drvTouchGetX            = DRV_TOUCH_ADC10BIT_TouchGetX,
+    .drvTouchGetY            = DRV_TOUCH_ADC10BIT_TouchGetY,
+    .orientation             = DISP_ORIENTATION,
+    .horizontalResolution    = DISP_HOR_RESOLUTION,
+    .verticalResolution      = DISP_VER_RESOLUTION,
+};
+
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="SYS_MSG Configuration">
+// ---------------------------------------------------------
+// Message System Initialization Data
+// ---------------------------------------------------------
+static uint16_t queuePriorities0[2] = { 64, 32 };
+SYS_MSG_INIT msg0Init =
+{
+    .nMaxMsgsDelivered = 1,
+    .nMessagePriorities = 1,
+};
+// </editor-fold>
+]]>
+            </Section>
+            <!--<Section Name="InitializeBoard" Order="7">
+<![CDATA[
+    // initialize the timer that manages the tick counter
+    TickInit();
+]]>
+            </Section>-->
+            <Section Name="ISR">
+<![CDATA[
+void __ISR(_DMA0_VECTOR + DMA_CHANNEL_1) _LCC_Refresh_Interrupt(void)
+{
+    SYS_INT_SourceStatusClear(INT_SOURCE_DMA_0 + DMA_CHANNEL_1);
+
+    DRV_GFX_LCC_DisplayRefresh();
+}
+]]>
+            </Section>
+            <Section Name="Tasks">
+<![CDATA[
+    /* Maintain the DMA system state machine. */
+    SYS_DMA_Tasks(sysObj.sysDma);
+    SYS_MSG_Tasks( (SYS_OBJ_HANDLE) sysObj.sysMsg0 );
+    SYS_TOUCH_Tasks(sysObj.sysTouchObject0);
+
+    /* Maintain Device Drivers */
+    DRV_TOUCH_ADC10BIT_Tasks(sysObj.drvAdc10bit);
+]]>
+            </Section>
+        </Harmony>
+    </Code>
+</Board>

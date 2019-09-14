@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="PIC32_ETH_SK"
+	   Type="Development"
+	   Description="PIC32 Ethernet Starter Kit"
+	   Compiler="C32"
+	   Img="Dev_PIC32_ETH_SK.png"
+     PartNumber="DM320004"
+	   URL="http://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=dm320004">
+    <Note>
+        <!--TouchScreen not fully compatible with this StarterKit. See http://www.microchip.com/forums/m595448.aspx
+Ethernet Starter Kit not compatible with 16-bit modes. See http://www.microchip.com/forums/m649053.aspx-->
+    </Note>
+    <CompatibleExpansionBoard ID="MEB_BOARD" />
+    <CompatibleExpansionBoard ID="LCC_BOARD" />
+    <CompatibleExpansionBoard ID="GFX_SSD1926" />
+    <CompatibleExpansionBoard ID="GFX_S1D13517" />
+    <CompatibleExpansionBoard ID="TECHTOYS_SSD1963_EVK" />
+    <CompatibleExpansionBoard ID="TECHTOYS_SSD1963_EVK_R3B" />
+    <CompatibleDisplay ID="TRULY_3_2" />
+    <CompatibleDisplay ID="POWERTIP_4_3" />
+    <CompatibleDisplay ID="TRULY_7" />
+    <CompatibleOptions>
+        <Option>chkSPIFlash</Option>
+        <Option>chkDEE</Option>
+        <Option>chkTCPIP</Option>
+        <Option>chkWiFi</Option>
+        <Option>chkMPFS</Option>
+        <Option>chkFSIO</Option>
+        <Option>chkFatFs</Option>
+        <Option>chkUSBhost</Option>
+        <Option>chkRTCC</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <AddGroup Name="GOL" />
+    <AddGroup Name="RTCC" />
+    <AddGroup Name="PutImageFromSD" />
+    <AddGroup Name="FileSystem" />
+    <AddGroup Name="FlashProgrammer" />
+    <AddGroup Name="USBhost" />
+    <AddGroup Name="TcpIp" />
+    <AddGroup Name="WiFi" />
+    <AddGroup Name="SPIFlash" />
+    <AddGroup Name="DEEEmulation" />
+    <Project>
+        <SetConfig Section="[COMPILER]-LD" key="heap-size" value="[HEAPSIZE]"/>
+        <Harmony>
+            <SetConfig Section="[COMPILER]" key="preprocessor-macros" value="PLIB_INLINE_API=&quot;static inline&quot;;PLIB_INLINE=&quot;static inline&quot;"/>
+            <Folder Name="Source Files/bsp/sk_pic32_mx_usb">
+                <!--<AddFile>$MAL/bsp/sk_pic32_mx_usb/config_performance.c</AddFile>-->
+            </Folder>
+        </Harmony>
+        <Folder Name="Source Files/TCPIP Stack" Option="chkTCPIP">
+            <AddFile>$MAL/TCPIP Stack/ETHPIC32ExtPhy.c</AddFile>
+            <AddFile>$MAL/TCPIP Stack/ETHPIC32ExtPhyDP83848.c</AddFile>
+        </Folder>
+    </Project>
+    <Code>
+        <Section Name="ConfigBits">
+<![CDATA[
+#pragma config UPLLEN = ON          // USB PLL Enabled
+#pragma config FPLLIDIV = DIV_2     // PLL Input Divider - Xtal 8MHz 8/2=4Mhz
+#pragma config FPLLMUL = MUL_20     // PLL Multiplier - 4MHz*20=80MHz
+#pragma config UPLLIDIV = DIV_2     // USB PLL Input Divider - 8MHz/2=4MHz
+#pragma config FPLLODIV = DIV_1     // PLL Output Divider
+#pragma config FPBDIV = DIV_2       // Peripheral Clock divisor
+#pragma config FWDTEN = OFF         // Watchdog Timer
+#pragma config WDTPS = PS1          // Watchdog Timer Postscale
+#pragma config FCKSM = CSDCMD       // Clock Switching & Fail Safe Clock Monitor
+#pragma config OSCIOFNC = OFF       // CLKO Enable
+#pragma config POSCMOD = HS         // Primary Oscillator
+#pragma config IESO = OFF           // Internal/External Switch-over
+#pragma config FNOSC = PRIPLL       // Oscillator Selection
+#pragma config CP = OFF             // Code Protect
+#pragma config BWP = OFF            // Boot Flash Write Protect
+#pragma config PWP = OFF            // Program Flash Write Protect
+#pragma config ICESEL = ICS_PGx2    // ICE/ICD Comm Channel Select
+]]>
+        </Section>
+        <Section Name="ConfigBits" Option="chkTCPIP">
+<![CDATA[
+#pragma config FMIIEN = OFF, FETHIO = OFF // external PHY in RMII/alternate configuration
+]]>
+        </Section>
+        <MLaLegacy>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#include <plib.h>
+
+#define GetSystemClock()        (80000000ul)
+#define GetPeripheralClock()    (GetSystemClock() / (1 << OSCCONbits.PBDIV))
+#define GetInstructionClock()   (GetSystemClock())
+#define PIC32_SK
+#define PIC32_ETH_SK
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#define tris_self_power     TRISAbits.TRISA2    // Input
+#define self_power          1
+#define tris_usb_bus_sense  TRISBbits.TRISB5    // Input
+#define USB_BUS_SENSE       U1OTGSTATbits.SESVD // Special considerations required if using SESVD for this purpose.  See documentation.
+#define COMM_PKT_RX_MAX_SIZE    (1024)
+
+// -----------------------------------------------
+// IOS FOR THE SWITCHES (SIDE BUTTONS)
+// -----------------------------------------------
+/*typedef enum
+{
+    HW_BUTTON_PRESS = 0,
+    HW_BUTTON_RELEASE = 1
+} HW_BUTTON_STATE;*/
+#ifdef USE_16BIT_PMP
+    #define HardwareButtonInit()
+    #define GetHWButtonProgram()        (HW_BUTTON_RELEASE)
+    #define GetHWButtonScanDown()       (HW_BUTTON_RELEASE)
+    #define GetHWButtonScanUp()         (HW_BUTTON_RELEASE)
+    #define GetHWButtonCR()             (HW_BUTTON_RELEASE)
+    #define GetHWButtonFocus()          (HW_BUTTON_RELEASE)
+#else
+    #define HardwareButtonInit()        (CNPUESET = _CNPUE_CNPUE16_MASK | _CNPUE_CNPUE15_MASK | _CNPUE_CNPUE19_MASK)
+    #define GetHWButtonProgram()        (PORTDbits.RD6)
+    #define GetHWButtonScanDown()       (HW_BUTTON_RELEASE)
+    #define GetHWButtonScanUp()         (HW_BUTTON_RELEASE)  
+    #define GetHWButtonCR()             (PORTDbits.RD6)
+    #define GetHWButtonFocus()          (PORTDbits.RD7 & PORTDbits.RD13)
+#endif
+
+// -----------------------------------------------
+// LEDs
+// -----------------------------------------------
+#define LED0_TRIS			(TRISDbits.TRISD0)	// Ref LED1
+#define LED0_IO				(LATDbits.LATD0)
+#define LED1_TRIS			(TRISDbits.TRISD1)	// Ref LED2
+#define LED1_IO				(LATDbits.LATD1)
+#define LED2_TRIS			(TRISDbits.TRISD2)	// Ref LED3
+#define LED2_IO				(LATDbits.LATD2)
+#define LED3_TRIS			(LED2_TRIS)			// No such LED
+#define LED3_IO				(LATDbits.LATD6)
+#define LED4_TRIS			(LED2_TRIS)			// No such LED
+#define LED4_IO				(LATDbits.LATD6)
+#define LED5_TRIS			(LED2_TRIS)			// No such LED
+#define LED5_IO				(LATDbits.LATD6)
+#define LED6_TRIS			(LED2_TRIS)			// No such LED
+#define LED6_IO				(LATDbits.LATD6)
+#define LED7_TRIS			(LED2_TRIS)			// No such LED
+#define LED7_IO				(LATDbits.LATD6)
+#define LED_GET()			((unsigned char)LATD & 0x07)
+#define LED_PUT(a)			do{LATD = (LATD & 0xFFF8) | ((a)&0x07);}while(0)
+
+// -----------------------------------------------
+// Momentary push buttons
+// -----------------------------------------------
+#define BUTTON0_TRIS		(TRISDbits.TRISD6)	// Ref SW1
+#define BUTTON0_IO			(PORTDbits.RD6)
+#define BUTTON1_TRIS		(TRISDbits.TRISD7)	// Ref SW2
+#define BUTTON1_IO			(PORTDbits.RD7)
+#define BUTTON2_TRIS		(TRISDbits.TRISD13)	// Ref SW3
+#define BUTTON2_IO			(PORTDbits.RD13)
+#define BUTTON3_TRIS		(TRISDbits.TRISD13)	// No BUTTON3 on this board
+#define BUTTON3_IO			(1)
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    AD1PCFG = 0x0000FFFF;        // all ADC channel set to digital except the ADC pins for Resistive Touch Panel
+    INTEnableSystemMultiVectoredInt();
+    SYSTEMConfigPerformance(GetSystemClock());
+    mOSCSetPBDIV(OSC_PB_DIV_1);	 // Use 1:1 CPU Core:Peripheral clocks
+    GOLInit();                   // Initialize graphics library and create default style scheme for GOL
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="5">
+<![CDATA[
+#if defined(USE_TOUCHSCREEN_RESISTIVE)
+    TickTouchInit();             // Initialize the timer that manages the tick counter for Touch panel
+    SPI1TouchInit(NVMWrite, NVMRead, NVMSectorErase, NULL); // initialize the components for Resistive Touch Screen
+#endif
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="6">
+<![CDATA[
+HardwareButtonInit();        // Initialize the hardware buttons
+]]>
+            </Section>
+            <Section Name="MainHead">
+<![CDATA[
+//////////////////////// LOCAL PROTOTYPES //////////////////////////// 
+extern void TouchHardwareInit(void *initValues);
+extern void TouchStoreCalibration(void);
+extern void TouchLoadCalibration(void); 
+extern void TouchCheckForCalibration(void); 
+]]>
+            </Section>
+            <Section Name="Main">
+<![CDATA[
+//SPI1 shares pins with the PMP CS. Not recommended for use 
+
+void SPI1TouchInit(NVM_WRITE_FUNC pWriteFunc, NVM_READ_FUNC pReadFunc, NVM_SECTORERASE_FUNC pSectorErase, void *initValues) {
+    extern NVM_READ_FUNC pCalDataRead; // function pointer to data read 
+    extern NVM_WRITE_FUNC pCalDataWrite; // function pointer to data write
+    extern NVM_SECTORERASE_FUNC pCalDataSectorErase; // function pointer to data sector erase 
+    extern const WORD mchpTouchScreenVersion;
+
+    TouchHardwareInit(initValues);
+
+    // assign the addresses of the callback functions
+    // if these are NULL, the TouchLoadCalibration()
+    // and TouchStoreCalibration() will skip the actual
+    // read and/or writes.
+    pCalDataWrite = pWriteFunc;
+    pCalDataSectorErase = pSectorErase;
+    pCalDataRead = pReadFunc;
+
+    // check if version of library is correct
+    // MCHP_TOUCHSCREEN_RESISTIVE_VERSION should be defined in the hardware profile.
+    int CalStore = pCalDataRead(ADDRESS_RESISTIVE_TOUCH_VERSION);
+    if (CalStore != mchpTouchScreenVersion) {
+        SPI1CONbits.ON = 0;
+        // not calibrated yet, perform the calibration 
+        TouchCalibration();
+        SPI1CONbits.ON = 1;
+        // store the calibration data
+        TouchStoreCalibration();
+    } else {
+        SPI1CONbits.ON = 0;
+        // check if user wants to run calibration
+        TouchCheckForCalibration();
+    }
+
+    // load the calibration values, to check if the store worked
+    TouchLoadCalibration();
+    SPI1CONbits.ON = 0;
+}
+]]>
+            </Section>
+        </MLaLegacy>
+        <MLA>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#include <plib.h>
+
+#define SYS_CLK_FrequencySystemGet()        (80000000ul)
+#define SYS_CLK_FrequencyPeripheralGet()    (SYS_CLK_FrequencySystemGet() / 2)
+#define SYS_CLK_FrequencyInstructionGet()   (SYS_CLK_FrequencySystemGet() / 2)
+#define FCY                                 (SYS_CLK_FrequencyInstructionGet())
+#define PIC32_SK
+#define PIC32_USB_SK
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    AD1PCFG = 0x0000FFFF;        // all ADC channel set to digital except the ADC pins for Resistive Touch Panel
+    INTEnableSystemMultiVectoredInt();
+    SYSTEMConfigPerformance(GetSystemClock());
+    mOSCSetPBDIV(OSC_PB_DIV_1);	 // Use 1:1 CPU Core:Peripheral clocks
+    DRV_GFX_Initialize();
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="5">
+<![CDATA[
+    SYSTEM_TickInit();           // Initialize system tick counter
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="6" Option="chkGOL">
+<![CDATA[
+#if defined(USE_TOUCHSCREEN_RESISTIVE)
+    TickTouchInit();             // Initialize the timer that manages the tick counter for Touch panel
+    TouchInit(NVMWrite, NVMRead, NVMSectorErase, NULL); // initialize the components for Resistive Touch Screen
+#endif
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="7" Option="chkGOL">
+<![CDATA[
+    HardwareButtonInit();        // Initialize the hardware buttons
+]]>
+            </Section>
+        </MLA>
+        <Harmony>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+// CLOCK
+#define SYS_CLK_CONFIG_PRIMARY_XTAL                     20000000UL
+#define SYS_CLK_CONFIG_SECONDARY_XTAL                   2000000UL
+#define SYS_CLK_CONFIGBIT_USBPLL_ENABLE                 true
+#define SYS_CLK_CONFIGBIT_USBPLL_DIVISOR                2
+#define SYS_CLK_CONFIG_SYSPLL_INP_DIVISOR               2
+#define SYS_CLK_CONFIG_EXTERNAL_CLOCK                   40000000UL
+#define SYS_CLK_CONFIG_FREQ_ERROR_LIMIT                 10
+#define SYS_CLK_CONFIG_REFCLK_EDIT_SYSPLL               true
+#define SYS_CLOCK_USB_CLOCK                             48000000
+
+#define SYS_DEVCON_SYSTEM_CLOCK        80000000L // System clock frequency 
+#define SYS_DEVCON_PIC32MX_MAX_PB_FREQ 80000000L // Maximum peripheral bus frequency
+]]>
+            </Section>
+            <Section Name="SystemSettings" Order="0">
+<![CDATA[
+/* Structure to hold the object handles for the modules in the system. */
+SYSTEM_OBJECTS sysObj;
+SYS_MODULE_OBJ gPmpDriverObject;
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+   /////////////////////////////////////////////////////////////////////////////
+   // ADC Explorer 16 Development Board Errata (work around 2)
+   // RB15 should be output
+   /////////////////////////////////////////////////////////////////////////////
+    LATBbits.LATB15 = 0;
+    TRISBbits.TRISB15 = 0;
+    SYS_DEVCON_INIT    devInitConfig;
+
+    // Populate the devcon initialization structure
+    devInitConfig.moduleInit.value     = SYS_MODULE_POWER_RUN_FULL;
+
+    sysObj.sysDevcon = SYS_DEVCON_Initialize (SYS_DEVCON_INDEX_0, (SYS_MODULE_INIT*)&devInitConfig);
+    SYS_DEVCON_PerformanceConfig( SYS_DEVCON_SYSTEM_CLOCK );
+
+    /* Initializethe interrupt system  */
+    SYS_INT_Initialize();
+
+    /* Initialize Drivers */
+    DRV_PMP_Initialize (DRV_PMP_INDEX_0, (SYS_MODULE_INIT *)&pmpInit);
+
+    // System module initialization
+    sysObj.gfxObject0 = GFX_Initialize(GFX_INDEX_0, (SYS_MODULE_INIT *) &gfxInit0);
+     
+    /* Initialize the global interrupts */
+    SYS_INT_Enable();
+   
+    /* Initialize the Application */
+    APP_Initialize ( );
+
+]]>
+            </Section>
+            <Section Name="InitializeObjects">
+<![CDATA[
+// PMP init configuration structure
+DRV_PMP_INIT     pmpInit = {
+    .polarity.addressLatchPolarity = PMP_POLARITY_ACTIVE_HIGH,
+    .polarity.rwStrobePolarity = PMP_POLARITY_ACTIVE_LOW,
+    .polarity.writeEnableStrobePolarity = PMP_POLARITY_ACTIVE_LOW,
+    .polarity.chipselect1Polarity = PMP_POLARITY_ACTIVE_HIGH,
+    .polarity.chipselect2Polarity = PMP_POLARITY_ACTIVE_LOW,
+    .ports.readWriteStrobe = PORT_ENABLE,
+    .ports.writeEnableStrobe = PORT_ENABLE,
+    .moduleInit.value = SYS_MODULE_POWER_RUN_FULL,
+    .pmpID            = PMP_ID_0,
+    .stopInIdle       = false,
+    .muxMode          = PMP_MUX_NONE
+};
+]]>
+            </Section>
+        </Harmony>
+        <Section Name="HardwareProfile" Option="chkTCPIP">
+<![CDATA[
+// -----------------------------------------------
+// External National DP83848 PHY configuration
+// -----------------------------------------------
+#define	PHY_RMII              // external PHY runs in RMII mode
+#define	PHY_CONFIG_ALTERNATE  // alternate configuration used
+#define	PHY_ADDRESS    0x1    // the address of the National DP83848 PHY
+]]>
+        </Section>
+    </Code>
+</Board>

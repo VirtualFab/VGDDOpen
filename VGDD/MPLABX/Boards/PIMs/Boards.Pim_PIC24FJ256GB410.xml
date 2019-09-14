@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="PIM_PIC24FJ256GB410"
+       Description="PIM PIC24FJ256GB410"
+       Type="PIM"
+       Compiler="C30"
+       Img="PIM_PIC24FJ128GA310.png"
+       PartNumber="DM240001"
+       URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=MA240029">
+    <Note>
+
+    </Note>
+    <CompatibleDevBoard ID="EXPLORER16" />
+    <CompatibleDisplay ID="*" />
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="Yes" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <Project>
+    </Project>
+    <Code>
+        <MLA>
+            <Section Name="ConfigBits" Option="!chkMCC">
+<![CDATA[
+// *****************************************************************************
+// Configuration bits
+// *****************************************************************************
+// PIC24FJ256GB410 Configuration Bit Settings
+// FSEC
+#pragma config BWRP = OFF               // Boot Segment Write Protect (Boot segment may be written)
+#pragma config BSS = OFF                // Boot segment Protect (No Protection (other than BWRP))
+#pragma config BSEN = OFF               // Boot Segment Control bit (No Boot Segment)
+#pragma config GWRP = OFF               // General Segment Write Protect (Writes to program memory are allowed)
+#pragma config GSS = OFF                // General Segment Code Protect (Code protection is disabled)
+#pragma config CWRP = OFF               // Configuration Segment Program Write Protection bit (Configuration Segment may be written)
+#pragma config CSS = DIS                // Configuration Segment Code Protection Level bits (No Protection (other than CWRP))
+#pragma config AIVTDIS = DISABLE        // Alternate Interrupt Vector Table Disable bit (Disable AIVT)
+
+// FBSLIM
+// BSLIM = No Setting
+
+// FOSCSEL
+#pragma config FNOSC = PRIPLL           // Oscillator Select (Primary Oscillator with PLL module (XTPLL, HSPLL, ECPLL))
+#pragma config PLLMODE = PLL96DIV2      // Frequency Multiplier Select Bits (96 MHz PLL. Oscillator input is divided by 2 (8 MHz input).)
+#pragma config IESO = OFF               // Internal External Switchover (Start up with user-selected oscillator source)
+
+// FOSC
+#pragma config POSCMOD = XT             // Primary Oscillator Select (XT oscillator mode selected)
+//#pragma config OSCIOFNC = OFF           // OSCO Pin Configuration (OSCO/CLKO/RC15 functions as CLKO (FOSC/2))
+#pragma config SOSCSEL = OFF            // SOSC Power Selection Configuration bits (Digital (SCLKI) mode)
+#pragma config PLLSS = PLL_PRI          // PLL Secondary Selection Configuration bit (PLL is fed by the Primary oscillator)
+#pragma config IOL1WAY = OFF            // IOLOCK One-Way Set Enable (The IOLOCK bit can be set and cleared using the unlock sequence)
+#pragma config FCKSM = CSDCMD           // Clock Switching and Monitor Selection (Clock switching and Fail-Safe Clock Monitor are disabled)
+
+// FWDT
+#pragma config WDTPS = PS8              // Watchdog Timer Postscaler (1:8)
+#pragma config FWPSA = PR32             // WDT Prescaler (Prescaler ratio of 1:32)
+#pragma config FWDTEN = OFF             // Watchdog Timer Enable (Watchdog Timer is disabled)
+#pragma config WINDIS = OFF             // Windowed Watchdog Timer Disable bit (Standard Watchdog Timer enabled (Windowed-mode is disabled))
+#pragma config WDTWIN = PS75_0          // Watchdog Window Select bits (Watch Dog Timer Window Width is 75 percent)
+#pragma config WDTCMX = LPRC            // WDT Clock Source Select bits (WDT always uses LPRC as its clock source)
+#pragma config WDTCLK = SYSCLK          // WDT Clock Source Select bits (WDT uses system clock when active, LPRC while in Sleep mode)
+
+//// FPOR
+//#pragma config BOREN = ON               // Brown-out Reset Enable bits (Brown-out Reset Enable)
+//#pragma config LPCFG = ON               // Low power regulator control (Enabled)
+
+// FPOR
+#pragma config BOREN = OFF              // Brown-out Reset Enable bits (Brown-out Reset Disabled)
+#pragma config LPCFG = OFF              // Low power regulator control (Disabled)
+
+
+// FICD
+#pragma config ICS = PGx2               // Emulator Pin Placement Select bits (Emulator functions are shared with PGEC2/PGED2)
+#pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
+#pragma config BTSWP = OFF              // BOOTSWP Instruction Enable bit (BOOTSWP instruction is disabled)
+
+// FDS
+#pragma config DSWDTPS = DSWDTPS03      // Deep Sleep Watchdog Timer Postscale Select bits (1:256 (8.3 ms))
+#pragma config DSWDTOSC = SOSC          // DSWDT Reference Clock Select bit (DSWDT uses Secondary Oscillator (SOSC))
+#pragma config DSBOREN = OFF            // Deep Sleep Zero-Power BOR Enable bit (Deep Sleep BOR disabled in Deep Sleep)
+#pragma config DSWDTEN = OFF            // Deep Sleep Watchdog Timer Enable bit (DSWDT disabled)
+
+// FDEVOPT1
+#pragma config ALTCMPI = DISABLE        // Alternate Comparator Input Enable bit (C1INC, C2INC, and C3INC are on their standard pin locations)
+#pragma config TMPRPIN = ON             // Tamper Pin Enable bit (TMPRN pin function is enabled)
+#pragma config TMPRWIPE = ON            // RAM Based Entryption Key Wipe Enable bit (Cryptographic Engine Key RAM is erased when a TMPR pin event is detected)
+#pragma config ALTVREF = ALTVREFDIS     // Alternate VREF location Enable (VREF is on a default pin (VREF+ on RA10 and VREF- on RA9))
+]]>
+            </Section>
+            <Section Name="HardwareProfileHead" Order="9">
+                <![CDATA[
+#ifdef USE_GFX_PMP
+#undef USE_GFX_PMP
+#endif
+#define USE_GFX_EPMP
+#define EPMPCS1_ADDRESS_LINE_COUNT  (18)    // use 18 address lines (PMA[0:17]
+#define EPMPCS1_DATA_SETUP_TIME     (0)	    //
+#define EPMPCS1_DATA_WAIT_TIME		(10)    //
+#define EPMPCS1_DATA_HOLD_TIME		(0)     //
+
+#define EPMPCS1_CS_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_WR_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_RD_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_BE_POLARITY                 GFX_ACTIVE_LOW
+
+#define EPMPCS1_ACCESS_TIME                 (10)		// chip select 1 Alternate Master access time.
+
+
+/*********************************************************************
+* IOS FOR THE RESISTIVE TOUCHSCREEN
+*********************************************************************/
+// definitions for resistive touch screen
+// ADC Input Channel Selector
+#define RESISTIVETOUCH_ADC_INPUT_SEL        AD1CHS
+// ADC Sample Start
+#define RESISTIVETOUCH_ADC_START            AD1CON1bits.SAMP
+// ADC Status
+#define RESISTIVETOUCH_ADC_DONE             AD1CON1bits.DONE
+
+// resistive touch screen analog pins
+#define RESISTIVETOUCH_ADC_XPOS             16
+#define RESISTIVETOUCH_ADC_YPOS             18
+
+#define RESISTIVETOUCH_ADPCFG_XPOS          ANSCbits.ANSC4
+#define RESISTIVETOUCH_ADPCFG_YPOS          ANSGbits.ANSG7
+
+// X port definitions
+#define RESISTIVETOUCH_XP_Signal            LATCbits.LATC4
+#define RESISTIVETOUCH_XM_Signal            LATAbits.LATA2
+#define RESISTIVETOUCH_XP_Direction         TRISCbits.TRISC4
+#define RESISTIVETOUCH_XM_Direction         TRISAbits.TRISA2
+
+// Y port definitions
+#define RESISTIVETOUCH_YP_Signal            LATGbits.LATG7
+#define RESISTIVETOUCH_YM_Signal            LATAbits.LATA1
+#define RESISTIVETOUCH_YP_Direction         TRISGbits.TRISG7
+#define RESISTIVETOUCH_YM_Direction         TRISAbits.TRISA1
+
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    // set pins with analog features to be digital
+    ANSAbits.ANSA7  = 0;        // display reset pin
+    ANSAbits.ANSA6  = 0;        // display RS pin
+    ANSDbits.ANSD11 = 0;        // display CS pin
+
+    ANSEbits.ANSE0  = 0;        // PMP Data (PMD0) 
+    ANSEbits.ANSE1  = 0;        // PMP Data (PMD1)
+    ANSEbits.ANSE2  = 0;        // PMP Data (PMD2)
+    ANSEbits.ANSE3  = 0;        // PMP Data (PMD3)
+    ANSEbits.ANSE4  = 0;        // PMP Data (PMD4)
+    ANSEbits.ANSE5  = 0;        // PMP Data (PMD5)
+    ANSEbits.ANSE6  = 0;        // PMP Data (PMD6)
+    ANSEbits.ANSE7  = 0;        // PMP Data (PMD7)
+
+    ANSGbits.ANSG0  = 0;        // PMP Data (PMD8)
+    ANSGbits.ANSG1  = 0;        // PMP Data (PMD9)
+    ANSFbits.ANSF1  = 0;        // PMP Data (PMD10)
+    ANSFbits.ANSF0  = 0;        // PMP Data (PMD11)
+    ANSDbits.ANSD12 = 0;        // PMP Data (PMD12)
+    ANSDbits.ANSD13 = 0;        // PMP Data (PMD13)
+    ANSDbits.ANSD6  = 0;        // PMP Data (PMD14)
+    ANSDbits.ANSD7  = 0;        // PMP Data (PMD15)
+
+    ANSDbits.ANSD4  = 0;        // PMP Write
+    ANSDbits.ANSD5  = 0;        // PMP Read
+
+    ANSBbits.ANSB4  = 0;        // resistive touch digital IO
+    ANSBbits.ANSB3  = 0;        // resistive touch digital IO
+
+    ANSBbits.ANSB11  = 0;
+    ANSBbits.ANSB10  = 0;
+
+    TRISDbits.TRISD13 = 1;
+]]>
+            </Section>
+        </MLA>
+    </Code>
+</Board>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VGDDCodeTemplate>
+	<ControlsTemplates>
+		<Indicator>
+			<Header>
+				#define ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]   [NEXT_NUMID]
+			</Header>
+			<CodeHeadComment>
+				#define USE_INDICATOR	// Enable Indicator Object.
+			</CodeHeadComment>
+			<CodeHead>
+			</CodeHead>
+			<Constructor>
+				INDICATOR *p[CONTROLID_NOINDEX][CONTROLID_INDEX];
+			</Constructor>
+			<Code>
+				p[CONTROLID_NOINDEX][CONTROLID_INDEX] = IndCreate(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX],[LEFT],[TOP],[RIGHT],[BOTTOM],[STATE],[VALUE],[STYLE],[COLOUR],(XCHAR*)[CONTROLID]_Text,GOLScheme_[SCHEME]);
+			</Code>
+			<State>
+				<Enabled True="IND_DRAW" False="IND_DRAW|IND_DISABLED" />
+				<Visible True="IND_DRAW" False="IND_HIDE" />
+				<TextAlign Left="IND_DRAW" Right="IND_RIGHT_ALIGN" Center="IND_CENTER_ALIGN" />
+				<Frame Enabled="IND_FRAME" Disabled="IND_DRAW" />
+			</State>
+			<Events>
+				<Event Name="IND_MSG_TOUCHSCREEN" Description="Indicator has been touched" />
+			</Events>
+			<Actions>
+				<Action Name="Use Widget ID" Code="ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]" />
+				<Action Name="Set Indicator Value" Code="IndSetVal((INDICATOR *)GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]),VALUE);[NEWLINE]" />
+				<Action Name="Set Indicator Colour" Code="IndSetColour((INDICATOR *)GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]),COLOUR);[NEWLINE]" />
+				<Action Name="Update Indicator" Code="SetState(GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), IND_DRAW);[NEWLINE]" />
+				<Action Name="Hide Indicator" Code="SetState(GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), IND_HIDE);[NEWLINE]" />
+				<Action Name="Show Indicator" Code="SetState(GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), IND_DRAW);[NEWLINE]" />
+			</Actions>
+		</Indicator>
+	</ControlsTemplates>
+</VGDDCodeTemplate>

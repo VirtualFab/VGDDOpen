@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="DISP_PCAP"
+	   Description="Microchip PIC32 PCAP integrated display"
+	   Type="Display"
+	   Img="Disp_PIC32_PCAP.png"
+	   Width="480"
+	   Height="272"
+       PartNumber="DM320015"
+	   URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=DM320015"
+	   DefaultOrientation="0">
+    <Note>
+        <![CDATA[
+This display uses MTCH6301 touch controller
+]]>
+    </Note>
+    <CompatibleExpansionBoard ID="*" />
+    <CompatibleOptions>
+        <Option>chkPCAP</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="Yes" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <AddGroup Name="PCAP" />
+    <Project>
+    </Project>
+    <Code>
+        <Section Name="HardwareProfileHead">
+            <![CDATA[
+#define GFX_USE_DISPLAY_PANEL_NHD_480272EF_ATXL_CTP
+#define USE_CAPACITIVE_CONTROLLER_MTCH6301 // activate support for capacitive controller MTCH6301 in TouchScreenCapacitive.c (original MCHP PIC32 PCAP Development Board)
+//#define USE_CAPACITIVE_CONTROLLER_FT5x06 // activate support for capacitive controller FT5306 in TouchScreenCapacitive.c (new designs)
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+            <![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+            
+#define DISP_HOR_RESOLUTION		480
+#define DISP_VER_RESOLUTION		272
+//#define DISP_DATA_WIDTH			24
+#define DISP_HOR_PULSE_WIDTH    41
+#define DISP_HOR_BACK_PORCH     2
+#define DISP_HOR_FRONT_PORCH    2
+#define DISP_VER_PULSE_WIDTH    10
+#define DISP_VER_BACK_PORCH     2
+#define DISP_VER_FRONT_PORCH    2
+#define GFX_LCD_TYPE GFX_LCD_TFT
+#define GFX_GCLK_DIVIDER 31
+
+#define BACKLIGHT_ENABLE_LEVEL      1
+#define BACKLIGHT_DISABLE_LEVEL     0
+
+]]>
+        </Section>
+        <Section Name="MainHeader">
+            <![CDATA[
+#include "TouchScreenCapacitive.h"
+]]>
+        </Section>
+    </Code>
+</Board>

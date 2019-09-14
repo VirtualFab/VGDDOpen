@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C6FE1B4-9112-4755-948C-1829DDD8A91C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>VGDDPlayerMonolitico</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>..\VGDDPlayer\VGDDPlayer.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DemoDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\DemoDebug\</OutputPath>
+    <DefineConstants>PlayerMonolitico</DefineConstants>
+    <DocumentationFile>VGDDPlayerMonolitico.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\VGDDPlayerMonolitico.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>PlayerMonolitico</DefineConstants>
+    <DocumentationFile>VGDDPlayerMonolitico.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>None</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDPlayerMonolitico.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <DefineDebug>false</DefineDebug>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DemoRelease|AnyCPU'">
+    <OutputPath>bin\DemoRelease\</OutputPath>
+    <DefineConstants>PlayerMonolitico</DefineConstants>
+    <DocumentationFile>VGDDPlayerMonolitico.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDPlayerMonolitico.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Programmi\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Programmi\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>PlayerMonolitico</DefineConstants>
+    <DocumentationFile>VGDDPlayerMonolitico.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDPlayerMonolitico.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseLite|AnyCPU'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\ReleaseLite\</OutputPath>
+    <DefineConstants>PlayerMonolitico</DefineConstants>
+    <DocumentationFile>VGDDPlayerMonolitico.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDPlayerMonolitico.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Sub Main</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\VGDDCommon\EvalFunctions.vb">
+      <Link>VGDDCommon\EvalFunctions.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\Evaluator.vb">
+      <Link>VGDDCommon\Evaluator.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\frmBitmapChooser.designer.vb">
+      <Link>VGDDCommon\frmBitmapChooser.designer.vb</Link>
+      <DependentUpon>frmBitmapChooser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDDCommon\frmBitmapChooser.vb">
+      <Link>VGDDCommon\frmBitmapChooser.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\VGDDCommon\Scheme.vb">
+      <Link>VGDDCommon\Scheme.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\Screen.vb">
+      <Link>VGDDCommon\Screen.vb</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\VGDDCommon\UIEditors\EditInteger\frmUIEditInteger.designer.vb">
+      <Link>VGDDCommon\frmUIEditInteger.designer.vb</Link>
+      <DependentUpon>frmUIEditInteger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDDCommon\UIEditors\EditInteger\frmUIEditInteger.vb">
+      <Link>VGDDCommon\frmUIEditInteger.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\VGDDCommon\UIEditors\EditInteger\NumericUpDownEx.vb">
+      <Link>VGDDCommon\NumericUpDownEx.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\UIEditors\EditInteger\UiEditInteger.vb">
+      <Link>VGDDCommon\UiEditInteger.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDComboUITypeEditor.vb">
+      <Link>VGDDCommon\VGDDComboUITypeEditor.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDCommon.vb">
+      <Link>VGDDCommon\VGDDCommon.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDCustom.designer.vb">
+      <Link>VGDDCommon\VGDDCustom.designer.vb</Link>
+      <DependentUpon>VGDDCustom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDCustom.vb">
+      <Link>VGDDCommon\VGDDCustom.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDEvents.vb">
+      <Link>VGDDCommon\VGDDEvents.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDFont.vb">
+      <Link>VGDDCommon\VGDDFont.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDImage.vb">
+      <Link>VGDDCommon\VGDDImage.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Arc.vb">
+      <Link>Microchip\Arc.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Button.vb">
+      <Link>Microchip\Button.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\CheckBox.vb">
+      <Link>Microchip\CheckBox.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Circle.vb">
+      <Link>Microchip\Circle.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\ComboBox.designer.vb">
+      <Link>Microchip\ComboBox.designer.vb</Link>
+      <DependentUpon>ComboBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\ComboBox.vb">
+      <Link>Microchip\ComboBox.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\EditBox.vb">
+      <Link>Microchip\EditBox.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Gradient.vb">
+      <Link>Microchip\Gradient.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\GroupBox.vb">
+      <Link>Microchip\GroupBox.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Line.vb">
+      <Link>Microchip\Line.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\ListBox.vb">
+      <Link>Microchip\ListBox.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Mal.vb">
+      <Link>Microchip\Mal.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Meter.vb">
+      <Link>Microchip\Meter.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\OutTextXY.vb">
+      <Link>Microchip\OutTextXY.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Picture.vb">
+      <Link>Microchip\Picture.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\ProgressBar.vb">
+      <Link>Microchip\ProgressBar.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\PutImage.vb">
+      <Link>Microchip\PutImage.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\RadioButton.vb">
+      <Link>Microchip\RadioButton.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Rectangle.vb">
+      <Link>Microchip\Rectangle.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\RoundDial.vb">
+      <Link>Microchip\RoundDial.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\SegDisplay.vb">
+      <Link>Microchip\SegDisplay.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Slider.vb">
+      <Link>Microchip\Slider.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\StaticText.vb">
+      <Link>Microchip\StaticText.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\TextEntry.vb">
+      <Link>Microchip\TextEntry.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VGDDWidget.vb">
+      <Link>Microchip\VGDDWidget.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\BarGraph.designer.vb">
+      <Link>Microchip\BarGraph.designer.vb</Link>
+      <DependentUpon>BarGraph.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\BarGraph.vb">
+      <Link>Microchip\BarGraph.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\Disp7Seg.designer.vb">
+      <Link>Microchip\Disp7Seg.designer.vb</Link>
+      <DependentUpon>Disp7Seg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\Disp7Seg.vb">
+      <Link>Microchip\Disp7Seg.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\Indicator.vb">
+      <Link>Microchip\Indicator.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\MsgBox.vb">
+      <Link>Microchip\MsgBox.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\StaticTextEx.vb">
+      <Link>Microchip\StaticTextEx.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\SuperGauge.designer.vb">
+      <Link>Microchip\SuperGauge.designer.vb</Link>
+      <DependentUpon>SuperGauge.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\SuperGauge.vb">
+      <Link>Microchip\SuperGauge.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\TextEntryEx.vb">
+      <Link>Microchip\TextEntryEx.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\VUMeter.designer.vb">
+      <Link>Microchip\VUMeter.designer.vb</Link>
+      <DependentUpon>VUMeter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\VirtualWidgets\VUMeter.vb">
+      <Link>Microchip\VUMeter.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\VGDDCommon\VGDDMicrochip\Window.vb">
+      <Link>Microchip\Window.vb</Link>
+    </Compile>
+    <Compile Include="..\VGDD\VGDDPlayerLib\frmLimited.designer.vb">
+      <Link>frmLimited.designer.vb</Link>
+      <DependentUpon>frmLimited.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDD\VGDDPlayerLib\frmLimited.vb">
+      <Link>frmLimited.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\VGDD\VGDDPlayerLib\frmPlayer.designer.vb">
+      <Link>frmPlayer.designer.vb</Link>
+      <DependentUpon>frmPlayer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\VGDD\VGDDPlayerLib\frmPlayer.vb">
+      <Link>frmPlayer.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\VGDD\VGDDPlayerLib\Player.vb">
+      <Link>Player.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="modMain.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\VGDDCommon\frmBitmapChooser.resx">
+      <Link>VGDDCommon\frmBitmapChooser.resx</Link>
+      <DependentUpon>frmBitmapChooser.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\VGDDCommon\UIEditors\EditInteger\frmUIEditInteger.resx">
+      <Link>VGDDCommon\frmUIEditInteger.resx</Link>
+      <DependentUpon>frmUIEditInteger.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\VGDDCommon\VGDDMicrochip\ComboBox.resx">
+      <Link>Microchip\ComboBox.resx</Link>
+      <DependentUpon>ComboBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\VGDD\VGDDPlayerLib\frmLimited.resx">
+      <Link>frmLimited.resx</Link>
+      <DependentUpon>frmLimited.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\VGDD\VGDDPlayerLib\frmPlayer.resx">
+      <Link>frmPlayer.resx</Link>
+      <DependentUpon>frmPlayer.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\brush.png">
+      <Link>Resources\brush.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\Certificate.png">
+      <Link>Resources\Certificate.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\checkmark.png">
+      <Link>Resources\checkmark.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\download.png">
+      <Link>Resources\download.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\flag.png">
+      <Link>Resources\flag.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\help.png">
+      <Link>Resources\help.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\images.png">
+      <Link>Resources\images.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\left.png">
+      <Link>Resources\left.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\movie.png">
+      <Link>Resources\movie.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\Pencil and ruler.png">
+      <Link>Resources\Pencil and ruler.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\play.png">
+      <Link>Resources\play.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\refresh.png">
+      <Link>Resources\refresh.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\right.png">
+      <Link>Resources\right.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\save.png">
+      <Link>Resources\save.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\sendmail.png">
+      <Link>Resources\sendmail.png</Link>
+    </Content>
+    <Content Include="..\VGDD\VGDDPlayerLib\Resources\tool.png">
+      <Link>Resources\tool.png</Link>
+    </Content>
+    <Content Include="..\VGDDPlayer\VGDDPlayer.ico">
+      <Link>VGDDPlayer.ico</Link>
+    </Content>
+    <EmbeddedResource Include="..\VirtualWidgets\bin\VirtualWidgets.dll">
+      <Link>Resources\VirtualWidgets.dll</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="VirtualWidgets\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>if /I "$(ConfigurationName)" == "ReleaseNOOOO" Eazfuscator.NET.exe "$(TargetPath)" --msbuild-project-path "$(ProjectPath)" --msbuild-project-configuration "$(ConfigurationName)" --msbuild-project-platform "$(PlatformName)" --msbuild-solution-path "$(SolutionPath)" -n --newline-flush -v 3.4</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="GFX_S1D13517"
+       Description="GFX PICtail Plus Epson S1D13517 Board"
+       Type="Expansion"
+       Class="GFX_PICTAIL_V3"
+       Img="Exp_PICtailPlusS1D13517.png"
+       PartNumber="AC164127-7"
+       URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=AC164127-7">
+    <Note>
+
+    </Note>
+    <CompatibleDisplay ID="POWERTIP_4_3" />
+    <!--<CompatibleDisplay ID="TRULY_3_2" />-->
+    <CompatibleDisplay ID="TRULY_7" />
+    <CompatibleDisplay ID="NHD_320240MF" />
+    <CompatibleOptions>
+        <Option>chkUSBhost</Option>
+        <Option>chkPutImageFromSD</Option>
+        <Option>chkPMP8</Option>
+        <Option>chkPMP16</Option>
+        <Option>chkFlashProgrammer</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <AddGroup Name="SPI2Flash" Condition="DEVBOARDID != PIC32_ETH_SK" />
+    <AddGroup Name="SPI1Flash" Condition="DEVBOARDID = PIC32_ETH_SK" />
+    <Project>
+        <MLALegacy>
+            <ClearFolder Name="Source Files/Display Driver" />
+            <ClearFolder Name="Header Files/Display Driver" />
+            <Folder Name="Header Files/Display Driver">
+                <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+                <AddFile>$MAL/Include/Graphics/S1D13517.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Display Driver">
+                <AddFile>$MAL/Graphics/Drivers/S1D13517.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Common">
+                <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+            </Folder>
+        </MLALegacy>
+        <MLA>
+            <ExcludeAllFilesInFolder Folder="Source Files/framework/driver/gfx" />
+            <ExcludeAllFilesInFolder Folder="Header Files/framework/driver/gfx" />
+            <Folder Name="Header Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/drv_gfx_display.h</AddFile>
+                <AddFile>$MAL/framework/driver/gfx/gfx_s1d13517/drv_gfx_s1d13517.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/gfx_s1d13517/src/drv_gfx_s1d13517.c</AddFile>
+            </Folder>
+        </MLA>
+        <Harmony>
+            <ExcludeAllFilesInFolder Folder="Source Files/framework/driver/gfx" />
+            <ExcludeAllFilesInFolder Folder="Header Files/framework/driver/gfx" />
+            <Folder Name="Header Files/framework/driver">
+                <!--<AddFile>$MAL/framework/driver/gfx/drv_gfx_display.h</AddFile>-->
+                <AddFile>$MAL/framework/driver/gfx/controller/s1d13517/drv_gfx_s1d13517.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver">
+                <AddFile>$MAL/framework/driver/gfx/controller/s1d13517/src/drv_gfx_s1d13517.c</AddFile>
+                <AddFile>$MAL/framework/driver/pmp/src/dynamic/drv_pmp_dynamic.c</AddFile>
+                <!--<AddFile>$MAL/framework/driver/tmr/src/dynamic/drv_tmr_dynamic.c</AddFile>-->
+            </Folder>
+        </Harmony>
+    </Project>
+    <Code>
+        <Section Name="HardwareProfileHead">
+<![CDATA[
+#define GFX_PICTAIL_V3E
+#define GFX_PICTAIL_V3
+#define USE_GFX_PMP
+#define GFX_USE_DISPLAY_CONTROLLER_S1D13517
+#define TCON_MODULE NULL
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead" Option="chkPMP16">
+<![CDATA[
+#define USE_16BIT_PMP
+//VGDD#warning "Set JP2 jumper on PicTail board in ON (closed) position (default) for PMP16 functionality"
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead" Option="chkPMP8">
+<![CDATA[
+#define USE_8BIT_PMP
+//VGDD#warning "Set JP2 jumper on PicTail board in OFF (open) position for PMP8 functionality"
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+#define PMP_DATA_SETUP_TIME                (18)    
+#define PMP_DATA_WAIT_TIME                 (82)  // based on the minimum pulse width requirement of CS signal of SSD1926     
+#define PMP_DATA_HOLD_TIME                 (0)    
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="DEVBOARDID = EXPLORER16">
+<![CDATA[
+// ADC Input Channel Selector
+#if defined(__dsPIC33F__) || defined(__PIC24H__) || defined(__dsPIC33E__) || defined(__PIC24E__)
+    #define TOUCH_ADC_INPUT_SEL   AD1CHS0
+#else // all other supported devices
+    #define TOUCH_ADC_INPUT_SEL   AD1CHS
+#endif
+#define TOUCH_ADC_START  AD1CON1bits.SAMP // ADC Sample Start    
+#define TOUCH_ADC_DONE   AD1CON1bits.DONE // ADC Status            
+// ADC channel constants
+#if defined(__PIC24F__)
+    #define ADC_TEMP        4
+    #define ADC_POT         5
+
+    // ADC Port Control Bits
+    #if defined(__PIC24FJ256GB210__)
+        #define ADC_POT_PCFG    ANSBbits.ANSB5
+        #define ADPCFG_XPOS     ANSBbits.ANSB11
+        #define ADPCFG_YPOS     ANSBbits.ANSB10
+    #else
+        #define ADC_POT_PCFG    AD1PCFGbits.PCFG5
+        #define ADPCFG_XPOS     AD1PCFGbits.PCFG11
+        #define ADPCFG_YPOS     AD1PCFGbits.PCFG10
+    #endif
+    #define ADC_XPOS         11
+    #define ADC_YPOS         10
+    #define MYLAT_XNEG      LATBbits.LATB12
+    #define MYTRIS_XNEG     TRISBbits.TRISB12 
+    #define RESISTIVETOUCH_ANALOG  0
+    #define RESISTIVETOUCH_DIGITAL 1
+#elif defined(__PIC32MX__) 
+    // resistive touch X and Y voltage sensing
+    #define ADC_XPOS		 (0xB << _AD1CHS_CH0SA_POSITION) // ADC_CH0_POS_SAMPLEA_AN11
+    #define ADC_YPOS		 (0xA << _AD1CHS_CH0SA_POSITION) // ADC_CH0_POS_SAMPLEA_AN10
+
+    // Potentiometer and Temperature sensor
+    #define ADC_TEMP		 (0x4 << _AD1CHS_CH0SA_POSITION) // ADC_CH0_POS_SAMPLEA_AN4
+    #if !defined (PIC32_SK)
+        // potentiometer is not present in PIC32 Starter Kits
+        #define ADC_POT	     (0x5 << _AD1CHS_CH0SA_POSITION) // ADC_CH0_POS_SAMPLEA_AN5
+    #endif    
+           
+    // ADC Port Control Bits
+    #if !defined (PIC32_SK)
+        // potentiometer is not present in PIC32 Starter Kits
+        #define ADC_POT_PCFG AD1PCFGbits.PCFG5
+    #endif    
+				
+    #define ADPCFG_XPOS		 AD1PCFGbits.PCFG11
+    #define ADPCFG_YPOS		 AD1PCFGbits.PCFG10
+    #define RESISTIVETOUCH_ANALOG  0
+    #define RESISTIVETOUCH_DIGITAL 1
+#elif defined(__dsPIC33E__)
+    #define ADC_POT         5
+    #define ADC_XPOS        11
+    #define ADC_YPOS        10
+
+    // ADC Port Control Bits
+    #define ADC_POT_PCFG	ANSELBbits.ANSB5
+    #define ADPCFG_XPOS	    ANSELBbits.ANSB11
+    #define ADPCFG_YPOS	    ANSELBbits.ANSB10
+
+    #define MYLAT_XNEG      LATBbits.LATB12
+    #define MYTRIS_XNEG     TRISBbits.TRISB12 
+    #define RESISTIVETOUCH_ANALOG  1
+    #define RESISTIVETOUCH_DIGITAL 0
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &lt; 306, DEVBOARDID = EXPLORER16">
+<![CDATA[
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+#define LAT_XPOS		LATBbits.LATB11
+#define TRIS_XPOS		TRISBbits.TRISB11
+#if defined(_USB) && !defined (PIC32_SK)
+    #define LAT_XNEG		LATGbits.LATG15
+    #define TRIS_XNEG		TRISGbits.TRISG15
+#else  // other supported PIC 32 devices
+    #define LAT_XNEG		LATDbits.LATD9
+    #define TRIS_XNEG		TRISDbits.TRISD9
+#endif
+#define LAT_YPOS		LATBbits.LATB10
+#define TRIS_YPOS		TRISBbits.TRISB10
+#if defined (GFX_PICTAIL_V3E) && defined(PIC32_SK)
+    #define LAT_YNEG		LATBbits.LATB15
+    #define TRIS_YNEG		TRISBbits.TRISB15
+#else
+    #define LAT_YNEG		LATDbits.LATD8
+    #define TRIS_YNEG		TRISDbits.TRISD8
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &gt; 305, DEVBOARDID = EXPLORER16">
+<![CDATA[
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+#define ResistiveTouchScreen_XPlus_Drive_High()             LATBbits.LATB11   = 1
+#define ResistiveTouchScreen_XPlus_Drive_Low()              LATBbits.LATB11   = 0
+#define ResistiveTouchScreen_XPlus_Config_As_Input()        TRISBbits.TRISB11 = 1
+#define ResistiveTouchScreen_XPlus_Config_As_Output()       TRISBbits.TRISB11 = 0
+#if defined(_USB) && !defined (PIC32_SK)
+    #define ResistiveTouchScreen_XMinus_Drive_High()        LATGbits.LATG15   = 1   
+    #define ResistiveTouchScreen_XMinus_Drive_Low()         LATGbits.LATG15   = 0
+    #define ResistiveTouchScreen_XMinus_Config_As_Input()   TRISGbits.TRISG15 = 1  
+    #define ResistiveTouchScreen_XMinus_Config_As_Output()  TRISGbits.TRISG15 = 0
+#else  // other supported PIC 32 devices
+    #define ResistiveTouchScreen_XMinus_Drive_High()        LATDbits.LATD9   = 1   
+    #define ResistiveTouchScreen_XMinus_Drive_Low()         LATDbits.LATD9   = 0
+    #define ResistiveTouchScreen_XMinus_Config_As_Input()   TRISDbits.TRISD9 = 1  
+    #define ResistiveTouchScreen_XMinus_Config_As_Output()  TRISDbits.TRISD9 = 0
+#endif
+#define ResistiveTouchScreen_YPlus_Drive_High()             LATBbits.LATB10   = 1
+#define ResistiveTouchScreen_YPlus_Drive_Low()              LATBbits.LATB10   = 0
+#define ResistiveTouchScreen_YPlus_Config_As_Input()        TRISBbits.TRISB10 = 1
+#define ResistiveTouchScreen_YPlus_Config_As_Output()       TRISBbits.TRISB10 = 0
+#if defined (GFX_PICTAIL_V3E) && defined(PIC32_SK)
+    #define ResistiveTouchScreen_YMinus_Drive_High()        LATBbits.LATB15   = 1   
+    #define ResistiveTouchScreen_YMinus_Drive_Low()         LATBbits.LATB15   = 0
+    #define ResistiveTouchScreen_YMinus_Config_As_Input()   TRISBbits.TRISB15 = 1  
+    #define ResistiveTouchScreen_YMinus_Config_As_Output()  TRISBbits.TRISB15 = 0
+#else
+    #define ResistiveTouchScreen_YMinus_Drive_High()        LATDbits.LATD8    = 1   
+    #define ResistiveTouchScreen_YMinus_Drive_Low()         LATDbits.LATD8    = 0
+    #define ResistiveTouchScreen_YMinus_Config_As_Input()   TRISDbits.TRISD8  = 1  
+    #define ResistiveTouchScreen_YMinus_Config_As_Output()  TRISDbits.TRISD8  = 0
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="DEVBOARDID != EXPLORER16">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR THE RESISTIVE TOUCHSCREEN 
+// --------------------------------------------------------------------
+#define TOUCH_ADC_INPUT_SEL AD1CHS      
+#define TOUCH_ADC_START AD1CON1bits.SAMP 
+#define TOUCH_ADC_DONE  AD1CON1bits.DONE
+#define ADC_XPOS        (0xB << _AD1CHS_CH0SA_POSITION) // ADC_CH0_POS_SAMPLEA_AN11
+#define ADC_YPOS        (0xA << _AD1CHS_CH0SA_POSITION) // ADC_CH0_POS_SAMPLEA_AN10
+#define ADC_TEMP        (0x4 << _AD1CHS_CH0SA_POSITION) // ADC_CH0_POS_SAMPLEA_AN4
+#define ADPCFG_XPOS	    AD1PCFGbits.PCFG11
+#define ADPCFG_YPOS	    AD1PCFGbits.PCFG10
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &lt; 306, DEVBOARDID != EXPLORER16">
+<![CDATA[
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+#define LAT_XPOS		LATBbits.LATB11
+#define TRIS_XPOS		TRISBbits.TRISB11
+#define LAT_XNEG		LATDbits.LATD9
+#define TRIS_XNEG		TRISDbits.TRISD9
+#define LAT_YPOS		LATBbits.LATB10
+#define TRIS_YPOS		TRISBbits.TRISB10
+#define LAT_YNEG		LATDbits.LATD8
+#define TRIS_YNEG		TRISDbits.TRISD8
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &gt; 305, DEVBOARDID != EXPLORER16">
+<![CDATA[
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+#define ResistiveTouchScreen_XPlus_Config_As_Input() (TRISBbits.TRISB11 = 1)
+#define ResistiveTouchScreen_XPlus_Config_As_Output() (TRISBbits.TRISB11 = 0)
+#define ResistiveTouchScreen_YPlus_Config_As_Input() (TRISBbits.TRISB10 = 1)
+#define ResistiveTouchScreen_YPlus_Config_As_Output() (TRISBbits.TRISB10 = 0)
+#define ResistiveTouchScreen_XPlus_Drive_High() (LATBbits.LATB11 = 1)
+#define ResistiveTouchScreen_YPlus_Drive_High() (LATBbits.LATB10 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Input() (TRISDbits.TRISD9 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Output() (TRISDbits.TRISD9 = 0)
+#define ResistiveTouchScreen_XMinus_Drive_Low() (LATDbits.LATD9 = 0)
+#if defined (GFX_PICTAIL_V3E) && defined(PIC32_SK)
+#define ResistiveTouchScreen_YMinus_Drive_High()        LATBbits.LATB15   = 1   
+#define ResistiveTouchScreen_YMinus_Drive_Low()         LATBbits.LATB15   = 0
+#define ResistiveTouchScreen_YMinus_Config_As_Input()   TRISBbits.TRISB15 = 1  
+#define ResistiveTouchScreen_YMinus_Config_As_Output()  TRISBbits.TRISB15 = 0
+#else
+#define ResistiveTouchScreen_YMinus_Drive_High()        LATDbits.LATD8    = 1   
+#define ResistiveTouchScreen_YMinus_Drive_Low()         LATDbits.LATD8    = 0
+#define ResistiveTouchScreen_YMinus_Config_As_Input()   TRISDbits.TRISD8  = 1  
+#define ResistiveTouchScreen_YMinus_Config_As_Output()  TRISDbits.TRISD8  = 0
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkSPIFlash">
+<![CDATA[
+
+// Chip Select, SCLK, SDI and SDO signals used 
+#if defined(__dsPIC33FJ128GP804__) || defined(__PIC24HJ128GP504__)
+    #define SST25_CS_TRIS   TRISAbits.TRISA8
+    #define SST25_CS_LAT    LATAbits.LATA8
+    #define SST25_SCK_TRIS  TRISCbits.TRISC2
+    #define SST25_SDO_TRIS  TRISCbits.TRISC0
+    #define SST25_SDI_TRIS  TRISCbits.TRISC1
+#else
+    #define SST25_CS_TRIS   TRISDbits.TRISD1
+    #define SST25_CS_LAT    LATDbits.LATD1
+    #define SST25_SCK_TRIS  TRISGbits.TRISG6
+    #define SST25_SDO_TRIS  TRISGbits.TRISG8
+    #define SST25_SDI_TRIS  TRISGbits.TRISG7
+    #if defined (__dsPIC33E__) || defined(__PIC24E__)
+        #define SST25_SCK_LAT  	LATGbits.LATG6
+	    #define SST25_SCK_ANS   ANSELGbits.ANSG6
+	    #define SST25_SDO_ANS   ANSELGbits.ANSG8
+	    #define SST25_SDO_LAT  	LATGbits.LATG8
+	    #define SST25_SDI_LAT  	LATGbits.LATG7  
+	    #define SST25_SDI_ANS   ANSELGbits.ANSG7       		
+    #else            
+        #define SST25_SDI_ANS   ANSGbits.ANSG7
+    #endif
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" >
+<![CDATA[      
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE
+// --------------------------------------------------------------------
+
+#if defined(__dsPIC33FJ128GP804__) || defined(__PIC24HJ128GP504__)
+// When using the supported dsPIC and PIC24H devices
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISAbits.TRISA4 = 0    
+#define DisplayResetEnable()        LATAbits.LATA4 = 0
+#define DisplayResetDisable()       LATAbits.LATA4 = 1
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISAbits.TRISA1 = 0
+#define DisplaySetCommand()         LATAbits.LATA1 = 0
+#define DisplaySetData()            LATAbits.LATA1 = 1
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISBbits.TRISB15 = 0             
+#define DisplayEnable()             LATBbits.LATB15 = 0
+#define DisplayDisable()            LATBbits.LATB15 = 1
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()       
+#define DisplayFlashEnable()       
+#define DisplayFlashDisable()      
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()       
+#define DisplayPowerOn()           
+#define DisplayPowerOff()          
+
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()      
+#define DisplayBacklightOn()        
+#define DisplayBacklightOff()          
+
+
+#elif defined (__PIC32MX__)
+// When using the supported PIC32 devices
+
+/********
+ * PIC32 will use the SET and CLR SFRs for the I/O.
+ * These are atomic settings that are recommended when
+ * modifying SFRs
+ ********/
+#if defined(__32MX250F128D__)   
+
+#undef USE_8BIT_PMP      //no PMP selection on MX1xx/2xx devices, always in 8bit mode
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISACLR = _TRISA_TRISA4_MASK    
+#define DisplayResetEnable()        LATACLR = _LATA_LATA4_MASK
+#define DisplayResetDisable()       LATASET = _LATA_LATA4_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISBCLR = _TRISB_TRISB14_MASK
+#define DisplaySetCommand()         LATBCLR = _LATB_LATB14_MASK
+#define DisplaySetData()            LATBSET = _LATB_LATB14_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISBCLR = _TRISB_TRISB15_MASK             
+#define DisplayEnable()             LATBCLR = _LATB_LATB15_MASK
+#define DisplayDisable()            LATBSET = _LATB_LATB15_MASK
+
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()      
+#define DisplayBacklightOn()        
+#define DisplayBacklightOff()       
+#else
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISCCLR = _TRISC_TRISC1_MASK    
+#define DisplayResetEnable()        LATCCLR = _LATC_LATC1_MASK
+#define DisplayResetDisable()       LATCSET = _LATC_LATC1_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISCCLR = _TRISC_TRISC2_MASK
+#define DisplaySetCommand()         LATCCLR = _LATC_LATC2_MASK
+#define DisplaySetData()            LATCSET = _LATC_LATC2_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISDCLR = _TRISD_TRISD10_MASK
+#define DisplayEnable()             LATDCLR = _LATD_LATD10_MASK
+#define DisplayDisable()            LATDSET = _LATD_LATD10_MASK
+
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)  
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)
+#endif
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()          
+#define DisplayFlashEnable()        
+#define DisplayFlashDisable()       
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()        
+#define DisplayPowerOn()            
+#define DisplayPowerOff()               
+
+#elif defined (__PIC24F__) || defined (__dsPIC33E__) || defined (__PIC24E__)
+/* When using the supported PIC24F devices
+    PIC24FJ128GA010
+    PIC24FJ256GA110
+    PIC24FJ256GB110
+    PIC24FJ256GB210
+   NOTE: PIC24FJ256DA210 is not on the list since
+         this part has a built in display controller
+         and it directly interfaces to the display 
+         panel.
+ */
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISCbits.TRISC1 = 0    
+#define DisplayResetEnable()        LATCbits.LATC1 = 0
+#define DisplayResetDisable()       LATCbits.LATC1 = 1
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISCbits.TRISC2 = 0
+#define DisplaySetCommand()         LATCbits.LATC2 = 0
+#define DisplaySetData()            LATCbits.LATC2 = 1
+
+/*****
+ * The MA330025-2 and MA240025-2 PIMs default to use RK12 for the 
+ * pin 70 of the 100 pin PIM header.  
+ *****/
+#if defined (__dsPIC33EP512MU814__) || defined (__PIC24EP512GU814__)
+// Definitions for CS pin
+#define DisplayConfig()             TRISKbits.TRISK12 = 0             
+#define DisplayEnable()             LATKbits.LATK12 = 0
+#define DisplayDisable()            LATKbits.LATK12 = 1
+#else
+// Definitions for CS pin
+#define DisplayConfig()             TRISDbits.TRISD10 = 0             
+#define DisplayEnable()             LATDbits.LATD10 = 0
+#define DisplayDisable()            LATDbits.LATD10 = 1
+#endif        
+
+// Definitions for FLASH CS pin
+#define DisplayFlashConfig()         
+#define DisplayFlashEnable()        
+#define DisplayFlashDisable()       
+
+// Definitions for POWER ON pin
+#define DisplayPowerConfig()        
+#define DisplayPowerOn()            
+#define DisplayPowerOff()           
+
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)  
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)   
+
+#else
+
+#error "Selected PIC Device is not supported"
+
+#endif
+ 
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkSPIFlash" Condition="DEVBOARDID != PIC32_ETH_SK">
+<![CDATA[
+//VGDD#warning "Set jumpers on PicTail board on SPI2 position (lower, default) for correct SPI functionality"
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkSPIFlash" Condition="DEVBOARDID = PIC32_ETH_SK">
+<![CDATA[
+//VGDD#warning "Set jumpers on PicTail board on SPI1 position (upper) for correct SPI functionality"
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkSPIFlash" Condition="DEVBOARDID = PIC32_ETH_SK">
+<![CDATA[
+// --------------------------------------------------------------------
+// SPI Flash Memory on GFXV3 Pictail Boards (SPI1)
+// --------------------------------------------------------------------
+// Set up the signals used to communicate to the SPI Flash device 
+
+// define the SPI channel to be used
+#define SST25_SPI_CHANNEL 1
+
+/* Define all the SPI channels that will be used here.
+    These will be used to determine how the SPI Driver (drv_spi)
+    will be compiled.
+*/
+#define SPI_CHANNEL_1_ENABLE
+]]>
+        </Section>
+        <Harmony>
+            <!--<Section Name="MainHeader">
+<![CDATA[
+#include "driver/gfx/controller/s1d13517/drv_gfx_s1d13517.h"
+]]>
+            </Section>-->
+            <Section Name="SystemDefinitions">
+<![CDATA[
+#include "driver/gfx/controller/s1d13517/drv_gfx_s1d13517.h"
+]]>
+            </Section>
+            <Section Name="InitializeObjects">
+<![CDATA[
+    GFX_INIT gfxInit0 ={
+        .drvInitialize = DRV_GFX_S1D13517_Initialize,
+        .drvOpen = DRV_GFX_S1D13517_Open,
+        .drvInterfaceSet = DRV_GFX_S1D13517_InterfaceSet,
+        .driverInitData.orientation = DISP_ORIENTATION,
+        .driverInitData.horizontalResolution = DISP_HOR_RESOLUTION,
+        .driverInitData.verticalResolution = DISP_VER_RESOLUTION,
+        .driverInitData.dataWidth = DISP_DATA_WIDTH,
+        .driverInitData.horizontalPulseWidth = DISP_HOR_PULSE_WIDTH,
+        .driverInitData.horizontalBackPorch = DISP_HOR_BACK_PORCH,
+        .driverInitData.horizontalFrontPorch = DISP_HOR_FRONT_PORCH,
+        .driverInitData.verticalPulseWidth = DISP_VER_PULSE_WIDTH,
+        .driverInitData.verticalBackPorch = DISP_VER_BACK_PORCH,
+        .driverInitData.verticalFrontPorch = DISP_VER_FRONT_PORCH,
+        .driverInitData.logicShift = DISP_INV_LSHIFT,
+        .driverInitData.LCDType = 1,
+        .driverInitData.colorType = 0,
+        .driverInitData.TCON_Init = TCON_MODULE,
+    };
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="7">
+<![CDATA[
+    // initialize the timer that manages the tick counter
+    TickInit();
+]]>
+            </Section>
+            <!--<Section Name="InitializeBoard" Order="8" Option="chkSPIFlash">
+<![CDATA[
+    TouchInit(&SST25WriteWord, &SST25ReadWord, &SST25SectorErase, NULL); // initialize the components for Touch Screen
+]]>
+            </Section>
+            <Section Name="GfxDrvTasks">
+<![CDATA[
+    DRV_GFX_S1D13517_Tasks();
+]]>
+            </Section>-->
+        </Harmony>
+    </Code>
+</Board>

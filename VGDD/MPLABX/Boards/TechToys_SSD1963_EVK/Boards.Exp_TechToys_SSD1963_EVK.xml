@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="TECHTOYS_SSD1963_EVK"
+       Type="Expansion"
+	     Description="TechToys Solomon SSD1963 EVK Ultima 4.1"
+	     Img="Exp_TechToys_SSD1963_EVK_Ultima Rev4_1.png"
+       PartNumber="SSD1963_EVK_Ultima_4.1"
+	     URL="http://www.techtoys.com.hk/Displays/Solomon%20SSD1963%20EVK%20R4_1/SSD1963%20EVK%20Ultima%20R4_1.htm">
+    <Note>
+
+    </Note>
+    <CompatibleDisplay ID="TECHTOYS_TY430TFT480272" />
+    <CompatibleDisplay ID="TECHTOYS_TY500TFT800480Rev01" />
+    <CompatibleDisplay ID="TECHTOYS_TY700TFT800480_REV02" />
+    <CompatibleDisplay ID="TECHTOYS_TY700TFT800480REVR3" />
+    <CompatibleOptions>
+        <Option>chkPutImageFromSD</Option>
+        <Option>chkPMP8</Option>
+        <Option>chkPMP16</Option>
+        <Option>chkRTCC</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+    <AddGroup Name="TouchScreenResistive" />
+    <AddGroup Name="SPI1Flash" />
+    <Project>
+        <MLALegacy>
+            <ClearFolder Name="Source Files/Display Driver" />
+            <ClearFolder Name="Header Files/Display Driver" />
+            <Folder Name="Header Files/Board Support Package">
+                <AddFile>$MAL/../Board Support Package/Beep.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Board Support Package">
+                <AddFile>$MAL/../Board Support Package/Beep.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/Common">
+                <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+            </Folder>
+            <Folder Name="Header Files/Display Driver">
+                <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+                <AddVGDDFile>SSD1963.h</AddVGDDFile>
+                <AddVGDDFile>SSD1963_CMD.h</AddVGDDFile>
+            </Folder>
+            <Folder Name="Source Files/Display Driver">
+                <AddVGDDFile>SSD1963.c</AddVGDDFile>
+            </Folder>
+        </MLALegacy>
+        <SetConfig Section="[COMPILER]-LD" key="heap-size" value="[HEAPSIZE]"/>
+    </Project>
+    <Code>
+        <Section Name="InitializeBoard" Order="8" Option="chkSPIFlash">
+<![CDATA[
+    TouchInit(&SST25WriteWord, &SST25ReadWord, &SST25SectorErase, NULL); // initialize the components for Touch Screen
+]]>
+        </Section>
+        <Section Name="InitializeBoard" Order="9">
+<![CDATA[
+    BeepInit();                  // initialize the beeper
+ ]]>
+        </Section>
+        <Section Name="HardwareProfileHead">
+<![CDATA[
+#define ULTIMA_R4_BOARD   // Display controller TechToys SSD1963 EVK Ultima R4.1
+#define USE_BEEPER        // use the PWM controlled beeper 
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead" Condition="DEVBOARDID != EXPLORER16">
+<![CDATA[
+#define USE_GFX_PMP       // use MCHP PMP standard functions in gfxpmp.h
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead" Condition="DEVBOARDID = EXPLORER16">
+<![CDATA[
+//#define USE_GFX_PMP      // Do not use MCHP PMP standard functions in gfxpmp.h with Explorer16 (TODO: Fix it!)
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkSPIFlash">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE  for SPI Flash Memory
+// --------------------------------------------------------------------
+// Chip Select, SCLK, SDI and SDO signals used
+#if defined(__dsPIC33FJ128GP804__) || defined(__PIC24HJ128GP504__)
+    #define SST25_CS_TRIS   TRISAbits.TRISA8
+    #define SST25_CS_LAT    LATAbits.LATA8
+    #define SST25_SCK_TRIS  TRISCbits.TRISC2
+    #define SST25_SDO_TRIS  TRISCbits.TRISC0
+    #define SST25_SDI_TRIS  TRISCbits.TRISC1
+#else
+    #define SST25_CS_TRIS   TRISDbits.TRISD9
+    #define SST25_CS_LAT    LATDbits.LATD9
+    #define SST25_SCK_TRIS  TRISDbits.TRISD10
+    #define SST25_SDO_TRIS  TRISDbits.TRISD0
+    #define SST25_SDI_TRIS  TRISCbits.TRISC4
+    #if defined (__dsPIC33E__) || defined(__PIC24E__)
+        #define SST25_SCK_LAT  	LATGbits.LATG6
+        #define SST25_SCK_ANS   ANSELGbits.ANSG6
+        #define SST25_SDO_ANS   ANSELGbits.ANSG8
+        #define SST25_SDO_LAT  	LATGbits.LATG8
+        #define SST25_SDI_LAT  	LATGbits.LATG7
+        #define SST25_SDI_ANS   ANSELGbits.ANSG7
+    #else
+        #define SST25_SDI_ANS   ANSDbits.ANSD0
+    #endif
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkSPIFlash" Condition="DEVBOARDID = EXPLORER16">
+<![CDATA[
+#define SPI_CHANNEL_2_ENABLE // For drv_spi.c TODO: Fix it
+#define MCHP25LC256_SPI_CHANNEL 2		//it is the EEPROM on Explorer 16
+// Clock, SDO and SDI signals
+#define MCHP25LC256_CS_TRIS       TRISDbits.TRISD12
+#define MCHP25LC256_CS_LAT        LATDbits.LATD12
+#define MCHP25LC256_SCK_TRIS      TRISGbits.TRISG6
+#define MCHP25LC256_SDO_TRIS      TRISGbits.TRISG8
+#define MCHP25LC256_SDI_TRIS      TRISGbits.TRISG7
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="DEVBOARDID = EXPLORER16">
+<![CDATA[
+// ADC Input Channel Selector
+#if defined(__dsPIC33F__) || defined(__PIC24H__) || defined(__dsPIC33E__) || defined(__PIC24E__)
+    #define TOUCH_ADC_INPUT_SEL   AD1CHS0
+#else // all other supported devices
+    #define TOUCH_ADC_INPUT_SEL   AD1CHS
+#endif
+#define TOUCH_ADC_START  AD1CON1bits.SAMP // ADC Sample Start    
+#define TOUCH_ADC_DONE   AD1CON1bits.DONE // ADC Status            
+#if defined(__PIC24F__)
+    #define ADC_TEMP        4
+    #define ADC_POT         5
+
+    // ADC Port Control Bits
+    #if defined(__PIC24FJ256GB210__)
+        #define ADC_POT_PCFG    ANSBbits.ANSB5
+        #define ADPCFG_XPOS     ANSBbits.ANSB10
+        #define ADPCFG_YPOS     ANSBbits.ANSB11
+    #else
+        #define ADC_POT_PCFG    AD1PCFGbits.PCFG5
+        #define ADPCFG_XPOS     AD1PCFGbits.PCFG10
+        #define ADPCFG_YPOS     AD1PCFGbits.PCFG11
+    #endif
+    #define ADC_XPOS         10
+    #define ADC_YPOS         11
+    #define MYLAT_XNEG      LATBbits.LATB12
+    #define MYTRIS_XNEG     TRISBbits.TRISB12 
+    #define RESISTIVETOUCH_ANALOG  0
+    #define RESISTIVETOUCH_DIGITAL 1
+#elif defined(__PIC32MX__) 
+    #define ADC_TEMP         ADC_CH0_POS_SAMPLEA_AN4
+    #define ADPCFG_XPOS      AD1PCFGbits.PCFG10
+    #define ADPCFG_YPOS      AD1PCFGbits.PCFG11
+
+    #define ADC_XPOS         ADC_CH0_POS_SAMPLEA_AN10
+    #define ADC_YPOS         ADC_CH0_POS_SAMPLEA_AN11
+    #if defined(_USB)                                // USB PIMs on EX16 boards (for KLS :-)
+        #define MYLAT_XNEG     LATBbits.LATB12
+        #define MYTRIS_XNEG    TRISBbits.TRISB12
+        #define ADC_POT      ADC_CH0_POS_SAMPLEA_AN2
+        #define ADC_POT_PCFG AD1PCFGbits.PCFG2
+    #else
+        #define MYLAT_XNEG     LATDbits.LATD9
+        #define MYTRIS_XNEG    TRISDbits.TRISD9
+        #define ADC_POT      ADC_CH0_POS_SAMPLEA_AN5
+        #define ADC_POT_PCFG AD1PCFGbits.PCFG5
+    #endif
+    #define RESISTIVETOUCH_ANALOG  0
+    #define RESISTIVETOUCH_DIGITAL 1
+#elif defined(__dsPIC33E__)
+    #define ADC_POT         5
+    #define ADC_XPOS        10
+    #define ADC_YPOS        11
+
+    // ADC Port Control Bits
+    #define ADC_POT_PCFG	ANSELBbits.ANSB5
+    #define ADPCFG_XPOS		ANSELBbits.ANSB10
+    #define ADPCFG_YPOS		ANSELBbits.ANSB11
+
+    #define MYLAT_XNEG      LATBbits.LATB12
+    #define MYTRIS_XNEG     TRISBbits.TRISB12 
+    #define RESISTIVETOUCH_ANALOG  1
+    #define RESISTIVETOUCH_DIGITAL 0
+#endif
+
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+//#define LAT_XPOS        LATBbits.LATB10
+//#define TRIS_XPOS       TRISBbits.TRISB10
+//#define LAT_XNEG        MYLAT_XNEG
+//#define TRIS_XNEG       MYTRIS_XNEG
+//#define LAT_YPOS        LATBbits.LATB11
+//#define TRIS_YPOS       TRISBbits.TRISB11
+//#define LAT_YNEG        LATBbits.LATB13
+//#define TRIS_YNEG       TRISBbits.TRISB13
+
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+#define ResistiveTouchScreen_XPlus_Config_As_Input() (TRISBbits.TRISB10 = 1)
+#define ResistiveTouchScreen_XPlus_Config_As_Output() (TRISBbits.TRISB10 = 0)
+#define ResistiveTouchScreen_XPlus_Drive_High() (LATBbits.LATB10 = 1)
+#define ResistiveTouchScreen_XPlus_Drive_Low() (LATBbits.LATB10 = 0)
+#define ResistiveTouchScreen_XMinus_Config_As_Input() (MYTRIS_XNEG = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Output() (MYTRIS_XNEG = 0)
+#define ResistiveTouchScreen_XMinus_Drive_High() (MYLAT_XNEG = 1)
+#define ResistiveTouchScreen_XMinus_Drive_Low() (MYLAT_XNEG = 0)
+#define ResistiveTouchScreen_YPlus_Config_As_Input() (TRISBbits.TRISB11 = 1)
+#define ResistiveTouchScreen_YPlus_Config_As_Output() (TRISBbits.TRISB11 = 0)
+#define ResistiveTouchScreen_YPlus_Drive_High() (LATBbits.LATB11 = 1)
+#define ResistiveTouchScreen_YPlus_Drive_Low() (LATBbits.LATB11 = 0)
+#define ResistiveTouchScreen_YMinus_Config_As_Input() (TRISBbits.TRISB13 = 1)
+#define ResistiveTouchScreen_YMinus_Config_As_Output() (TRISBbits.TRISB13 = 0)
+#define ResistiveTouchScreen_YMinus_Drive_High() (LATBbits.LATB13 = 1)
+#define ResistiveTouchScreen_YMinus_Drive_Low() (LATBbits.LATB13 = 0)
+
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE
+// --------------------------------------------------------------------
+// IO port definitions.
+// (1) PIC32 starter kit on ULTIMA_R4 		-or-
+// (2) Explorer 16 connected to ULTIMA_R4
+// (3) PIC32MX360F512L EVK RD5B connected to SSD1963 Ultima EVK Rev4.1
+//
+// Function     mcu pins                 SSD1963
+// ==========   ========                 ========
+// TE           INT2/RE9                 TE
+// DATA LINES   PMD[15:0]                D[15:0] in 16-bit addressing
+// RESET        RD1                      /RESET
+// CHIP SELECT  PMPA0/RB15               /CS
+// COMMAND/DATA RD3                      RS
+// WR STROBE    RD4/PMPWR(1/3) or RD0(2) /WR
+// RD STROBE    RD5/PMPRD                /RD
+//
+// --------------------------------------------------------------------
+// Definitions for TE pin of SSD1963
+#define TE_TRIS_BIT     TRISEbits.TRISE9
+#define TE_PORT_BIT     PORTEbits.RE9
+// Definition for RD pin
+#define RD_TRIS_BIT     TRISDbits.TRISD5
+#define RD_LAT_BIT      LATDbits.LATD5
+
+#if defined (EXPLORER_16)
+	#define WR_TRIS_BIT      TRISDbits.TRISD0	//RD4 in Explorer 16 using for LCD2's E pin
+	#define WR_LAT_BIT       LATDbits.LATD0
+#else // PIC32_GP_SK PIC32_USB_SK PIC32_ETH_SK
+	#define WR_TRIS_BIT      TRISDbits.TRISD4
+	#define WR_LAT_BIT       LATDbits.LATD4
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &lt; 306">
+<![CDATA[
+  
+// Display panel definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+// Definitions for reset pin
+	#define RST_TRIS_BIT       TRISDbits.TRISD1
+	#define RST_LAT_BIT        LATDbits.LATD1
+	// Definitions for CS pin
+	#define CS_TRIS_BIT        TRISBbits.TRISB15	//set digital under ResetDevice req.
+	#define CS_LAT_BIT         LATBbits.LATB15		//it is AN15
+	//Definition for RS pin
+	#define RS_TRIS_BIT			   TRISDbits.TRISD3
+	#define RS_LAT_BIT			   LATDbits.LATD3
+
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Family="PIC32">
+            <!--Condition="DEVBOARDID != EXPLORER16"-->
+<![CDATA[
+// Display panel definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISDCLR = _TRISD_TRISD1_MASK
+#define DisplayResetEnable()        LATDCLR = _LATD_LATD1_MASK
+#define DisplayResetDisable()       LATDSET = _LATD_LATD1_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISDCLR = _TRISD_TRISD3_MASK
+#define DisplaySetCommand()         LATDCLR = _LATD_LATD3_MASK
+#define DisplaySetData()            LATDSET = _LATD_LATD3_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISBCLR = _TRISB_TRISB15_MASK
+#define DisplayEnable()             LATBCLR = _LATB_LATB15_MASK
+#define DisplayDisable()            LATBSET = _LATB_LATB15_MASK
+        
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()
+#define DisplayBacklightOn()        SetBacklight(255)
+#define DisplayBacklightOff()       SetBacklight(0)
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Family="PIC24">
+<![CDATA[
+// Display panel definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISDbits.TRISD1=0
+#define DisplayResetEnable()        LATDbits.LATD1=0
+#define DisplayResetDisable()       LATDbits.LATD1=1
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISDbits.TRISD3=0
+#define DisplaySetCommand()         LATDbits.LATD3=0
+#define DisplaySetData()            LATDbits.LATD3=1
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISBbits.TRISB15=0
+#define DisplayEnable()             LATBbits.LATB15=0
+#define DisplayDisable()            LATBbits.LATB15=1
+        
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()
+#define DisplayBacklightOn()        SetBacklight(255)
+#define DisplayBacklightOff()       SetBacklight(0)
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// * Definition for SPI interface for SSD1963
+// * Hardware dependent!
+// --------------------------------------------------------------------
+#define GPIO3 3
+#define GPIO2 2
+#define GPIO1 1
+#define GPIO0 0
+#define LCD_RESET    (1<<GPIO0)  //LCD Reset signal (Reset for display panel, NOT ssd1963)
+#define LCD_SPENA    0
+#define LCD_SPCLK    0
+#define LCD_SPDAT    0
+
+// --------------------------------------------------------------------
+// PMP SETTINGS
+// --------------------------------------------------------------------
+#define PMP_DATA_SETUP_TIME 1
+#define PMP_DATA_WAIT_TIME 2
+#define PMP_DATA_HOLD_TIME 3
+
+#define BACKLIGHT_ENABLE_LEVEL    1
+#define BACKLIGHT_DISABLE_LEVEL   0
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="DEVBOARDID != EXPLORER16">
+<![CDATA[      
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR THE RESISTIVE TOUCHSCREEN 
+// --------------------------------------------------------------------
+#define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR	5
+#define TOUCHSCREEN_RESISTIVE_SWAP_XY
+
+// ADC Input Channel Selector
+#if defined(__dsPIC33F__) || defined(__PIC24H__) || defined(__dsPIC33E__) || defined(__PIC24E__)
+    #define TOUCH_ADC_INPUT_SEL   AD1CHS0
+#else // all other supported devices
+    #define TOUCH_ADC_INPUT_SEL   AD1CHS
+#endif
+#define TOUCH_ADC_START     AD1CON1bits.SAMP         // ADC Sample Start 
+#define TOUCH_ADC_DONE      AD1CON1bits.DONE         // ADC Status
+#define ADC_XPOS            ADC_CH0_POS_SAMPLEA_AN10
+#define ADC_YPOS            ADC_CH0_POS_SAMPLEA_AN11
+#define ADPCFG_XPOS         AD1PCFGbits.PCFG10
+#define ADPCFG_YPOS         AD1PCFGbits.PCFG11
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &lt; 306,DEVBOARDID != EXPLORER16">
+<![CDATA[
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION < 0x0306 (deprecated)
+// X port definitions
+#define LAT_XPOS        LATBbits.LATB10
+#define LAT_XNEG        LATBbits.LATB12
+#define TRIS_XPOS       TRISBbits.TRISB10
+#define TRIS_XNEG       TRISBbits.TRISB12
+
+// Y port definitions
+#define LAT_YPOS        LATBbits.LATB11
+#define LAT_YNEG        LATBbits.LATB13
+#define TRIS_YPOS       TRISBbits.TRISB11
+#define TRIS_YNEG       TRISBbits.TRISB13 
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Condition="GRAPHICS_LIBRARY_VERSION &gt; 305,DEVBOARDID != EXPLORER16">
+<![CDATA[
+// 4-wires TouchScreen definitions for GRAPHICS_LIBRARY_VERSION >= 0x0306
+#define ResistiveTouchScreen_XPlus_Config_As_Input() (TRISBbits.TRISB10 = 1)
+#define ResistiveTouchScreen_XPlus_Config_As_Output() (TRISBbits.TRISB10 = 0)
+#define ResistiveTouchScreen_XPlus_Drive_Low() (LATBbits.LATB10 = 0)
+#define ResistiveTouchScreen_XPlus_Drive_High() (LATBbits.LATB10 = 1)
+#define ResistiveTouchScreen_YPlus_Config_As_Input() (TRISBbits.TRISB11 = 1)
+#define ResistiveTouchScreen_YPlus_Config_As_Output() (TRISBbits.TRISB11 = 0)
+#define ResistiveTouchScreen_YPlus_Drive_Low() (LATBbits.LATB11 = 0)
+#define ResistiveTouchScreen_YPlus_Drive_High() (LATBbits.LATB11 = 1)
+#define ResistiveTouchScreen_YMinus_Config_As_Input() (TRISBbits.TRISB13 = 1)
+#define ResistiveTouchScreen_YMinus_Config_As_Output() (TRISBbits.TRISB13 = 0)
+#define ResistiveTouchScreen_YMinus_Drive_Low() (LATBbits.LATB13 = 0)
+#define ResistiveTouchScreen_YMinus_Drive_High() (LATBbits.LATB13 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Input() (TRISBbits.TRISB12 = 1)
+#define ResistiveTouchScreen_XMinus_Config_As_Output() (TRISBbits.TRISB12 = 0)
+#define ResistiveTouchScreen_XMinus_Drive_Low() (LATBbits.LATB12 = 0)
+#define ResistiveTouchScreen_XMinus_Drive_High() (LATBbits.LATB12 = 1)
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// IOS FOR THE BEEPER
+// --------------------------------------------------------------------
+#define BEEP_TRIS_BIT   (TRISDbits.TRISD2)
+#define BEEP_LAT_BIT    (LATDbits.LATD2)
+
+// --------------------------------------------------------------------
+// IOS FOR THE UART
+// --------------------------------------------------------------------
+#define UARTRX_TRIS  (TRISFbits.TRISF2)
+#define UARTRX_IO    (PORTFbits.RF2)
+
+#if defined (__32MX360F512L_H)
+#define UARTTX_TRIS  (TRISFbits.TRISF3)
+#define UARTTX_IO    (PORTFbits.RF3)
+#elif defined (__32MX460F512L_H)
+#define UARTTX_TRIS  (TRISFbits.TRISF8)
+#define UARTTX_IO    (PORTFbits.RF8)
+#endif
+
+// --------------------------------------------------------------------
+// UART SETTINGS
+// --------------------------------------------------------------------
+#define BAUDRATE2    115200UL
+#define BRG_DIV2     4
+#define BRGH2        1
+
+// --------------------------------------------------------------------
+// IOS FOR THE VS1003B MP3 CODEC
+// --------------------------------------------------------------------
+#define VS1003_CS_TRIS      TRISAbits.TRISA9	//SPI chip select for command
+#define VS1003_CS_LAT       LATAbits.LATA9
+
+#define VS1003_ADPCFG_xDCS  AD1PCFGbits.PCFG1	//AN1/RB1 for xDCS. Need to set xDCS for digital op. under vs1003Init()
+#define VS1003_xDCS_TRIS    TRISBbits.TRISB1	//SPI chip select for data
+#define VS1003_xDCS_LAT     LATBbits.LATB1
+
+#define VS1003_ADPCFG_DREQ  AD1PCFGbits.PCFG0	//AN0/RB0 for DREQ. Need to set DREQ for digital op. under vs1003Init()
+#define VS1003_DREQ_TRIS    TRISBbits.TRISB0	//DREQ line for VS1003B
+#define VS1003_DREQ         PORTBbits.RB0
+
+#define VS1003_RST_TRIS     TRISAbits.TRISA10	//RESET line for VS1003B
+#define VS1003_RST_LAT      LATAbits.LATA10
+
+#if defined (__32MX360F512L_H)
+#define VS1003_SCK_TRIS     (TRISFbits.TRISF6)
+#define VS1003_SDI_TRIS     (TRISFbits.TRISF7)
+#define VS1003_SDO_TRIS     (TRISFbits.TRISF8)
+#elif defined (__32MX460F512L_H) || defined (__32MX795F512L_H)
+#define VS1003_SCK_TRIS     (TRISDbits.TRISD10)
+#define VS1003_SDI_TRIS     (TRISCbits.TRISC4)
+#define VS1003_SDO_TRIS     (TRISDbits.TRISD0)
+#endif
+]]>
+        </Section>
+        <Section Name="HardwareProfile" Option="chkFSIO,|chkFatFs">
+<![CDATA[
+// --------------------------------------------------------------------
+// IOS FOR THE SDCard SPI INTERFACE
+// --------------------------------------------------------------------
+#define USE_SD_INTERFACE_WITH_SPI
+#if defined __PIC32MX__
+  // Registers for the SPI module you want to use
+  // SPI Configuration
+  #define SPI_START_CFG_1		(PRI_PRESCAL_64_1 | SEC_PRESCAL_8_1 | MASTER_ENABLE_ON | SPI_CKE_ON | SPI_SMP_ON)
+  #define SPI_START_CFG_2		(SPI_ENABLE)
+  #define SPI_FREQUENCY		  (20000000)// Define the SPI frequency
+  #define SD_CS             LATBbits.LATB14		     // SD-SPI Chip Select Output bit//Set digital required
+  #define SD_CS_TRIS        TRISBbits.TRISB14      // SD-SPI Chip Select TRIS bit
+  #define SD_CD             PORTCbits.RC2          // SD-SPI Card Detect Input bit
+  #define SD_CD_TRIS        TRISCbits.TRISC2       // SD-SPI Card Detect TRIS bit
+  // Remarks: There is no write protection with microSD
+  #define SD_WE              PORTCbits.RC2         // SD-SPI Write Protect Check Input bit
+  #define SD_WE_TRIS         TRISCbits.TRISC2      // SD-SPI Write Protect Check TRIS bit
+  #if defined (__32MX795F512L__)	// PIC32 ETH STK
+    #define SPICON1            SPI4CON             // The main SPI control register
+    #define SPISTAT            SPI4STAT            // The SPI status register
+    #define SPIBUF             SPI4BUF             // The SPI Buffer
+    #define SPISTAT_RBF        SPI4STATbits.SPIRBF // The receive buffer full bit in the SPI status register
+    #define SPICON1bits        SPI4CONbits         // The bitwise define for the SPI control register (i.e. _____bits)
+    #define SPISTATbits        SPI4STATbits        // The bitwise define for the SPI status register (i.e. _____bits)
+    #define SPIENABLE          SPI4CONbits.ON      // The enable bit for the SPI module
+    #define SPIBRG			       SPI4BRG             // The definition for the SPI baud rate generator register (PIC32)
+    // Tris pins for SCK/SDI/SDO lines
+    #define SPICLOCK           TRISFbits.TRISF13   // The TRIS bit for the SCK pin
+    #define SPIIN              TRISFbits.TRISF4    // The TRIS bit for the SDI pin
+    #define SPIOUT             TRISFbits.TRISF5    // The TRIS bit for the SDO pin
+    #define putcSPI(data)      SpiChnPutC(SPI_CHANNEL4, data)
+    #define getcSPI()          SpiChnGetC(SPI_CHANNEL4);
+  #else // PIC32 GP STK or PIC32 GP STK
+    #define SPICON1            SPI2CON             // The main SPI control register
+    #define SPISTAT            SPI2STAT            // The SPI status register
+    #define SPIBUF             SPI2BUF             // The SPI Buffer
+    #define SPISTAT_RBF        SPI2STATbits.SPIRBF // The receive buffer full bit in the SPI status register
+    #define SPICON1bits        SPI2CONbits         // The bitwise define for the SPI control register (i.e. _____bits)
+    #define SPISTATbits        SPI2STATbits        // The bitwise define for the SPI status register (i.e. _____bits)
+    #define SPIENABLE          SPI2CONbits.ON      // The enable bit for the SPI module
+    #define SPIBRG             SPI2BRG             // The definition for the SPI baud rate generator register (PIC32)
+    // Tris pins for SCK/SDI/SDO lines
+    #define SPICLOCK           TRISGbits.TRISG6    // The TRIS bit for the SCK pin
+    #define SPIIN              TRISGbits.TRISG7    // The TRIS bit for the SDI pin
+    #define SPIOUT             TRISGbits.TRISG8    // The TRIS bit for the SDO pin
+    #define putcSPI            putcSPI2
+    #define getcSPI            getcSPI2
+  #endif
+
+  #if defined (__32MX795F512L__)	// PIC32 ETH SK on ULTIMA R4 BOARD
+    #define OpenSPI(config1, config2)   {AD1PCFGbits.PCFG8 = 1; TRISBbits.TRISB8 = 0; LATBbits.LATB8 = 1; 	SpiChnOpen(SPI_CHANNEL4, config1|config2, 2);}	//Select SPI4 for PIC32 ETH SK with 74HC241 on ULITMA_R4
+  #else                           // PIC32 USB SK or PIC32 GP SK on MMEVK R1A
+    #define OpenSPI(config1, config2)   {AD1PCFGbits.PCFG8 = 1; TRISBbits.TRISB8 = 0; LATBbits.LATB8 = 0; OpenSPI2(config1, config2);}	//PIC32 GP SK -or- PIC32 USB SK, 74HC241 select pin (RB8) on ULITMA_R4 set low
+  #endif
+
+  // Will generate an error if the clock speed is too low to interface to the card
+  #if (GetSystemClock() < 100000)
+    #error Clock speed must exceed 100 kHz
+  #endif
+#else
+  #error WORKS ONLY ON PIC32
+#endif //#ifdef __PIC32MX__
+]]>
+        </Section>
+        <Section Name="MainHeader">
+<![CDATA[
+#include "Beep.h"
+]]>
+        </Section>
+    </Code>
+</Board>

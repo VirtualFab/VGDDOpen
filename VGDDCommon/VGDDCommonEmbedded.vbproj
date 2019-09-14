@@ -1,0 +1,896 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{54AF1FD3-7FB2-4E06-9690-D31EB1351D73}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>VGDDCommonEmbedded</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <AdditionalParameters />
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>Full</DebugType>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <DefineConstants>CHINAMASTERS=1</DefineConstants>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <AdditionalParameters />
+    <DefineConstants>CHINAMASTERS=1</DefineConstants>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DemoRelease|AnyCPU'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <Optimize>false</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDCommon.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Programmi\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Programmi\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <DefineDebug>true</DefineDebug>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DemoDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\VGDDCommon.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\VGDDCommonEmbedded.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDCommonEmbedded.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DemoRelease|x64'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\DemoRelease\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDCommon.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Programmi\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Programmi\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DemoDebug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\DemoDebug\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\VGDDCommon.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DemoRelease|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\DemoRelease\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDCommon.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Programmi\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Programmi\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DemoDebug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\DemoDebug\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\VGDDCommon.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Evaluation|AnyCPU'">
+    <DebugSymbols>false</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>None</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\VGDDCommonEmbedded.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Evaluation|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Evaluation\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\VGDDCommonEmbedded.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Evaluation|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Evaluation\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\x86\Debug\VGDDCommonEmbedded.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseDebug|AnyCPU'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>CHINAMASTERS=1</DefineConstants>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <Optimize>false</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\VGDDCommonEmbedded.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <DefineDebug>true</DefineDebug>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseDebug|x64'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\ReleaseDebug\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\VGDDCommonEmbedded.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseDebug|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\ReleaseDebug\</OutputPath>
+    <DocumentationFile>VGDDCommonEmbedded.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\x86\Release\VGDDCommonEmbedded.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.vb</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <ItemGroup>
+    <Import Include="ICSharpCode.SharpZipLib" />
+    <Import Include="ICSharpCode.TextEditor" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeGen.vb" />
+    <Compile Include="FontDialog\FontDialog.Designer.vb">
+      <DependentUpon>FontDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FontDialog\FontDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FontDialog\FontList.Designer.vb">
+      <DependentUpon>FontList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FontDialog\FontList.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FontDialog\RecentlyUsedList.vb" />
+    <Compile Include="FontDialog\UserControl1.Designer.vb">
+      <DependentUpon>UserControl1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FontDialog\UserControl1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Palette.vb" />
+    <Compile Include="CustomPropertyEditorBase.vb" />
+    <Compile Include="EvalFunctions.vb" />
+    <Compile Include="Evaluator.vb" />
+    <Compile Include="ExternalWidgets.vb" />
+    <Compile Include="FootPrint.Designer.vb">
+      <DependentUpon>FootPrint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FootPrint.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Framework.vb" />
+    <Compile Include="frmBitmapChooser.Designer.vb">
+      <DependentUpon>frmBitmapChooser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBitmapChooser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFontChooser.Designer.vb">
+      <DependentUpon>frmFontChooser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFontChooser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GrcProject.vb" />
+    <Compile Include="LabeledPanel.Designer.vb">
+      <DependentUpon>LabeledPanel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LabeledPanel.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CodeGen\Mal.vb" />
+    <Compile Include="MessageBoxWithCheckBox.Designer.vb">
+      <DependentUpon>MessageBoxWithCheckBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MessageBoxWithCheckBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MplabX.vb" />
+    <Compile Include="MplabxIpc.vb" />
+    <Compile Include="MplabXIpcDebug.Designer.vb">
+      <DependentUpon>MplabXIpcDebug.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MplabXIpcDebug.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="MyColorEditor\ColorPicker.designer.vb">
+      <DependentUpon>ColorPicker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MyColorEditor\ColorPicker.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyColorEditor\frmColorEditor.Designer.vb">
+      <DependentUpon>frmColorEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MyColorEditor\frmColorEditor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyColorEditor\gTrackBar.designer.vb">
+      <DependentUpon>gTrackBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MyColorEditor\gTrackBar.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyColorEditor\MyColor.vb" />
+    <Compile Include="MyColorEditor\MyColorConverter.vb" />
+    <Compile Include="MyColorEditor\MyColorEditor.vb" />
+    <Compile Include="PropertyGridEx\BrowsableTypeConverter.vb" />
+    <Compile Include="PropertyGridEx\CustomChoices.vb" />
+    <Compile Include="PropertyGridEx\CustomColorScheme.vb" />
+    <Compile Include="PropertyGridEx\CustomProperty.vb" />
+    <Compile Include="PropertyGridEx\CustomPropertyCollection.vb" />
+    <Compile Include="PropertyGridEx\CustomPropertyCollectionSet.vb" />
+    <Compile Include="PropertyGridEx\PropertyGridEx.Designer.vb">
+      <DependentUpon>PropertyGridEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyGridEx\PropertyGridEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertyGridEx\UICustomEventEditor.vb" />
+    <Compile Include="PropertyGridEx\UIFilenameEditor.vb" />
+    <Compile Include="PropertyGridEx\UIListboxEditor.vb" />
+    <Compile Include="RelativePath.vb" />
+    <Compile Include="Scheme.vb" />
+    <Compile Include="Screen.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIEditors\EditPalette\frmUIEditPalette.Designer.vb">
+      <DependentUpon>frmUIEditPalette.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIEditors\EditPalette\frmUIEditPalette.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEditors\EditPalette\UiEditPalette.vb" />
+    <Compile Include="UIEditors\EditTextMultiLanguage\frmUIEditTextMultiLanguage.Designer.vb">
+      <DependentUpon>frmUIEditTextMultiLanguage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIEditors\EditTextMultiLanguage\frmUIEditTextMultiLanguage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEditors\EditTextMultiLanguage\StringsPool.Designer.vb">
+      <DependentUpon>StringsPool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIEditors\EditTextMultiLanguage\StringsPool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEditors\EditTextMultiLanguage\UiEditTextMultiLanguage.vb" />
+    <Compile Include="UIEditors\EditShape\frmUIEditShapeDefinition.Designer.vb">
+      <DependentUpon>frmUIEditShapeDefinition.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIEditors\EditShape\frmUIEditShapeDefinition.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEditors\EditShape\UiEditShapeDefinition.vb" />
+    <Compile Include="UIEditors\EditInteger\frmUIEditInteger.Designer.vb">
+      <DependentUpon>frmUIEditInteger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIEditors\EditInteger\frmUIEditInteger.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEditors\EditInteger\NumericUpDownEx.vb" />
+    <Compile Include="UIEditors\EditInteger\UiEditInteger.vb" />
+    <Compile Include="UIEditors\EditKey\frmUIEditKeyCollection.Designer.vb">
+      <DependentUpon>frmUIEditKeyCollection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIEditors\EditKey\frmUIEditKeyCollection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEditors\EditKey\UiEditKeyCollection.vb" />
+    <Compile Include="VGDDComboUITypeEditor.vb" />
+    <Compile Include="VGDDCommon.vb" />
+    <Compile Include="VGDDCustom.Designer.vb">
+      <DependentUpon>VGDDCustom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VGDDCustom.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VGDDEvents.vb" />
+    <Compile Include="VGDDFont.vb" />
+    <Compile Include="VGDDImage.vb" />
+    <Compile Include="VGDDMicrochip\Arc.vb" />
+    <Compile Include="VGDDMicrochip\Button.vb" />
+    <Compile Include="VGDDMicrochip\CheckBox.vb" />
+    <Compile Include="VGDDMicrochip\Circle.vb" />
+    <Compile Include="VGDDMicrochip\ComboBox.designer.vb">
+      <DependentUpon>ComboBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VGDDMicrochip\ComboBox.vb" />
+    <Compile Include="VGDDMicrochip\EditBox.vb" />
+    <Compile Include="VGDDMicrochip\Shape.vb" />
+    <Compile Include="VGDDMicrochip\Gradient.vb" />
+    <Compile Include="VGDDMicrochip\GroupBox.vb" />
+    <Compile Include="VGDDMicrochip\Line.vb" />
+    <Compile Include="VGDDMicrochip\ListBox.vb" />
+    <Compile Include="VGDDMicrochip\Mal.vb" />
+    <Compile Include="VGDDMicrochip\Meter.vb" />
+    <Compile Include="VGDDMicrochip\OutTextXY.vb" />
+    <Compile Include="VGDDMicrochip\Picture.vb" />
+    <Compile Include="VGDDMicrochip\ProgressBar.vb" />
+    <Compile Include="VGDDMicrochip\PutImage.vb" />
+    <Compile Include="VGDDMicrochip\RadioButton.vb" />
+    <Compile Include="VGDDMicrochip\Rectangle.vb" />
+    <Compile Include="VGDDMicrochip\RoundDial.vb" />
+    <Compile Include="VGDDMicrochip\SegDisplay.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VGDDMicrochip\Slider.vb" />
+    <Compile Include="VGDDMicrochip\StaticText.vb" />
+    <Compile Include="VGDDMicrochip\TextEntry.vb" />
+    <Compile Include="VGDDMicrochip\VGDDWidget.vb" />
+    <Compile Include="VGDDMicrochip\VirtualWidgets\BarGraph.designer.vb">
+      <DependentUpon>BarGraph.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\BarGraph.vb" />
+    <Compile Include="VGDDMicrochip\VirtualWidgets\Disp7Seg.designer.vb">
+      <DependentUpon>Disp7Seg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\Disp7Seg.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\Indicator.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\MsgBox.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\StaticTextEx.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\SuperGauge.designer.vb">
+      <DependentUpon>SuperGauge.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\SuperGauge.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\TextEntryEx.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\VUMeter.designer.vb">
+      <DependentUpon>VUMeter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VGDDMicrochip\VirtualWidgets\VUMeter.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VGDDMicrochip\Window.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\VGDD\Resources\combobox_arrow_down.png">
+      <Link>VGDDMicrochip\VirtualWidgets\Resources\ComboBox\combobox_arrow_down.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\VGDD\Resources\combobox_arrow_up.png">
+      <Link>VGDDMicrochip\VirtualWidgets\Resources\ComboBox\combobox_arrow_up.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FootPrint.resx">
+      <DependentUpon>FootPrint.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBitmapChooser.resx">
+      <DependentUpon>frmBitmapChooser.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFontChooser.resx">
+      <DependentUpon>frmFontChooser.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabeledPanel.resx">
+      <DependentUpon>LabeledPanel.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageBoxWithCheckBox.resx">
+      <DependentUpon>MessageBoxWithCheckBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MplabXIpcDebug.resx">
+      <DependentUpon>MplabXIpcDebug.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyColorEditor\ColorPicker.resx">
+      <DependentUpon>ColorPicker.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyColorEditor\frmColorEditor.resx">
+      <DependentUpon>frmColorEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyColorEditor\gTrackBar.resx">
+      <DependentUpon>gTrackBar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyGridEx\PropertyGridEx.PropertyGridEx.bmp" />
+    <EmbeddedResource Include="UIEditors\EditPalette\frmUIEditPalette.resx">
+      <DependentUpon>frmUIEditPalette.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\ComboBox\CollapseIcon.jpg" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\ComboBox\ExpandIcon.jpg" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Icons\VGDDMicrochip.BarGraph.ico" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Icons\VGDDMicrochip.Disp7Seg.ico" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Icons\VGDDMicrochip.Indicator.ico" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Icons\VGDDMicrochip.MsgBox.ico" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Icons\VGDDMicrochip.StaticTextEx.ico" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Icons\VGDDMicrochip.SuperGauge.ico" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Icons\VGDDMicrochip.TextEntryEx.ico" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Icons\VGDDMicrochip.VuMeter.ico" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\VuMeter\VuMeterDefault.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CodeGen\CodeGenTemplatesLegacyMLA.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomWidgets\alarm.ico" />
+    <EmbeddedResource Include="CustomWidgets\alarm.png" />
+    <EmbeddedResource Include="CustomWidgets\CustomWidgetsTemplates.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomWidgets\DigitalMeter.png" />
+    <EmbeddedResource Include="CustomWidgets\Grid.ico" />
+    <EmbeddedResource Include="CustomWidgets\Grid.jpg" />
+    <EmbeddedResource Include="MyColorEditor\Resources\Dropper.cur" />
+    <EmbeddedResource Include="MyColorEditor\Resources\HideCursor.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Magick.NET-Q16-HDRI-AnyCPU">
+      <HintPath>..\ImageMagikNet\Magick.NET-Q16-HDRI-AnyCPU.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomWidgets\DigitalMeter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIEditors\EditTextMultiLanguage\frmUIEditTextMultiLanguage.resx">
+      <DependentUpon>frmUIEditTextMultiLanguage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIEditors\EditShape\frmUIEditShapeDefinition.resx">
+      <DependentUpon>frmUIEditShapeDefinition.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIEditors\EditInteger\frmUIEditInteger.resx">
+      <DependentUpon>frmUIEditInteger.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIEditors\EditKey\frmUIEditKeyCollection.resx">
+      <DependentUpon>frmUIEditKeyCollection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIEditors\EditTextMultiLanguage\StringsPool.resx">
+      <DependentUpon>StringsPool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\ComboBox.resx">
+      <DependentUpon>ComboBox.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.ArcIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.ButtonIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.CheckBoxIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.CircleIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.EditBoxIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.EllipseIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.Gradient.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.GroupBoxIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.LineIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.ListBoxIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.MeterIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.OutTextXYIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.PictureIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.ProgressBarIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.RadioButtonIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.RectangleIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.RoundDialIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.SchemeIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.SliderIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.StaticText2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.StaticTextIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.TextEntryIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\Icons\VGDDMicrochip.WindowIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\VuMeter\VuMeterDefaultBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextEditor\Src\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditor.csproj">
+      <Project>{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}</Project>
+      <Name>ICSharpCode.TextEditor</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\VirtualFabUtils\VirtualFabUtils.vbproj">
+      <Project>{DDAFE318-5137-4A19-9E98-F74D6B6C9161}</Project>
+      <Name>VirtualFabUtils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CodeGen\CodeGenTemplatesMLA.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\BarGraphMLA.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\BarGraphMLA.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\IndicatorMLA.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\IndicatorMLA.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\MsgBoxMLA.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\MsgBoxMLA.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\StaticTextExMLA.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\StaticTextExMLA.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\FontLed7SegMLA.c">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\FontLed7SegMLA.h">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\SuperGaugeMLA.c">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\SuperGaugeMLA.h">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\TextEntryExHarmony.c">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\TextEntryExHarmony.h">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\VuMeterMLA.c">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\VuMeterMLA.h">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CodeGen\CodeGenTemplatesHarmony.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\TextEntryExMLA.c">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\TextEntryExMLA.h">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\FontLed7SegHarmony.c">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\FontLed7SegHarmony.h">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\Disp7SegHarmony.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\Disp7SegHarmony.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\Disp7SegMLA.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceMLA\Disp7SegMLA.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\VuMeterHarmony.h">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\VuMeterHarmony.c">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\SuperGaugeHarmony.h">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\SuperGaugeHarmony.c">
+      <CustomToolNamespace>MLA</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\StaticTextExHarmony.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\StaticTextExHarmony.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\MsgBoxHarmony.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\MsgBoxHarmony.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\IndicatorHarmony.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\IndicatorHarmony.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\BarGraphHarmony.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\SourceHarmony\BarGraphHarmony.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\BarGraph.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\BarGraph.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\Disp7Seg.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\Disp7Seg.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\FontLed7Seg.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\FontLed7Seg.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\Indicator.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\Indicator.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\MsgBox.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\MsgBox.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\StaticTextEx.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\StaticTextEx.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\SuperGauge.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\SuperGauge.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\TextEntryEx.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\TextEntryEx.h" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\VuMeter.c" />
+    <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\Source\VuMeter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CodeGen\CodeGenConversionRules.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="PIC32_PCAP"
+	   Type="Development"
+	   Description="PIC32 GUI Development Board with Projected Capacitive Touch"
+	   Compiler="C32"
+	   Img="Dev_PIC32_PCAP.png"
+     PartNumber="DM320015"
+	   URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=DM320015">
+    <Note>
+
+    </Note>
+    <CompatibleExpansionBoard ID="EXP_NONE" />
+    <CompatibleDisplay ID="DISP_PCAP" />
+    <CompatibleDisplay ID="NHD_480272EF_ATXL_CTP" />
+    <CompatibleOptions>
+        <Option>chkDEE</Option>
+        <Option>chkUSBhost</Option>
+        <Option>chkFSIO</Option>
+        <Option>chkFatFs</Option>
+        <Option>chkRTCC</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+    <AddGroup Name="GOL" />
+    <AddGroup Name="SPI1Flash" />
+    <AddGroup Name="FlashProgrammer" />
+    <AddGroup Name="USBhost" />
+    <AddGroup Name="FileSystem" />
+    <AddGroup Name="SPIFlash" />
+    <AddGroup Name="DEEEmulation" />
+    <AddGroup Name="RTCC" />
+    <Project>
+        <SetConfig Section="[COMPILER]-LD" key="heap-size" value="[HEAPSIZE]"/>
+        <MLALegacy>
+            <AddConfig Section="[COMPILER]" key="preprocessor-macros" value="_SUPPRESS_PLIB_WARNING"/>
+            <AddConfig Section="[COMPILER]" key="preprocessor-macros" value="_DISABLE_OPENADC10_CONFIGPORT_WARNING"/>
+            <Folder Name="Source Files/Display Driver">
+                <AddVGDDFile>mchpGfxLCC_PCAP.c</AddVGDDFile>
+            </Folder>
+            <Folder Name="Header Files/Display Driver">
+                <AddFile>$MAL/Include/Graphics/DisplayDriver.h</AddFile>
+                <AddVGDDFile>mchpGfxLCC_PCAP.h</AddVGDDFile>
+            </Folder>
+            <Folder Name="Source Files/Common">
+                <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+            </Folder>
+        </MLALegacy>
+    </Project>
+    <Code>
+        <Section Name="ConfigBits">
+<![CDATA[
+#pragma config UPLLEN = ON          // USB PLL Enabled
+#pragma config FPLLMUL = MUL_20     // PLL Multiplier - Xtal 8MHz 8/2*20=80Mhz
+#pragma config UPLLIDIV = DIV_2     // USB PLL Input Divider
+#pragma config FPLLIDIV = DIV_2     // PLL Input Divider
+#pragma config FPLLODIV = DIV_1     // PLL Output Divider
+#pragma config FPBDIV = DIV_2       // Peripheral Clock divisor
+#pragma config FWDTEN = OFF         // Watchdog Timer
+#pragma config WDTPS = PS1          // Watchdog Timer Postscale
+#pragma config FCKSM = CSDCMD       // Clock Switching & Fail Safe Clock Monitor
+#pragma config OSCIOFNC = OFF       // CLKO Enable
+#pragma config POSCMOD = HS         // Primary Oscillator
+#pragma config IESO = OFF           // Internal/External Switch-over
+#pragma config FNOSC = PRIPLL       // Oscillator Selection
+#pragma config CP = OFF             // Code Protect
+#pragma config BWP = OFF            // Boot Flash Write Protect
+#pragma config PWP = OFF            // Program Flash Write Protect
+#pragma config ICESEL = ICS_PGx2    // ICE/ICD Comm Channel Select
+#pragma config FSOSCEN = OFF        // Secondary oscillator OFF to free RC13 <wake> signal from PCAP
+]]>
+        </Section>
+        <MLALegacy>
+            <Section Name="MainHeader">
+<![CDATA[
+#define SCREEN_TOUCHED()    (TouchGetX(0) != -1) // Screen touched version for PCAP
+]]>
+</Section>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#include <plib.h>
+
+#define GetSystemClock()        (80000000ul)
+#define GetPeripheralClock()    (GetSystemClock() / (1 << OSCCONbits.PBDIV))
+#define GetInstructionClock()   (GetSystemClock())
+#define PIC32_PCAP
+#define GFX_USE_DISPLAY_CONTROLLER_DMA
+#define LCC_EXTERNAL_MEMORY
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#define tris_self_power     TRISAbits.TRISA2    // Input
+#define self_power          1
+#define tris_usb_bus_sense  TRISBbits.TRISB5    // Input
+#define USB_BUS_SENSE       U1OTGSTATbits.SESVD // Special considerations required if using SESVD for this purpose.  See documentation.
+#define COMM_PKT_RX_MAX_SIZE    (1024)
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="0">
+<![CDATA[
+    AD1PCFG = 0x0000FFFF;        // all ADC channel set to digital except the ADC pins for Resistive Touch Panel
+    INTEnableSystemMultiVectoredInt();
+    SYSTEMConfigPerformance(GetSystemClock());
+    mOSCSetPBDIV(OSC_PB_DIV_1);	 // Use 1:1 CPU Core:Peripheral clocks
+    GOLInit();                   // Initialize graphics library and create default style scheme for GOL
+    TickTouchInit();             // Initialize the timer that manages the tick counter (not needed by the PCAP touch panel but used by other app functions)
+]]>
+            </Section>
+            <Section Name="MainFinishedDraw">
+<![CDATA[
+            TouchGetMsg(&msg); // Get message from touch screen
+]]>
+            </Section>
+        </MLALegacy>
+    </Code>
+</Board>

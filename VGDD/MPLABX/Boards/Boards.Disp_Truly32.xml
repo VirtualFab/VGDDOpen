@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="TRULY_3_2"
+	   Description="Graphics Display Truly 3.2in. 320x240 Board"
+	   Type="Display"
+	   Img="Disp_Truly32.png"
+	   Width="320"
+	   Height="240"
+       PartNumber="AC164127-4"
+	   URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=AC164127-4"
+	   DefaultOrientation="90">
+    <Note>
+
+    </Note>
+    <AddGroup Name="TouchScreenResistive" />
+    <Project>
+        <MLALegacy>
+            <Folder Name="Source Files/Display Driver">
+                <AddFile>$MAL/Graphics/Drivers/TCON_SSD1289.c</AddFile>
+            </Folder>
+        </MLALegacy>
+        <MLA>
+            <Folder Name="Header Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/drv_gfx_tcon.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/src/drv_gfx_tcon_bitbang.c</AddFile>
+                <AddFile>$MAL/framework/driver/gfx/src/drv_gfx_tcon_ssd1289.c</AddFile>
+            </Folder>
+        </MLA>
+        <Harmony>
+            <Folder Name="Header Files/framework/driver/gfx/display">
+                <AddFile>$MAL/framework/driver/gfx/controller/ssd1926/drv_gfx_ssd1926.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx/display">
+                <AddFile>$MAL/framework/driver/gfx/display/truly_3.2_240x320/src/drv_ssd1289.c</AddFile>
+            </Folder>
+        </Harmony>
+    </Project>
+    <Code>
+        <Section Name="HardwareProfileHead">
+<![CDATA[
+#define GFX_USE_DISPLAY_PANEL_TFT_G240320LTSW_118W_E	
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 0)	
+	#define TOUCHSCREEN_RESISTIVE_SWAP_XY
+	#define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#elif (DISP_ORIENTATION == 90)	
+#elif (DISP_ORIENTATION == 180)	
+	#define TOUCHSCREEN_RESISTIVE_SWAP_XY
+	#define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   5     
+#elif (DISP_ORIENTATION == 270)	
+	#define TOUCHSCREEN_RESISTIVE_FLIP_Y
+	#define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   5     
+#endif	            
+
+#define DISP_HOR_RESOLUTION		240		
+#define DISP_VER_RESOLUTION		320		
+#define DISP_INV_LSHIFT         1		
+#define DISP_HOR_PULSE_WIDTH   25		
+#define DISP_HOR_BACK_PORCH     5		
+#define DISP_HOR_FRONT_PORCH   10		
+#define DISP_VER_PULSE_WIDTH    4		
+#define DISP_VER_BACK_PORCH     0		
+#define DISP_VER_FRONT_PORCH    2		
+#define DISP_DATA_WIDTH			   18		
+#define GFX_LCD_TYPE GFX_LCD_TFT		
+#define GFX_GCLK_DIVIDER       61
+
+#define BACKLIGHT_ENABLE_LEVEL      0	
+#define BACKLIGHT_DISABLE_LEVEL     1	
+
+#define USE_TCON_SSD1289
+#define USE_TCON_MODULE
+]]>
+        </Section>
+        <MLALegacy>
+            <Section Name="MainHeader">
+<![CDATA[
+#include "TouchScreen.h"
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="8" Option="chkSPIFlash">
+<![CDATA[
+    TouchInit(&SST25WriteWord, &SST25ReadWord, &SST25SectorErase, NULL); // initialize the components for Touch Screen
+]]>
+            </Section>
+        </MLALegacy>
+        <MLA>
+            <Section Name="SystemHead">
+<![CDATA[
+#include "driver/touch_screen/drv_touch_screen.h"
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#define USE_TCON_MODULE
+]]>
+            </Section>
+            <Section Name="InitializeBoard" Order="1">
+<![CDATA[
+    // ---------------------------------------------------------
+    // Initialize TCON I/O PINS
+    // ---------------------------------------------------------
+
+    // TCON chip select pin
+    TCON_CS_DIG();          // set as digital pin
+    TCON_CS_TRIS = 0;       // set as output
+    TCON_CS_LAT  = 1;       // set initial value as high
+
+    // TCON spi clock pin
+    TCON_SCL_DIG();         // set as digital pin
+    TCON_SCL_TRIS = 0;      // set as output
+    TCON_SCL_LAT  = 0;      // set initial value as high
+
+    // TCON spi data out
+    TCON_SDO_DIG();         // set as digital pin
+    TCON_SDO_TRIS = 0;      // set as output
+    TCON_SDO_LAT  = 1;      // set initial value as high
+
+    // TCON data/command pin
+    TCON_DC_DIG();          // set as digital pin
+    TCON_DC_TRIS = 0;       // set as output
+    TCON_DC_LAT  = 1;       // set initial value as high (data)
+]]>
+            </Section>
+        </MLA>
+        <Harmony>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#define USE_TCON_MODULE
+extern void GFX_TCON_SSD1289Init(void);
+#define TCON_MODULE GFX_TCON_SSD1289Init
+]]>
+            </Section>
+            <Section Name="SystemDefinitions">
+<![CDATA[
+
+#define TOUCHCAL_ULX                             0x00C0
+#define TOUCHCAL_ULY                             0x00D4
+#define TOUCHCAL_URX                             0x037C
+#define TOUCHCAL_URY                             0x00D7
+#define TOUCHCAL_LLX                             0x00B9
+#define TOUCHCAL_LLY                             0x0350
+#define TOUCHCAL_LRX                             0x035A
+#define TOUCHCAL_LRY                             0x0333
+
+]]>
+            </Section>
+        </Harmony>
+    </Code>
+</Board>

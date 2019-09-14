@@ -1,0 +1,35 @@
+~inc:header.inc~
+<div id="content">
+
+<h1>Authentication settings</h1>
+<p>This page allows the configuration of your GuiBoard32&trade;
+authentication settings for the protected pages.</p>
+<div class="result fail" style="display:~status_fail~">
+ERROR: A field was unparsable or too much data was POSTed.  Try again.
+</div>
+<p class="error">
+<b>CAUTION:</b> Incorrect settings may cause the board to 
+disallow adminitrative access. In this case you will have to
+reflash your board.</p>
+
+<form method="post" action="/protect/index.htm" name="authconfig">
+<fieldset>
+<div><label>New Admin User:</label>
+<input type="text" name="user" value="~authconfig_user~" /></div>
+<div><label>New Password:</label>
+<input type="password" name="pwd1" value="" /></div>
+<div><label>Retype Password:</label>
+<input type="password" name="pwd2" value="" /></div>
+<div>&nbsp;</div>
+<div><input type="submit" class="sm" value="Save Config" /></div>
+</fieldset>
+</form>
+</div>
+
+<script type="text/javascript">
+<!--
+document.getElementById('hello').innerHTML = "~hellomsg~";
+//-->
+</script>
+
+~inc:footer.inc~

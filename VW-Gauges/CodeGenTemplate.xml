@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VGDDCodeTemplate>
+	<ControlsTemplates>
+		<SuperGauge>
+			<Header>
+				#define ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]   [NEXT_NUMID]
+			</Header>
+			<CodeHeadComment>
+				#define USE_SUPERGAUGE	// Enable SuperGauge Object.
+			</CodeHeadComment>
+			<CodeHead>
+				WORD Segments[CONTROLID_NOINDEX][CONTROLID_INDEX][] = {[SEGMENTSARRAY]};
+			</CodeHead>
+			<Constructor>
+				SUPERGAUGE *p[CONTROLID_NOINDEX][CONTROLID_INDEX];
+			</Constructor>
+			<Code>
+				p[CONTROLID_NOINDEX][CONTROLID_INDEX] = SgCreate(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX],[LEFT],[TOP],[RIGHT],[BOTTOM],[STATE],[VALUE],[MINVALUE],[MAXVALUE]
+				,[GAUGETYPE]	// Gauge Type
+				,[POINTERTYPE]	// Pointer Type
+				,[ANGLEFROM]	// AngleFrom
+				,[ANGLETO]		// AngleTo
+				,[DIALSCALENUMDIVISIONS]	// DialScaleNumDivisions
+				,[DIALSCALENUMSUBDIVISIONS]	// DialScaleNumSubDivisions
+				,[DIALTEXTOFFSETX]	// DialTextOffsetX
+				,[DIALTEXTOFFSETY]	// DialTextOffsetY
+				,[POINTERSIZE]	// PointerSize
+				,[POINTERCENTERSIZE]	// PointerCenterSize
+				,[DIGITSNUMBER]	// DigitsNumber
+				,[DIGITSSIZEX]	// DigitsSizeX
+				,[DIGITSSIZEY]	// DigitsSizeY
+				,[DIGITSOFFSETX]	// DigitsOffsetX
+				,[DIGITSOFFSETY]	// DigitsOffsetY
+				,(void *)&amp;[DIALSCALEFONT]	// pDialScaleFont
+				,(XCHAR*)[CONTROLID_NOINDEX]_Text[CONTROLID_INDEXPAR]
+				,[SEGMENTSCOUNT]	// SegmentsCount
+				,(void *)&amp;Segments[CONTROLID_NOINDEX][CONTROLID_INDEX]	// pSegments
+				,GOLScheme_[SCHEME]);
+			</Code>
+			<State>
+				<Enabled True="SG_DRAW" False="SG_DRAW|SG_DISABLED" />
+				<Visible True="SG_DRAW" False="SG_HIDE" />
+				<PointerLine NORMAL_LINE="SG_DRAW" THICK_LINE="SG_POINTER_THICK" />
+			</State>
+			<Events>
+				<Event Name="SG_MSG_TOUCHSCREEN" Description="SuperGauge has been touched" />
+			</Events>
+			<Actions>
+				<Action Name="Use Widget ID" Code="ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]" />
+				<Action Name="Set SuperGauge Value" Code="SgSetVal((SUPERGAUGE *)GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]),VALUE);[NEWLINE]" />
+				<Action Name="Update SuperGauge" Code="SetState(GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), SG_DRAW_UPDATE);[NEWLINE]" />
+				<Action Name="Hide SuperGauge" Code="SetState(GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), SG_HIDE);[NEWLINE]" />
+				<Action Name="Show SuperGauge" Code="SetState(GOLFindObject(ID_[CONTROLID_NOINDEX][CONTROLID_INDEX]), SG_DRAW);[NEWLINE]" />
+			</Actions>
+		</SuperGauge>
+	</ControlsTemplates>
+</VGDDCodeTemplate>

@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="VIRTUALFAB_GUIBoard32"
+	   Type="Development"
+	   Description="VirtualFab GUIBoard32"
+	   Compiler="C32"
+	   Img="Dev_VirtualFab_GUIBoard32.png"
+       PartNumber="GUIBoard32"
+	   URL="http://virtualfab.it/VGDD/GUIBoard32">
+  <Note>
+
+  </Note>
+  <CompatibleDisplay ID="VIRTUALFAB_DispGUIBoard32" />
+  <CompatibleOptions>
+    <Option>chkPutImageFromSD</Option>
+    <Option>chkPMP16</Option>
+    <Option>chkDEE</Option>
+    <Option>chkTCPIP</Option>
+    <Option>chkWiFi</Option>
+    <Option>chkDS18B20</Option>
+    <Option>chkMPFS</Option>
+    <Option>chkFSIO</Option>
+    <Option>chkFatFs</Option>
+    <Option>chkRTCC</Option>
+  </CompatibleOptions>
+  <AddGroup Name="GOL" />
+  <AddGroup Name="RTCC" />
+  <AddGroup Name="PutImageFromSD" />
+  <AddGroup Name="USBhost" />
+  <AddGroup Name="TcpIp" />
+  <AddGroup Name="WiFi" />
+  <AddGroup Name="DEEEmulation" />
+  <AddGroup Name="DS18B20" />
+  <AddGroup Name="FileSystem" />
+  <Project>
+    <ClearFolder Name="Source Files/Display Driver" />
+    <ClearFolder Name="Header Files/Display Driver" />
+    <Folder Name="Header Files/Board Support Package">
+      <AddFile>$USERTEMPLATESFOLDER/Boards/VirtualFab_GUIBoard32/BSP.h</AddFile>
+    </Folder>
+    <Folder Name="Source Files/Board Support Package">
+	  <RemoveFile>drv_spi.c</RemoveFile>
+      <AddFile>$USERTEMPLATESFOLDER/Boards/VirtualFab_GUIBoard32/BSP.c</AddFile>
+    </Folder>
+    <Folder Name="Source Files/Common" Option="!chkTCPIP">
+      <AddFile>$MAL/Common/TimeDelay.c</AddFile>
+    </Folder>
+    <SetConfig Section="[COMPILER]-LD" key="heap-size" value="[HEAPSIZE]"/>
+  </Project>
+  <Code>
+    <Section Name="ConfigBits">
+      <![CDATA[
+#pragma config UPLLEN = ON          // USB PLL Enabled
+#pragma config FPLLIDIV = DIV_3     // PLL Input Divider - Xtal 12MHz 12/3=4Mhz
+#pragma config FPLLMUL = MUL_20     // PLL Multiplier - 4MHz*20=80Mhz
+#pragma config UPLLIDIV = DIV_3     // USB PLL Input Divider - 12MHz/3=4MHz
+#pragma config FPLLODIV = DIV_1     // PLL Output Divider
+#pragma config FPBDIV = DIV_2       // Peripheral Clock divisor
+#pragma config FWDTEN = OFF         // Watchdog Timer
+#pragma config WDTPS = PS1          // Watchdog Timer Postscale
+#pragma config FCKSM = CSDCMD       // Clock Switching & Fail Safe Clock Monitor
+#pragma config OSCIOFNC = OFF       // CLKO Enable
+#pragma config POSCMOD = HS         // Primary Oscillator
+#pragma config IESO = ON            // Internal/External Switch-over
+#pragma config FSOSCEN = ON         // Secondary Oscillator Enable (KLO was off)
+#pragma config FNOSC = PRIPLL       // Oscillator Selection
+#pragma config CP = OFF             // Code Protect
+#pragma config BWP = OFF            // Boot Flash Write Protect
+#pragma config PWP = OFF            // Program Flash Write Protect
+#pragma config ICESEL = ICS_PGx1    // ICE/ICD Comm Channel Select
+]]>
+    </Section>
+    <Section Name="InitializeBoard" Order="0">
+      <![CDATA[
+    AD1PCFG = 0x0ffff; // All analog inputs AN0-AN15 as DIGITAL (by default they are analog)
+    INTEnableSystemMultiVectoredInt();
+    SYSTEMConfigPerformance(GetSystemClock());
+    GOLInit();                   // Initialize graphics library and create default style scheme for GOL
+]]>
+    </Section>
+    <Section Name="InitializeBoard" Order="2">
+      <![CDATA[
+    TickTouchInit();             // Initialize the timer that manages the tick counter for Touch panel
+    CNPUESET = _CNPUE_CNPUE3_MASK | _CNPUE_CNPUE4_MASK; // Pullups on RB3(XMinus) and RB4(YMinus) for TouchScreenResistive
+    TouchInit(NVMWrite, NVMRead, NVMSectorErase, NULL); // Initialize the components for Resistive Touch Screen
+    HardwareButtonInit();        // Initialize the hardware buttons
+]]>
+    </Section>
+    <Section Name="HardwareProfileHead">
+      <![CDATA[
+#include <plib.h>
+
+#define GetSystemClock()        (80000000ul)
+#define GetPeripheralClock()    (GetSystemClock() / (1 << OSCCONbits.PBDIV))
+#define GetInstructionClock()   (GetSystemClock())
+]]>
+    </Section>
+    <Section Name="HardwareProfile">
+      <![CDATA[
+#define self_power          1
+#define USB_BUS_SENSE       1
+
+// -----------------------------------------------
+// IOS FOR THE BEEPER
+// -----------------------------------------------
+#define BEEP_TRIS_BIT   _TRISC1
+#define BEEP_LAT_BIT    _LATC1
+
+// -----------------------------------------------
+// IOS FOR THE UART
+// -----------------------------------------------
+#define TX_TRIS _TRISF8
+#define RX_TRIS _TRISF2
+
+// -----------------------------------------------
+// UART SETTINGS
+// -----------------------------------------------
+#define BAUDRATE2               115200UL
+#define BRG_DIV2                4
+#define BRGH2                   1
+
+// -----------------------------------------------
+// IOS FOR THE SWITCHES (SIDE BUTTONS)
+// -----------------------------------------------
+typedef enum
+{
+    HW_BUTTON_PRESS = 0,
+    HW_BUTTON_RELEASE = 1
+} HW_BUTTON_STATE;
+#define HardwareButtonInit()        UserPeriphInit() // in BSD.c
+#define GetHWButtonProgram()        (PORTDbits.RD2)
+#define GetHWButtonScanDown()       
+#define GetHWButtonScanUp()          
+#define GetHWButtonCR()             (PORTDbits.RD2)
+#define GetHWButtonFocus()          
+]]>
+    </Section>
+    <Section Name="HardwareProfile" Option="chkPutImageFromSD,|chkFSIO,|chkFatFs">
+      <![CDATA[
+// --------------------------------------------------------------------
+// IOS FOR THE SDCard SPI INTERFACE
+// --------------------------------------------------------------------
+// Registers for the SPI module you want to use
+// SPI Configuration
+#define SPI_START_CFG_1     (PRI_PRESCAL_64_1 | SEC_PRESCAL_8_1 | MASTER_ENABLE_ON | SPI_CKE_ON | SPI_SMP_ON)
+#define SPI_START_CFG_2     (SPI_ENABLE)
+#define SPI_FREQUENCY       (20000000)                // Define the SPI frequency
+#define SD_CS               PORTBbits.RB7             // SD-SPI Chip Select Output bit - Set digital required
+#define SD_CS_TRIS          TRISBbits.TRISB7          // SD-SPI Chip Select TRIS bit
+#define SD_CD               PORTGbits.RG9             // SD-SPI Card Detect Input bit
+#define SD_CD_TRIS          TRISGbits.TRISG9          // SD-SPI Card Detect TRIS bit
+// Remarks: There is no write protection with microSD
+#define SD_WE               PORTGbits.RG9             // SD-SPI Write Protect Check Input bit
+#define SD_WE_TRIS          TRISGbits.TRISG9          // SD-SPI Write Protect Check TRIS bit
+#define SPICON1             SPI2ACON                  // The main SPI control register
+#define SPISTAT             SPI2ASTAT                 // The SPI status register
+#define SPIBUF              SPI2ABUF                  // The SPI Buffer
+#define SPISTAT_RBF         SPI2ASTATbits.SPIRBF      // The receive buffer full bit in the SPI status register
+#define SPICON1bits         SPI2ACONbits              // The bitwise define for the SPI control register (i.e. _____bits)
+#define SPISTATbits         SPI2ASTATbits             // The bitwise define for the SPI status register (i.e. _____bits)
+#define SPIENABLE           SPI2ACONbits.ON           // The enable bit for the SPI module
+#define SPIBRG              SPI2ABRG                  // The definition for the SPI baud rate generator register
+#define SPICLOCK            TRISGbits.TRISG6          // The TRIS bit for the SCK pin
+#define SPIIN               TRISGbits.TRISG7          // The TRIS bit for the SDI pin
+#define SPIOUT              TRISGbits.TRISG8          // The TRIS bit for the SDO pin
+#define putcSPI(data)       SpiChnPutC(SPI_CHANNEL2, data)
+#define getcSPI()           SpiChnGetC(SPI_CHANNEL2)
+#define OpenSPI(config1, config2)   SpiChnOpen(SPI_CHANNEL2, config1, config2)
+]]>
+    </Section>
+  </Code>
+</Board>

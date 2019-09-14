@@ -1,0 +1,2502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MplabXWizard>
+    <Option Name="chkGOL" Description="Graphics Object Layer support" Disabled="false">
+        <![CDATA[
+GOL support must be enabled if your project uses any of the GOL widgets (Button, StaticText, etc.)
+]]>
+    </Option>
+    <Option Name="chkUSBhost" Description="USB host support" AlternativeTo="chkFlashProgrammer" Disabled="true">
+<![CDATA[
+USB host support enables the USB port on the DevBoard to read for example a PenDrive.
+
+Used in conjunction with PutImageFromSD enables the ability to store your big bitmaps on the PenDrive.
+]]>
+    </Option>
+    <Option Name="chkPutImageFromSD" Description="PutImageFromSD support" AlternativeTo="chkFlashProgrammer,chkMPFS" Disabled="true">
+<![CDATA[
+PutImageFromSD enables your application to retrieve big bitmaps from either a direct-attached SD memory card or an USB PenDrive.
+
+Needs one of the FileSystem options: either check FSIO or FatFs support.
+]]>
+    </Option>
+    <Option Name="chkFlashProgrammer" Description="Flash Memory Programmer support" AlternativeTo="chkPutImageFromSD,chkUSBhost" Disabled="true">
+<![CDATA[
+Enable this feature to be able to store big bitmaps into the onboard SPI FLASH chip of the GFX Pictail boards.
+]]>
+    </Option>
+    <Option Name="chkPMP16" Description="Use 16 bit Parallel Port" AlternativeTo="chkPMP8" >
+        <!--Default="True"-->
+<![CDATA[
+Enable this option to force usage of the PMP in 16-bit mode to drive the TFT when the board uses a display controller chip (SSD1926, S1D13517, etc.).
+
+Note: set jumper on the board accordingly.
+
+Not needed for DA210 and LCC boards which drive the display directly.
+]]>
+    </Option>
+    <Option Name="chkPMP8" Description="Use 8 bit Parallel Port" AlternativeTo="chkPMP16">
+<![CDATA[
+Enable this option to force usage of the PMP in 8-bit mode to drive the TFT when the board uses a display controller chip (SSD1926, S1D13517, etc.).
+
+Note: set jumper on the board accordingly.
+
+Not needed for DA210 and LCC boards which drive the display directly.
+]]>
+    </Option>
+    <Option Name="chkSPIFlash" Description="NVM: Use the SST25VF016 SPI Flash chip" AlternativeTo="chkSPIeeprom, chkDEE">
+<![CDATA[
+Enable usage of the chip on Graphics Pictail Plus boards as NVM for TouchScreen parameters
+]]>
+    </Option>
+    <Option Name="chkSPIeeprom" Description="NVM: Use the MCHP25LC256 SPI EEPROM chip (Explorer16)" AlternativeTo="chkSPIFlash, chkDEE">
+<![CDATA[
+Enable usage of the EEPROM chip on Explorer16 as NVM for TouchScreen parameters
+]]>
+    </Option>
+    <Option Name="chkDEE" Description="NVM: Use DEE - Data Eeprom Emulation support" AlternativeTo="chkSPIFlash, chkSPIeeprom">
+<![CDATA[
+DEE support enables using 3 pages of FLASH Program memory as EEPROM to store persistent values (NVM - Non Volatile Memory)
+
+It uses optimized algorithm to preserve PIC FLASH memory life.
+
+Documentation at http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=2680&dDocName=en538000
+]]>
+    </Option>
+    <Option Name="chkRTCC" Description="RTCC - Real Time Clock and Calendar support" Disabled="true">
+<![CDATA[
+RTCC support enables using PIC's internal Real Time Clock to keep a current time and date for your application.
+
+In conjunction with TCP/IP support, there's the automatic Network Time Protocol synchronization with internet Time.
+
+Needed for FatFs to obtain a valid timestamp for created files.
+]]>
+    </Option>
+    <Option Name="chkTCPIP" Description="TCP/IP stack" Disabled="true">
+<![CDATA[
+Check this option to add TCP/IP stack to your GUI application and enable Web Server and/or other network services
+]]>
+    </Option>
+    <Option Name="chkTCPIPDemoApp" Description="TCP/IP Demo Application" DependsOn="chkTCPIP" Disabled="true">
+<![CDATA[
+Check this option to add Demo functions to manipulate GUI items from web
+]]>
+    </Option>
+    <Option Name="chkWiFi" Description="WiFi stack (needs TCP/IP stack)" DependsOn="chkTCPIP" Disabled="true">
+<![CDATA[
+Check this option to add WiFi stack to your GUI application. The TCP/IP stack must also be enabled.
+]]>
+    </Option>
+    <Option Name="chkMPFS" Description="MPFS Flash FileSystem support" AlternativeTo="chkFSIO,chkFatFs,chkPutImageFromSD" Disabled="true">
+        <!--Default="True"-->
+<![CDATA[
+Check this option to add MPFS FileSystem for your Web server application, to store webpages in PIC's FLASH memory (fastest).
+]]>
+    </Option>
+    <Option Name="chkFSIO" Description="MDD FSIO FileSystem support for SD" AlternativeTo="chkMPFS,chkFatFs" Disabled="true">
+<![CDATA[
+Check this option to add FSIO FileSystem for your Web server application, to store webpages on SD.
+]]>
+    </Option>
+    <Option Name="chkFatFs" Description="MDD FatFs FileSystem support for SD" AlternativeTo="chkFSIO,chkMPFS" Disabled="true">
+<![CDATA[
+Check this option to add FatFs FileSystem for your Web server application, to store webpages on SD (faster than FSIO).
+Documentation at http://elm-chan.org/fsw/ff/00index_e.html
+]]>
+    </Option>
+    <Option Name="chkDS18B20" Description="DS18B20 1-Wire(tm) temperature sensor support" Disabled="true">
+<![CDATA[
+Dallas DS18B20 is one of the most precise digital temperature sensor on the market. 
+It provides 9-bit to 12-bit Celsius temperature measurements and has an alarm function with nonvolatile user-programmable upper and lower trigger points.
+The DS18B20 communicates over a 1-Wire bus that by definition requires only one data line (and ground) for communication with a central microprocessor. 
+It has an operating temperature range of -55°C to +125°C and is accurate to ±0.5°C over the range of -10°C to +85°C. 
+In addition, the DS18B20 can derive power directly from the data line (“parasite power”), eliminating the need for an external power supply. 
+Each DS18B20 has a unique 64-bit serial code, which allows multiple DS18B20s to function on the same 1-Wire bus. 
+Thus, it is simple to use one microprocessor to control many DS18B20s distributed over a large area.
+http://datasheets.maximintegrated.com/en/ds/DS18B20.pdf
+]]>
+    </Option>
+    <DevelopmentBoards>
+    </DevelopmentBoards>
+    <PIMBoards>
+    </PIMBoards>
+    <ExpansionBoards>
+    </ExpansionBoards>
+    <DisplayBoards>
+    </DisplayBoards>
+    <Groups>
+        <Group Name="GOL">
+            <Code>
+                <Section Name="MainHeader" Option="chkGOL">
+<![CDATA[
+#include "[PROJECTFILENAME_SCREENSH]"
+//#include "[PROJECTFILENAME_HELPERH]"
+#include "vgdd_main.h"
+]]>
+                </Section>
+                <Section Name="SystemDefinitions" Option="chkGOL">
+<![CDATA[
+#include "system/msg/sys_msg.h"
+#include "gfx/gfx.h"
+#include "gfx/gfx_primitive.h"
+#include "gfx/gfx_gol.h"
+#include "gfx/gfx_gol_scan_codes.h"
+#include "gfx/gfx_gol_button.h"
+#include "gfx/gfx_gol_check_box.h"
+#include "gfx/gfx_gol_digital_meter.h"
+#include "gfx/gfx_gol_edit_box.h"
+#include "gfx/gfx_gol_group_box.h"
+#include "gfx/gfx_gol_list_box.h"
+#include "gfx/gfx_gol_meter.h"
+#include "gfx/gfx_gol_picture.h"
+#include "gfx/gfx_gol_custom_control.h"
+#include "gfx/gfx_gol_progress_bar.h"
+#include "gfx/gfx_gol_radio_button.h"
+#include "gfx/gfx_gol_scroll_bar.h"
+#include "gfx/gfx_gol_static_text.h"
+#include "gfx/gfx_gol_text_entry.h"
+#include "gfx/gfx_gol_window.h"
+]]>
+                </Section>
+            </Code>
+            <Project>
+                <Folder Name="Header Files/framework/gfx" Option="chkGOL">
+                    <AddFile>$MAL/framework/gfx/gfx.h</AddFile>
+                    <AddFile>$MAL/framework/gfx/gfx_gol.h</AddFile>
+                </Folder>
+                <Folder Name="Header Files/app/system_config" Option="chkGOL">
+                    <!--<AddFile>$MAL/framework/gfx/gfx.h</AddFile>-->
+                </Folder>
+                <Folder Name="Source Files/framework/gfx" Option="chkGOL">
+                    <AddFile>$MAL/framework/gfx/src/gfx.c</AddFile>
+                    <AddFile>$MAL/framework/gfx/src/gfx_primitive.c</AddFile>
+                </Folder>
+                <!--<Folder Name="Source Files/framework/system/clk">
+                    <AddFile>$MAL/framework/system/clk/src/sys_clk.c</AddFile>
+                    <AddFile>$MAL/framework/system/clk/src/sys_clk_pic32mx.c</AddFile>
+                </Folder>-->
+                <Folder Name="Source Files/framework/system/devcon/src" Option="chkGOL">
+                    <AddFile>$MAL/framework/system/devcon/src/sys_devcon.c</AddFile>
+                    <!--<AddFile>$MAL/framework/system/devcon/src/sys_devcon_pic32mx.c</AddFile>-->
+                </Folder>
+                <!--<Folder Name="Source Files/framework/system/dma">
+                    <AddFile>$MAL/framework/system/dma/src/sys_dma.c</AddFile>
+                </Folder>-->
+                <Folder Name="Source Files/framework/system/int/src" Option="chkGOL">
+                    <AddFile>$MAL/framework/system/int/src/sys_int_pic32.c</AddFile>
+                </Folder>
+                <Folder Name="Source Files/framework/system/msg/src" Option="chkGOL">
+                    <AddFile>$MAL/framework/system/msg/src/sys_msg.c</AddFile>
+                </Folder>
+                <!--<Folder Name="Source Files/framework/system">
+                    <AddFile>$MAL/framework/system/ports/src/sys_ports.c</AddFile>
+                    <AddFile>$MAL/framework/system/common/src/sys_queue.c</AddFile>
+                    <AddFile>$MAL/framework/system/tmr/src/sys_tmr.c</AddFile>
+                </Folder>-->
+                <!--<Folder Name="Source Files/framework/peripheral">
+                    <AddFile>$MAL/framework/peripheral/int/src/plib_int_pic32.c</AddFile>
+                    <AddFile>$MAL/framework/peripheral/tmr/src/plib_tmr_pic32.c</AddFile>
+                </Folder>-->
+            </Project>
+        </Group>
+        <Group Name="FileSystem">
+            <Project>
+                <Folder Name="Header Files/MDD File System" Option="chkMPFS">
+                    <RemoveFile>FileSystem.h</RemoveFile>
+                    <RemoveFile>FSIO.h</RemoveFile>
+                    <RemoveFile>FSDefs.h</RemoveFile>
+                    <RemoveFile>FSconfig.h</RemoveFile>
+                    <RemoveFile>ff.h</RemoveFile>
+                    <RemoveFile>ffconf.h</RemoveFile>
+                    <RemoveFile>diskio.h</RemoveFile>
+                    <RemoveFile>integer.h</RemoveFile>
+                </Folder>
+                <Folder Name="Source Files/MDD File System" Option="chkMPFS">
+                    <RemoveFile>FileSystem.c</RemoveFile>
+                    <RemoveFile>FSIO.c</RemoveFile>
+                    <RemoveFile>SD-SPI.c</RemoveFile>
+                    <RemoveFile>ff.c</RemoveFile>
+                    <RemoveFile>mmcPIC32.c</RemoveFile>
+                    <RemoveFile>ccsbcs.c</RemoveFile>
+                    <EnableDisableDefine File="HardwareProfile.h">
+                        <Disable>FILESYSTEM_USE_FATFS</Disable>
+                        <Enable>FILESYSTEM_USE_MPFS2</Enable>
+                        <Disable>FILESYSTEM_USE_MDD</Disable>
+                    </EnableDisableDefine>
+                </Folder>
+                <Folder Name="Header Files/MDD File System" Option="chkFSIO">
+                    <AddFile>$MAL/Include/MDD File System/FSIO.h</AddFile>
+                    <AddFile>$MAL/Include/MDD File System/FSDefs.h</AddFile>
+                    <AddVGDDFile>FileSystem.h</AddVGDDFile>
+                    <AddVGDDFile>FSconfig.h</AddVGDDFile>
+                    <RemoveFile>ff.h</RemoveFile>
+                    <RemoveFile>ffconf.h</RemoveFile>
+                    <RemoveFile>diskio.h</RemoveFile>
+                    <RemoveFile>integer.h</RemoveFile>
+                </Folder>
+                <Folder Name="Source Files/MDD File System" Option="chkFSIO">
+                    <AddVGDDFile>FileSystem.c</AddVGDDFile>
+                    <AddFile>$MAL/MDD File System/FSIO.c</AddFile>
+                    <RemoveFile>ff.c</RemoveFile>
+                    <RemoveFile>mmcPIC32.c</RemoveFile>
+                    <RemoveFile>ccsbcs.c</RemoveFile>
+                    <EnableDisableDefine File="HardwareProfile.h">
+                        <Disable>FILESYSTEM_USE_FATFS</Disable>
+                        <Disable>FILESYSTEM_USE_MPFS2</Disable>
+                        <Enable>FILESYSTEM_USE_MDD</Enable>
+                    </EnableDisableDefine>
+                </Folder>
+                <Folder Name="Source Files/MDD File System" Option="!chkUSBHost,chkFSIO">
+                    <AddFile>$MAL/MDD File System/SD-SPI.c</AddFile>
+                    <EnableDisableDefine File="HardwareProfile.h">
+                        <Enable>USE_SD_INTERFACE_WITH_SPI</Enable>
+                    </EnableDisableDefine>
+                </Folder>
+                <Folder Name="Header Files/MDD File System" Option="chkFatFs">
+                    <AddVGDDFile>FileSystem.h</AddVGDDFile>
+                    <AddVGDDFile>ff.h</AddVGDDFile>
+                    <AddVGDDFile>ffconf.h</AddVGDDFile>
+                    <AddVGDDFile>diskio.h</AddVGDDFile>
+                    <AddVGDDFile>integer.h</AddVGDDFile>
+                    <AddVGDDFile>FSconfig.h</AddVGDDFile>
+                    <RemoveFile>FSIO.h</RemoveFile>
+                    <RemoveFile>FSDefs.h</RemoveFile>
+                </Folder>
+                <Folder Name="Source Files/MDD File System" Option="chkFatFs">
+                    <AddVGDDFile>FileSystem.c</AddVGDDFile>
+                    <AddVGDDFile>ff.c</AddVGDDFile>
+                    <AddVGDDFile>mmcPIC32.c</AddVGDDFile>
+                    <AddVGDDFile>ccsbcs.c</AddVGDDFile>
+                    <RemoveFile>FSIO.c</RemoveFile>
+                    <RemoveFile>SD-SPI.c</RemoveFile>
+                    <EnableDisableDefine File="HardwareProfile.h">
+                        <Enable>FILESYSTEM_USE_FATFS</Enable>
+                        <Disable>FILESYSTEM_USE_MPFS2</Disable>
+                        <Disable>FILESYSTEM_USE_MDD</Disable>
+                    </EnableDisableDefine>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="MainHeader" Option="chkFSIO">
+<![CDATA[
+#include "FileSystem.h"
+]]>
+                </Section>
+                <Section Name="MainBeforeLoop" Option="chkFSIO">
+<![CDATA[
+    #if defined(MEDIA_SOFT_DETECT)
+    FileCheckMedia(); // Check for SD card/USB Thumb drive if attached - only once when starting	
+    #endif
+]]>
+                </Section>
+                <Section Name="MainLoop" Option="chkFSIO">
+<![CDATA[
+    #if !defined(MEDIA_SOFT_DETECT)
+    FileCheckMedia(); // Check for SD card/USB Thumb drive if attached 	
+    #endif
+]]>
+                </Section>
+                <Section Name="MainHeader" Option="chkFatFs">
+<![CDATA[
+#include "FileSystem.h"
+]]>
+                </Section>
+                <Section Name="HardwareProfileHead" Option="chkFatFs">
+<![CDATA[
+#define STACK_USE_FATFS
+]]>
+                </Section>
+                <Section Name="MainBeforeLoop" Option="chkFatFs">
+<![CDATA[
+    #if defined(MEDIA_SOFT_DETECT)
+    FileCheckMedia(); // Check for SD card/USB Thumb drive if attached - only once when starting	
+    #endif
+]]>
+                </Section>
+                <Section Name="MainLoop" Option="chkFatFs">
+<![CDATA[
+    #if !defined(MEDIA_SOFT_DETECT)
+    FileCheckMedia(); // Check for SD card/USB Thumb drive if attached 	
+    #endif
+]]>
+                </Section>
+                <Section Name="Main" Option="chkFatFs">
+<![CDATA[
+
+/*********************************************************************
+ * Function:          DWORD get_fattime(void)
+ * PreCondition:
+ * Input:           None
+ * Output:          Time
+ * Side Effects:
+ * Overview:        when writing fatfs requires a time stamp
+ *                    in this exmaple we are going to use a counter
+ *                    If the starter kit has the 32kHz crystal
+ *                    installed then the < could be used instead
+ * Note:
+ ********************************************************************/
+DWORD get_fattime(void) {
+    DWORD tmr;
+
+    RTCCProcessEvents();
+     tmr = (( ((DWORD)(mRTCCDec2Bin(_time.yr)+20) << 25))
+            | ((DWORD) (mRTCCDec2Bin(_time.mth)) << 21)
+            | ((DWORD) (mRTCCDec2Bin(_time.day)) << 16)
+            | (WORD) ((mRTCCDec2Bin(_time.hr) << 11))
+            | (WORD) ((mRTCCDec2Bin(_time.min) << 5))
+            | (WORD) ((mRTCCDec2Bin(_time.sec) >> 1)));
+
+    return tmr;
+}                                
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="TouchScreenResistive">
+            <Project>
+                <!--<Folder Name="Header Files/framework/driver/touch_screen">
+                    <AddFile>$MAL/framework/gfx/src/common_legacy/TouchScreen.h</AddFile>
+                    <AddFile>$MAL/framework/gfx/src/common_legacy/TouchScreenResistive.h</AddFile>
+                </Folder>-->
+                <!--<Folder Name="Source Files/framework/driver/touch_screen">
+                    <AddFile>$MAL/framework/gfx/src/common_legacy/TouchScreen.c</AddFile>
+                    <AddFile>$MAL/framework/gfx/src/common_legacy/TouchScreenResistive.c</AddFile>
+                </Folder>-->
+                <Folder Name="Header Files/framework/system/touch">
+                    <AddFile>$MAL/framework/system/touch/sys_touch.h</AddFile>
+                </Folder>
+                <Folder Name="Source Files/framework/system/touch/src">
+                    <AddFile>$MAL/framework/system/touch/src/sys_touch.c</AddFile>
+                </Folder>
+                <Folder Name="Header Files/framework/driver/touch/adc10bit">
+                    <AddFile>$MAL/framework/driver/touch/adc10bit/drv_adc10bit.h</AddFile>
+                </Folder>
+                <Folder Name="Source Files/framework/driver/touch/adc10bit/src">
+                    <AddFile>$MAL/framework/driver/touch/adc10bit/src/drv_adc10bit.c</AddFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="MainHeader">
+<![CDATA[
+#include "system/touch/sys_touch.h"
+]]>
+                </Section>
+                <!--<Section Name="MainFinishedDraw">
+<![CDATA[
+            TouchGetMsg(); // Get message from touch screen
+            SYS_MSG_Tasks( hSysMsg ); // Process message
+]]>
+                </Section>-->
+                <Section Name="Task">
+<![CDATA[
+    DRV_TOUCH_ADC10BIT_Tasks(sysObj.drvAdc10bit);
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="SPIFlash">
+            <Project>
+                <Folder Name="Header Files/framework/driver/nvm" Option="chkSPIFlash">
+                    <!--<AddFile>$MAL/framework/gfx/src/common_legacy/SST25VF016.h</AddFile>-->
+                </Folder>
+                <Folder Name="Header Files/framework/driver/spi" Option="chkSPIFlash">
+                    <AddFile>$MAL/framework/driver/spi/drv_spi.h</AddFile>
+                </Folder>
+                <Folder Name="Source Files/framework/driver/nvm" Option="chkSPIFlash">
+                    <!--<AddFile>$MAL/framework/gfx/src/common_legacy/SST25VF016.c</AddFile>-->
+                </Folder>
+                <Folder Name="Source Files/framework/driver/spi" Option="chkSPIFlash">
+                  <AddFile>$MAL/framework/driver/spi/src/dynamic/drv_spi.c</AddFile>
+                  <AddFile>$MAL/framework/driver/spi/src/dynamic/drv_spi_api.c</AddFile>
+                  <AddFile>$MAL/framework/driver/spi/src/drv_spi_sys_queue_fifo.c</AddFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="HardwareProfileHead" Option="chkSPIFlash">
+<![CDATA[
+#define USE_SST25VF016 // use the 16 Mbit SPI Serial Flash on GFX3 Pictail Plus boards
+]]>
+                </Section>
+                <Section Name="MainHeader" Option="chkSPIFlash">
+<![CDATA[
+#include "driver/spi/drv_spi.h"
+//#include "gfx/src/common_legacy/SST25VF016.h"
+]]>
+                </Section>
+                <!--<Section Name="MainHeader" Option="chkSPIFlash">
+<![CDATA[
+#include "driver/nvm/drv_nvm_flash_spi_sst25vf016.h"
+]]>
+              </Section>-->
+                <Section Name="HardwareProfile" Option="chkSPIFlash">
+<![CDATA[
+// --------------------------------------------------------------------
+// Touch Screen Non-Volatile Memory Storage Macros for SPI Flash Memory
+// --------------------------------------------------------------------
+#define ADDRESS_RESISTIVE_TOUCH_VERSION	(unsigned long)0xFFFFFFFE
+#define ADDRESS_RESISTIVE_TOUCH_ULX   (unsigned long)0xFFFFFFFC
+#define ADDRESS_RESISTIVE_TOUCH_ULY   (unsigned long)0xFFFFFFFA
+#define ADDRESS_RESISTIVE_TOUCH_URX   (unsigned long)0xFFFFFFF8
+#define ADDRESS_RESISTIVE_TOUCH_URY   (unsigned long)0xFFFFFFF6
+
+#define ADDRESS_RESISTIVE_TOUCH_LLX   (unsigned long)0xFFFFFFF4
+#define ADDRESS_RESISTIVE_TOUCH_LLY   (unsigned long)0xFFFFFFF2
+#define ADDRESS_RESISTIVE_TOUCH_LRX   (unsigned long)0xFFFFFFF0
+#define ADDRESS_RESISTIVE_TOUCH_LRY   (unsigned long)0xFFFFFFEE
+
+#define NVMSectorErase ((NVM_SECTORERASE_FUNC)&DRV_NVM_SST25VF016_SectorErase)
+#define NVMWrite       ((NVM_WRITE_FUNC      )&DRV_NVM_SST25VF016_Write)
+#define NVMRead        ((NVM_READ_FUNC       )&DRV_NVM_SST25VF016_Read)
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="SPI1Flash">
+            <Code>
+                <Section Name="AppHeader" Option="chkSPIFlash">
+<![CDATA[
+// --------------------------------------------------------------------
+// SPI Flash Memory on GFXV3 Pictail Boards (SPI1)
+// --------------------------------------------------------------------
+// Set up the signals used to communicate to the SPI Flash device 
+DRV_SPI_INIT     spiInit =
+{
+    .moduleInit.value   = SYS_MODULE_POWER_RUN_FULL,
+    .spiId              = SPI_ID_1,
+    .spiMode            = DRV_SPI_MODE_MASTER,
+    .taskMode           = DRV_SPI_TASK_MODE_POLLED,
+    .numTrfsSmPolled    = 0,
+    .jobQueueReserveSize = 10,
+    .queueSize           = 20,
+    .spiProtocolType    = DRV_SPI_PROTOCOL_TYPE_STANDARD,
+    .commWidth          = SPI_COMMUNICATION_WIDTH_8BITS,
+    .baudRate           = 1,
+    .bufferType         = DRV_SPI_BUFFER_TYPE_STANDARD,
+    .clockMode          = DRV_SPI_CLOCK_MODE_IDLE_LOW_EDGE_FALL,
+    .inputSamplePhase   = SPI_INPUT_SAMPLING_PHASE_AT_END,
+    .txInterruptSource  = INT_SOURCE_SPI_1_TRANSMIT,
+    .rxInterruptSource  = INT_SOURCE_SPI_1_RECEIVE,
+    .errInterruptSource = INT_SOURCE_SPI_1_ERROR
+};
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="SPI2Flash">
+            <Code>
+                <Section Name="AppHeader" Option="chkSPIFlash" Condition="DEVBOARDID != PIC32_ETH_SK">
+<![CDATA[
+// --------------------------------------------------------------------
+// SPI Flash Memory on GFXV3 Pictail Boards (SPI2)
+// --------------------------------------------------------------------
+// Set up the signals used to communicate to the SPI Flash device 
+DRV_SPI_INIT     spiInit =
+{
+    .moduleInit.value   = SYS_MODULE_POWER_RUN_FULL,
+    .spiId              = SPI_ID_2,
+    .spiMode            = DRV_SPI_MODE_MASTER,
+    .taskMode           = DRV_SPI_TASK_MODE_POLLED,
+    .numTrfsSmPolled    = 0,
+    .jobQueueReserveSize = 10,
+    .queueSize           = 20,
+    .spiProtocolType    = DRV_SPI_PROTOCOL_TYPE_STANDARD,
+    .commWidth          = SPI_COMMUNICATION_WIDTH_8BITS,
+    .baudRate           = 1,
+    .bufferType         = DRV_SPI_BUFFER_TYPE_STANDARD,
+    .clockMode          = DRV_SPI_CLOCK_MODE_IDLE_LOW_EDGE_FALL,
+    .inputSamplePhase   = SPI_INPUT_SAMPLING_PHASE_AT_END,
+    .txInterruptSource  = INT_SOURCE_SPI_2_TRANSMIT,
+    .rxInterruptSource  = INT_SOURCE_SPI_2_RECEIVE,
+    .errInterruptSource = INT_SOURCE_SPI_2_ERROR
+};
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="SPIeeprom">
+            <Project>
+                <Folder Name="Header Files/Board Support Package" Option="chkSPIeeprom">
+                    <AddFile>$MAL/../Board Support Package/MCHP25LC256.h</AddFile>
+                    <AddFile>$MAL/../Board Support Package/drv_spi.h</AddFile>
+                </Folder>
+                <Folder Name="Source Files/Board Support Package" Option="chkSPIeeprom">
+                    <AddFile>$MAL/../Board Support Package/MCHP25LC256.c</AddFile>
+                    <AddFile>$MAL/../Board Support Package/drv_spi.c</AddFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="HardwareProfileHead" Option="chkSPIeeprom">
+<![CDATA[
+#define USE_MCHP25LC256    // use the 256Kbit SPI Serial Flash on EXPLORER16
+]]>
+                </Section>
+                <Section Name="MainHead" Option="chkSPIeeprom">
+<![CDATA[
+// --------------------------------------------------------------------
+// SPI Channel settings (for SPI Flash Memory) 
+// --------------------------------------------------------------------
+const DRV_SPI_INIT_DATA SPI_Init_Data = {MCHP25LC256_SPI_CHANNEL, 6, 3, 0, 1, 1, 0};    
+
+// --------------------------------------------------------------------
+// SPI Device Initialization Function for SPI Flash Memory
+// --------------------------------------------------------------------
+// initialize EEPROM on Explorer 16
+#define FlashInit(pInitData) MCHP25LC256Init((DRV_SPI_INIT_DATA*)pInitData)  
+]]>
+                </Section>
+                <Section Name="MainHeader" Option="chkSPIeeprom">
+<![CDATA[
+#include "drv_spi.h"
+#include "MCHP25LC256.h"
+]]>
+                </Section>
+                <Section Name="HardwareProfile" Option="chkSPIeeprom">
+<![CDATA[
+// --------------------------------------------------------------------
+// Touch Screen Non-Volatile Memory Storage Macros
+// --------------------------------------------------------------------
+// for  MCHP25LC256 serial EEPROM or AT25256 serial EEPROM
+// Addresses for calibration and version values in EEPROM on Explorer16
+#define ADDRESS_RESISTIVE_TOUCH_VERSION	(unsigned long)0x7FFE
+#define ADDRESS_RESISTIVE_TOUCH_ULX   (unsigned long)0x7FFC
+#define ADDRESS_RESISTIVE_TOUCH_ULY   (unsigned long)0x7FFA
+#define ADDRESS_RESISTIVE_TOUCH_URX   (unsigned long)0x7FF8
+#define ADDRESS_RESISTIVE_TOUCH_URY   (unsigned long)0x7FF6
+
+#define ADDRESS_RESISTIVE_TOUCH_LLX   (unsigned long)0x7FF4
+#define ADDRESS_RESISTIVE_TOUCH_LLY   (unsigned long)0x7FF2
+#define ADDRESS_RESISTIVE_TOUCH_LRX   (unsigned long)0x7FF0
+#define ADDRESS_RESISTIVE_TOUCH_LRY   (unsigned long)0x7FEE
+
+// define the functions to call for the non-volatile memory
+// check out touch screen module for definitions of the following function pointers
+// used: NVM_READ_FUNC, NVM_WRITE_FUNC & NVM_SECTORERASE_FUNC
+#define NVMSectorErase  ((NVM_SECTORERASE_FUNC)0)
+#define NVMWrite        ((NVM_WRITE_FUNC)&MCHP25LC256WriteWord)
+#define NVMRead         ((NVM_READ_FUNC)&MCHP25LC256ReadWord)
+]]>
+                </Section>
+                <Section Name="InitializeBoard" Option="chkSPIeeprom" Order="2">
+<![CDATA[
+    // Set IOs directions for 25LC256 EEPROM (Explorer16)
+    MCHP25LC256_CS_LAT = 1;
+    MCHP25LC256_CS_TRIS = 0;
+    MCHP25LC256_SCK_TRIS = 0;
+    MCHP25LC256_SDO_TRIS = 0;
+    MCHP25LC256_SDI_TRIS = 1;
+    FlashInit(&SPI_Init_Data);   // initialize the Flash Memory driver
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="RTCC">
+            <Project>
+                <Folder Name="Source Files" Option="chkRTCC">
+                    <AddVGDDFile>rtcc.c</AddVGDDFile>
+                </Folder>
+                <Folder Name="Header Files" Option="chkRTCC">
+                    <AddVGDDFile>rtcc.h</AddVGDDFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="MainHeader" Option="chkRTCC">
+<![CDATA[
+        #include "rtcc.h"
+]]>
+                </Section>
+
+                <Section Name="InitializeBoard" Option="chkRTCC" Order="8">
+<![CDATA[
+    RTCCInit(); // Setup the RTCC
+    // while(RtccGetClkStat() != RTCC_CLK_ON); // Uncomment this line if you want to wait for RTCC to start
+    RTCCProcessEvents();
+]]>
+                </Section>
+                <Section Name="MainLoop" Option="chkRTCC">
+<![CDATA[
+#if defined(USE_STATICTEXT)
+        // --------------------------------------------------------------------
+        // Update screen date & time from RTCC
+        // --------------------------------------------------------------------
+        STATICTEXT *pTxt=NULL;
+        static BYTE secs;
+        RTCCProcessEvents();
+        if(_time.sec!=secs) {
+            secs=_time.sec;
+            // Replace ID_Screen1_txtRTCC with your StaticText ID for date & time display
+    #if defined(ID_Screen1_txtRTCC)
+            pTxt=(STATICTEXT *)GOLFindObject(ID_Screen1_txtRTCC); 
+    #endif
+            if(pTxt!=NULL) {
+                strncpypgm2ram(pTxt->pText,&_time_str[0],3); // Copy day of week
+                strncpypgm2ram(pTxt->pText+4,&_date_str[0],12); // Copy Date
+                strncpypgm2ram(pTxt->pText+17,&_time_str[4],8); // Copy Hour
+                SetState(pTxt, ST_DRAW);
+            }
+        }
+#endif
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="USBhost">
+            <Project>
+                <Folder Name="Header Files/USB" Option="chkUSBhost">
+                    <AddFile>$MAL/Include/USB/usb.h</AddFile>
+                    <AddFile>$MAL/USB/usb_host_local.h</AddFile>
+                    <AddFile>$MAL/USB/usb_hal_local.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb_common.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb_ch9.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb_host.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb_hal.h</AddFile>
+                </Folder>
+                <Folder Name="Source Files/USB" Option="chkUSBhost">
+                    <AddFile>$MAL/USB/usb_host.c</AddFile>
+                    <AddFile>$MAL/USB/MSD Host Driver/usb_host_msd.c</AddFile>
+                    <AddFile>$MAL/USB/MSD Host Driver/usb_host_msd_scsi.c</AddFile>
+                </Folder>
+                <Folder Name="Source Files" Option="chkUSBhost">
+                    <AddVGDDFile>usb_config.c</AddVGDDFile>
+                </Folder>
+                <Folder Name="Header Files" Option="chkUSBhost">
+                    <AddVGDDFile>usb_config.h</AddVGDDFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="HardwareProfileHead" Option="chkUSBhost">
+<![CDATA[
+#define USB_SUPPORT_HOST  // For USB
+#define USE_USB_INTERFACE // For FSIO.c
+]]>
+                </Section>
+                <Section Name="MainHeader" Option="chkUSBhost">
+<![CDATA[
+#include "usb_config.h"
+#include "USB/usb.h"
+#include "USB/usb_host_msd.h"
+#include "USB/usb_host_hid_parser.h"
+#include "USB/usb_host_hid.h"
+#include "USB/usb_host_msd_scsi.h"
+]]>
+                </Section>
+                <Section Name="MainHead" Option="chkUSBhost">
+<![CDATA[
+// --------------------------------------------------------------------
+//                         STRINGS USED BY USB
+// --------------------------------------------------------------------
+const XCHAR ErrMsgStandard[] = {'U', 'S', 'B', ' ', 'E', 'r', 'r', 'o', 'r', 0};
+const XCHAR ErrNotSupported[] = {'n', 'o', 't', ' ', 's', 'u', 'p', 'p', 'o', 'r', 't', 'e', 'd', '!', 0};
+const XCHAR ErrMsgFailedStr[] = {'F', 'a', 'i', 'l', 'e', 'd', 0};
+const XCHAR ErrMsgHUBAttachedStr[] = {'H', 'U', 'B', 0};
+const XCHAR ErrMsgUDAttachedStr[] = {'D', 'e', 'v', 'i', 'c', 'e', 0};
+const XCHAR ErrMsgEnumerationStr[] = {'E', 'n', 'u', 'm', 'e', 'r', 'a', 't', 'i', 'o', 'n', 0};
+const XCHAR ErrMsgClientInitStr[] = {'C', 'l', 'i', 'e', 'n', 't', ' ', 'I', 'n', 'i', 't', 'i', 'a', 'l', 'i', 'z', 'a', 't', 'i', 'o', 'n', 0};
+const XCHAR ErrMsgOutofMemoryStr[] = {'O', 'u', 't', ' ', 'o', 'f', ' ', 'M', 'e', 'm', 'o', 'r', 'y', 0};
+const XCHAR ErrMsgUnpecifiedErrStr[] = {'U', 'n', 's', 'p', 'e', 'c', 'i', 'f', 'i', 'e', 'd', 0};
+const XCHAR MsgTouchToProceedStr[] = {'T', 'o', 'u', 'c', 'h', ' ', 't', 'o', ' ', 'p', 'r', 'o', 'c', 'e', 'e', 'd', 0};
+uint8_t usbErrorCode; // USB error
+				]]>
+                </Section>
+                <Section Name="Main" Option="chkUSBhost">
+<![CDATA[
+/****************************************************************************
+  Function:
+    BOOL USB_ApplicationEventHandler( BYTE address, USB_EVENT event,
+                    void *data, DWORD size )
+  Description: 	This routine handles USB events sent from the USB Embedded Host stack.
+  Precondition: None
+  Parameters:	BYTE address    - Address of the USB device generating the event
+				USB_EVENT event - Event that has occurred
+				void *data      - Pointer to the data associated with the event
+				DWORD size      - Size of the data pointed to by *data
+  Return Values: TRUE   - The event was handled successfully
+				FALSE   - The even was not handled successfully
+  Remarks:
+    We will default to returning TRUE for unknown events, and let operation
+    proceed.  Other applications may wish to return FALSE, since we are not
+    really handling the event.
+ ***************************************************************************/
+BOOL USB_ApplicationEventHandler(BYTE address, USB_EVENT event, void *data, DWORD size) {
+    WORD yPos, TextHeight;
+
+    switch (event) {
+        case EVENT_VBUS_REQUEST_POWER:
+
+            // We will let everything attach.
+            return (TRUE);
+
+        case EVENT_VBUS_RELEASE_POWER:
+
+            // We are not monitoring power allocation, so we have
+            // nothing to update.
+            return (TRUE);
+
+        case EVENT_HUB_ATTACH:
+        case EVENT_UNSUPPORTED_DEVICE:
+        case EVENT_CANNOT_ENUMERATE:
+        case EVENT_CLIENT_INIT_ERROR:
+        case EVENT_OUT_OF_MEMORY:
+        case EVENT_UNSPECIFIED_ERROR: // This should never occur
+            usbErrorCode = USBHostDeviceStatus(1);
+
+                    // Shut down the USB.
+                    //USBHostShutdown();
+            break;
+
+        default:
+            return (FALSE);
+    }
+
+    //    // USB error messages will only appear when in the Menu Screens.
+    //    if(screenState != DISPLAY_DEMOSELECTION)
+    //        return (TRUE);
+
+    // go back to initial screen when exiting this function.
+    screenState = SCREENSTATE_INIT;
+
+            // The following code displays the different USB errors that can
+            // occur. Example, inserting an unsupported device or device
+            // does not enumerate.
+            // clear the screen
+            SetColor(WHITE);
+            ClearDevice();
+
+            // set up the font to display the error messages
+            SetFont((void *) &FONTDEFAULT);
+            SetColor(BRIGHTBLUE);
+            TextHeight = GetTextHeight((void *) &FONTDEFAULT);
+            yPos = TextHeight * 2;
+
+            // output the standard USB error string
+            MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgStandard, (void *) &FONTDEFAULT)) >> 1, yPos);
+            WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgStandard));
+            yPos += TextHeight;
+
+    switch (event) {
+        case EVENT_HUB_ATTACH:
+            MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgHUBAttachedStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgHUBAttachedStr));
+                    yPos += TextHeight;
+                    MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrNotSupported, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrNotSupported));
+            break;
+
+        case EVENT_UNSUPPORTED_DEVICE:
+            MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgUDAttachedStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgUDAttachedStr));
+                    yPos += TextHeight;
+                    MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrNotSupported, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrNotSupported));
+            break;
+
+        case EVENT_CANNOT_ENUMERATE:
+            MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgEnumerationStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgEnumerationStr));
+                    yPos += TextHeight;
+                    MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgFailedStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgFailedStr));
+            break;
+
+        case EVENT_CLIENT_INIT_ERROR:
+            MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgClientInitStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgClientInitStr));
+                    yPos += TextHeight;
+                    MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgFailedStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgFailedStr));
+            break;
+
+        case EVENT_OUT_OF_MEMORY:
+            MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgOutofMemoryStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgOutofMemoryStr));
+            break;
+
+        case EVENT_UNSPECIFIED_ERROR:
+            MoveTo((GetMaxX() - GetTextWidth((XCHAR *) ErrMsgUnpecifiedErrStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+                    WAIT_UNTIL_FINISH(OutText((XCHAR *) ErrMsgUnpecifiedErrStr));
+            break;
+
+        default:
+            return (TRUE);
+    }
+
+    yPos += TextHeight;
+            MoveTo((GetMaxX() - GetTextWidth((XCHAR *) MsgTouchToProceedStr, (void *) &FONTDEFAULT)) >> 1, yPos);
+            WAIT_UNTIL_FINISH(OutText((XCHAR *) MsgTouchToProceedStr));
+
+            // wait for touch
+    while (TouchGetX() == -1);
+
+        return (TRUE);
+    }
+		]]>
+                </Section>
+                <Section Name="InitializeBoard" Option="chkUSBhost" Order="3">
+<![CDATA[
+    USBInitialize(0);
+    SetColor(WHITE);
+    ClearDevice();
+    SetFont((void *) &FONTDEFAULT);
+    SetColor(BLUE);
+    const XCHAR strWaitUSB1[] = {'W', 'a', 'i', 't', 'i', 'n', 'g', ' ', 'f', 'o', 'r', ' ', 'U', 'S', 'B', ' ', 'd', 'r', 'i', 'v', 'e', 0};
+    const XCHAR strWaitUSB2[] = {'M', 'o', 'u', 'n', 't', 'i', 'n', 'g', '.', '.', '.', 0};
+    const XCHAR strWaitUSB3[] = {'M', 'o', 'u', 'n', 't', 'e', 'd', 0};
+    UINT16 y=(GetMaxY() >> 1);
+    MoveTo((GetMaxX() - GetTextWidth((XCHAR *) strWaitUSB1, (void *) &FONTDEFAULT)) >> 1, y - 12);
+    WAIT_UNTIL_FINISH(OutText((XCHAR *) strWaitUSB1));
+    DWORD tickPot = tick;
+    while (!USBHostMSDSCSIMediaDetect() && (TouchGetRawX() == -1) && (TouchGetRawY() == -1)) {
+        if ((tick - tickPot) > 10000) { // Waits about 10 seconds for the USB media, then gives up: no PutImageFromSD. Also exits if screen touched
+            break;
+        }
+        USBTasks();
+    }
+    if (USBHostMSDSCSIMediaDetect()) {
+        MoveTo((GetMaxX() - GetTextWidth((XCHAR *) strWaitUSB2, (void *) &FONTDEFAULT)) >> 1, y + 12);
+        WAIT_UNTIL_FINISH(OutText((XCHAR *) strWaitUSB2));
+        while (!FileSystemInit());
+        MoveTo((GetMaxX() - GetTextWidth((XCHAR *) strWaitUSB3, (void *) &FONTDEFAULT)) >> 1, y + 36);
+        WAIT_UNTIL_FINISH(OutText((XCHAR *) strWaitUSB3));
+        DelayMs(1000);
+    }
+]]>
+                </Section>
+                <Section Name="MainLoop" Option="chkUSBhost">
+<![CDATA[
+        USBTasks();
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="PutImageFromSD">
+            <Project>
+                <Folder Name="Header Files/VGDD" Option="chkPutImageFromSD">
+                    <AddVGDDFile>PutImageFromSD.h</AddVGDDFile>
+                </Folder>
+                <Folder Name="Source Files/VGDD" Option="chkPutImageFromSD">
+                    <AddVGDDFile>PutImageFromSD.c</AddVGDDFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="MainHeader" Option="!chkUSBhost,chkPutImageFromSD">
+<![CDATA[
+        #include "drv_spi.h"
+]]>
+                </Section>
+                <Section Name="HardwareProfile" Option="chkPutImageFromSD">
+<![CDATA[
+#define USE_BITMAP_SD
+#define SD_IMAGEDIR "\\img"
+#include "PutImageFromSD.h"
+#ifndef USE_USB_INTERFACE
+    #define USE_SD_INTERFACE_WITH_SPI  // If USB support is not enabled, then use direct SPI attached SD socket
+    #define SPI_START_CFG_1     (PRI_PRESCAL_64_1 | SEC_PRESCAL_8_1 | MASTER_ENABLE_ON | SPI_CKE_ON | SPI_SMP_ON)
+    #define SPI_START_CFG_2     (SPI_ENABLE)
+    #define SPI_FREQUENCY       (20000000)
+#endif
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="FlashProgrammer">
+            <Project>
+                <Folder Name="Source Files/Memory Programmer" Option="chkFlashProgrammer">
+                    <AddFile>$MAL/../Graphics/Common/FlashProgrammer.c</AddFile>
+                    <AddFile>$MAL/../Graphics/Common/comm_pkt.c</AddFile>
+                    <AddFile>$MAL/../Graphics/Common/comm_pkt_callback.c</AddFile>
+                    <AddVGDDFile>UART.c</AddVGDDFile>
+                </Folder>
+                <Folder Name="Header Files/Memory Programmer" Option="chkFlashProgrammer">
+                    <AddFile>$MAL/../Graphics/Common/FlashProgrammer.h</AddFile>
+                    <AddFile>$MAL/../Graphics/Common/ExternalMemory.h</AddFile>
+                    <AddFile>$MAL/../Graphics/Common/comm_pkt.h</AddFile>
+                    <AddFile>$MAL/../Graphics/Common/comm_pkt_callback.h</AddFile>
+                    <AddVGDDFile>UART.h</AddVGDDFile>
+                </Folder>
+                <Folder Name="Source Files/USB" Option="chkFlashProgrammer">
+                    <AddFile>$MAL/USB/usb_device.c</AddFile>
+                </Folder>
+                <Folder Name="Header Files" Option="chkFlashProgrammer">
+                    <AddVGDDFile Modify="Yes" DestFile="usb_config.h">usb_config_MP.h</AddVGDDFile>
+                </Folder>
+                <Folder Name="Header Files/USB" Option="chkFlashProgrammer">
+                    <AddFile>$MAL/USB/usb_device_local.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb.h</AddFile>
+                    <AddFile>$MAL/USB/usb_hal_local.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb_common.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb_ch9.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb_device.h</AddFile>
+                    <AddFile>$MAL/Include/USB/usb_hal.h</AddFile>
+                </Folder>
+                <Folder Name="Source Files" Option="chkFlashProgrammer">
+                    <AddVGDDFile>usb_callback.c</AddVGDDFile>
+                    <AddVGDDFile>usb_descriptors.c</AddVGDDFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="HardwareProfile" Option="chkFlashProgrammer">
+<![CDATA[
+// --------------------------------------------          
+// FlashProgrammer - Use USB
+// --------------------------------------------          
+#define USE_COMM_PKT_MEDIA_USB  // Comment out this line if you want to use USE_COMM_PKT_MEDIA_SERIAL_PORT below
+
+#define COMM_PKT_RX_MAX_SIZE    (1024)
+
+// --------------------------------------------          
+// FlashProgrammer - Use UART
+// --------------------------------------------          
+//#define USE_COMM_PKT_MEDIA_SERIAL_PORT
+#ifdef USE_COMM_PKT_MEDIA_SERIAL_PORT
+#define BAUDRATE2               115200UL
+#define BRG_DIV2                4
+#define BRGH2                   1
+#endif // USE_COMM_PKT_MEDIA_SERIAL_PORT
+#ifndef TX_TRIS
+// IOS FOR THE UART
+#if defined(__dsPIC33FJ128GP804__) || defined(__PIC24HJ128GP504__)
+    #define TX_TRIS TRISCbits.TRISC1
+    #define RX_TRIS TRISCbits.TRISC0
+#elif defined(__PIC24FJ256DA210__)    
+    #define TX_TRIS TRISFbits.TRISF3
+    #define RX_TRIS TRISDbits.TRISD0
+#else
+    #define TX_TRIS TRISFbits.TRISF5
+    #define RX_TRIS TRISFbits.TRISF4
+#endif
+#endif // ndef TX_TRIS
+// --------------------------------------------          
+
+]]>
+                </Section>
+                <Section Name="Main" Option="chkFlashProgrammer">
+<![CDATA[
+
+// --------------------------------------------------------------------
+// void CheckExternalFlashHex(void)
+// --------------------------------------------------------------------
+void CheckExternalFlashHex()
+{
+    typedef struct 
+    {
+        UINT32 mchpSignature;
+        UINT32 mchpCRCData;
+    } CRC_CHECK; 
+
+    CRC_CHECK externalCRC, expectedCRC;   
+    WORD textHeight;
+    void *pFont;
+    XCHAR *pStr = NULL;
+    BOOL  setProgram = FALSE;
+    
+    XCHAR   msgStr1[] = {'P','r','o','g','r','a','m',' ','E','x','t','e','r','n','a','l',' ','D','a','t','a',0};
+    XCHAR   msgStr2[] = {'E','x','t','e','r','n','a','l',' ','d','a','t','a',' ','i','n','v','a','l','i','d','.',0};
+    XCHAR   msgStr3[] = {'P','l','e','a','s','e',' ','s','e','n','d',' ','d','a','t','a',' ','u','s','i','n','g',0};
+    XCHAR   msgStr4[] = {'"','E','x','t','e','r','n','a','l',' ','M','e','m','o','r','y',0};
+    XCHAR   msgStr5[] = {'P','r','o','g','r','a','m','m','e','r','"',' ','u','t','i','l','i','t','y',0};
+    XCHAR   msgStr6[] = {'N','o','w',' ','w','a','i','t','i','n','g',' ','f','o','r',' ','d','a','t','a',0};
+#ifdef USE_COMM_PKT_MEDIA_USB
+    XCHAR   msgStr7[] = {'v','i','a',' ','U','S','B','.','.','.',0};
+#else
+    XCHAR   msgStr7[] = {'v','i','a',' ','U','A','R','T','.','.','.',0};
+#endif
+
+    pFont = (void*) &FONTDEFAULT;
+    SetFont(pFont);
+    textHeight = GetTextHeight(pFont);
+
+    // check if the CRC matches the data stored in the external flash memory
+    expectedCRC.mchpCRCData = GRC_CRC32_EXTERNAL_MARKER;
+    expectedCRC.mchpSignature = 0x5048434D;                // this is "MCHP"
+
+#ifndef GFX_PICTAIL_LCC
+    // check if programming is prompted     
+    if(GetHWButtonProgram() == HW_BUTTON_PRESS)
+    {
+        pStr = msgStr1;
+        setProgram = TRUE;
+    } 
+#endif
+    
+    if (setProgram == FALSE)
+    {
+        ReadArray(GRC_CRC32_EXTERNAL_ADDR, (BYTE *)&externalCRC, 8);
+    
+        if  ((expectedCRC.mchpCRCData != externalCRC.mchpCRCData) || \
+             (expectedCRC.mchpSignature != externalCRC.mchpSignature))
+        {
+            // expected and read CRC does not match, proceed to programming flash first
+            // run the flash programming 
+            pStr = msgStr2;
+            setProgram = TRUE;
+        }
+    }
+    
+    if (setProgram == TRUE)
+    {
+        SetColor(BLACK);
+        ClearDevice();
+        SetColor(WHITE);
+        OutTextXY(10,10                 , pStr);
+        OutTextXY(10,10 + (textHeight*2), msgStr3);
+        OutTextXY(10,10 + (textHeight*3), msgStr4);
+        OutTextXY(10,10 + (textHeight*4), msgStr5);
+        OutTextXY(10,10 + (textHeight*5), msgStr6);
+        OutTextXY(10,10 + (textHeight*6), msgStr7);
+
+        // Call the external flash programming routine
+        ProgramFlash();
+        DelayMs(100);
+
+#if defined (USE_COMM_PKT_MEDIA_USB)
+
+        // check if USB has sent reply to host then do a detach
+        while(USBHandleBusy(USBGenericInHandle));
+        USBDeviceDetach();
+        // delay the reset to have time for the acknowledge data to be sent to the host side
+        DelayMs(100);
+
+#elif defined (USE_COMM_PKT_MEDIA_SERIAL_PORT)
+
+        // check if UART is still busy sending replies to the host
+        while(U2STAbits.TRMT);
+        // delay the reset to have time for the acknowledge data to be sent to the host side
+        DelayMs(10);
+
+#endif
+        SetColor(BLACK);
+        ClearDevice();
+        SetColor(WHITE);
+        OutTextXY(10,10, "Flashing OK. Restarting...");
+        DelayMs(2000);
+        // Force Reset to force the checking of the flash memory if programming was a success
+        Reset();
+    }    
+}	
+
+/*********************************************************************
+* Function: WORD ExternalMemoryCallback(EXTDATA* memory, LONG offset, WORD nCount, void* buffer)
+*
+* PreCondition: none
+*
+* Input:  memory - pointer to the bitmap or font external memory structures
+*                  (FONT_EXTERNAL or BITMAP_EXTERNAL)
+*         offset - data offset
+*         nCount - number of bytes to be transferred to the buffer
+*         buffer - pointer to the buffer
+*
+* Output: number of bytes were transferred.
+*
+* Side Effects: none
+*
+* Overview: this function must be implemented in application. Graphics Library calls it
+*           each time the data from external memory is required. The application must copy 
+*           required data to the buffer provided.
+*
+* Note: none
+*
+********************************************************************/
+// If there are several memories in the system they can be selected by IDs.
+// In this demo ID for memory chip installed on Graphics PICTail board is assumed to be 0.
+#define SST39_MEMORY    0
+/* */
+
+WORD ExternalMemoryCallback(IMAGE_EXTERNAL *memory, LONG offset, WORD nCount, void *buffer)
+{
+    if(memory->ID == SST39_MEMORY)
+    {
+
+        // Read data requested into buffer provided
+        SST25ReadArray(memory->address + offset, // address to read from
+        (BYTE *)buffer, nCount);
+    }
+
+    return (nCount);
+}
+]]>
+                </Section>
+                <Section Name="MainHead" Option="chkFlashProgrammer">
+<![CDATA[
+#if defined (USE_COMM_PKT_MEDIA_USB)
+    extern USB_HANDLE USBGenericInHandle;
+#endif
+void CheckExternalFlashHex();
+]]>
+                </Section>
+                <Section Name="InitializeBoard" Option="chkFlashProgrammer" Order="4">
+<![CDATA[
+	// Programming the flash is not possible when using the PIC32 STK since the hardware 
+    // does not support it (no serial port) so we skip this check if using the STKs
+    #if defined (EXPLORER_16) || defined (PIC24FJ256DA210_DEV_BOARD)
+        /**
+         * Force a flash chip program
+         * Explorer 16 + GFX PICTail    - S3 (8 bit PMP)
+         * Explorer 16 + GFX PICTail    - S5 (16 bit PMP)
+         * DA210 Developement Board     - S1
+         **/
+	    if(GetHWButtonProgram() == HW_BUTTON_PRESS) {
+				ProgramFlash();
+	    }
+	#endif	//defined (EXPLORER_16) || defined (PIC24FJ256DA210_DEV_BOARD)
+		]]>
+                </Section>
+                <Section Name="MainHeader" Option="chkFlashProgrammer">
+<![CDATA[
+#include "FlashProgrammer.h"
+#include "ExternalMemory.h"
+#if defined (USE_COMM_PKT_MEDIA_USB)
+    #include "USB/usb.h"
+    #include "USB/usb_function_generic.h"
+#endif
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="DEEEmulation">
+            <Project>
+                <Folder Name="Header Files/DEE Emulation" Option="chkDEE" Family="PIC32">
+                    <AddVGDDFile>dee_emulation_pic32.h</AddVGDDFile>
+                </Folder>
+                <Folder Name="Source Files/DEE Emulation" Option="chkDEE" Family="PIC32">
+                    <AddVGDDFile>dee_emulation_pic32.c</AddVGDDFile>
+                </Folder>
+                <Folder Name="Header Files/DEE Emulation" Option="chkDEE" Family="PIC24">
+                    <AddVGDDFile>DEE Emulation 16-bit.h</AddVGDDFile>
+                </Folder>
+                <Folder Name="Source Files/DEE Emulation" Option="chkDEE" Family="PIC24">
+                    <AddVGDDFile>DEE Emulation 16-bit.c</AddVGDDFile>
+                    <AddVGDDFile>Flash Operations.s</AddVGDDFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="InitializeBoard" Option="chkDEE" Order="2">
+<![CDATA[
+    if(DataEEInit()!=0){
+        ErrorTrap("Cannot initialize DEE Emu");
+    }    
+]]>
+                </Section>
+                <Section Name="MainHeader" Option="chkDEE">
+<![CDATA[
+#include "dee_emulation_pic32.h"
+WORD TouchNVMRead(DWORD address);
+void TouchNVMWrite(WORD data, DWORD address);
+]]>
+                </Section>
+                <Section Name="Main" Option="chkDEE">
+<![CDATA[
+WORD TouchNVMRead(DWORD address) {
+    unsigned int data;
+    if(DataEERead(&data,(unsigned int)address)!=0)
+        return(0);
+    return data;
+}
+
+void TouchNVMWrite(WORD data, DWORD address) {
+    if(DataEEWrite(data,address)!=0){
+        ErrorTrap("Cannot write DEE Emu");
+    }    
+}
+]]>
+                </Section>
+                <Section Name="HardwareProfile" Option="chkDEE,chkTCPIP">
+<![CDATA[
+#define USE_DEE_EMU // Data Eeprom Emulation (DEE) support 
+]]>
+                </Section>
+                <Section Name="HardwareProfile" Option="chkDEE,chkTCPIP">
+<![CDATA[
+// --------------------------------------------------------------------
+// Data Eeprom Emulation (DEE) support Macros
+// --------------------------------------------------------------------
+#define ADDRESS_TCPIP_APP_VERSION (unsigned long)0x12
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="DS18B20">
+            <Project>
+                <Folder Name="Header Files/Board Support Package" Option="chkDS18B20">
+                    <AddVGDDFile>ds1820.h</AddVGDDFile>
+                </Folder>
+                <Folder Name="Source Files/Board Support Package" Option="chkDS18B20">
+                    <AddVGDDFile>ds1820.c</AddVGDDFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="HardwareProfile" Option="chkDS18B20">
+<![CDATA[
+// --------------------------------------------------------------------
+// IOS FOR DS18B20 1-Wire thermometer
+// --------------------------------------------------------------------
+#define DS1820_DATAPIN_OUT  _LATD1
+#define DS1820_DATAPIN_IN   _RD1
+#define DS1820_DATATRIS     _TRISD1
+#define DS1820_POWERTRIS    _TRISD11
+#define DS1820_POWER        _LATD11
+#define NUM_DS1820 1    // Number of DS18B20 chips to be read
+]]>
+                </Section>
+                <Section Name="MainHeader" Option="chkDS18B20">
+<![CDATA[
+#include "ds1820.h"
+]]>
+                </Section>
+                <Section Name="MainHead" Option="chkDS18B20">
+<![CDATA[
+XCHAR strTemperatureString[9];   // Buffer for temperature string from DS18B20
+]]>
+                </Section>
+                <Section Name="MainHeader" Option="chkDS18B20">
+<![CDATA[
+extern XCHAR strTemperatureString[];   // Buffer for temperature string from DS18B20
+]]>
+                </Section>
+                <Section Name="MainBeforeLoop" Option="chkDS18B20">
+<![CDATA[
+    // --------------------------------------------------------------------
+    // Search DS18B20s on 1-Wire bus
+    // --------------------------------------------------------------------
+    DS1820Found = 0;
+    DS1820_POWER = 1;
+    DS1820_POWERTRIS = 0;
+    DelayMs(10);
+    DS1820_DATATRIS = 1;
+    if (DS1820_DATAPIN_IN != 0) { // It goes high if pullup resistor is present
+        DS1820Selected = 0;
+        if (DS1820_FindFirstDevice()) {
+            DS1820Selected++;
+            while (DS1820_FindNextDevice()) {
+                DS1820Selected++;
+            }
+        }
+    }
+    DS1820_POWER = 0;
+]]>
+                </Section>
+                <Section Name="MainLoop" Option="chkDS18B20">
+<![CDATA[
+        // --------------------------------------------------------------------
+        // Read DS18B20s on 1-Wire bus
+        // --------------------------------------------------------------------
+        static DWORD TickTemperatureStart, TickTemperatureSampling;
+        if (TickTemperatureSampling == 0 && (tick - TickTemperatureStart > 4000)) {
+            TickTemperatureStart = tick;
+            DS1820_POWER = 1;
+            DS1820_POWERTRIS = 0;
+            DelayMs(10);
+            for (DS1820Selected = 0; DS1820Selected < DS1820Found; DS1820Selected++) {
+                DS1820_StartConversion();
+            }
+            TickTemperatureSampling = tick;
+        } else if (TickTemperatureSampling != 0 && (tick - TickTemperatureSampling > 4000)) {
+            TickTemperatureSampling = 0;
+            DS1820_GetAllTemps();
+            DS1820_GetTempString(DS1820LastTemp[0], strTemperatureString);
+            DS1820_POWER = 0;
+        }
+]]>
+                </Section>
+            </Code>
+        </Group>
+        <Group Name="TcpIp">
+            <Project>
+                <Folder Name="Source Files/framework/tcpip/common" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/tcpip/src/common/sys_fs_wrapper.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/common/big_int.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/common/big_int_helper_c32.S</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/common/hashes.c</AddFile>
+                    <!--<AddFile Override="optimization-level=">$MAL/TCPIP Stack/Delay.c</AddFile>-->
+                    <AddFile>$MAL/framework/tcpip/src/common/helpers.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/common/lfsr.c</AddFile>
+                </Folder>
+                <Folder Name="Source Files/framework/tcpip/stack" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_mac_object.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcp.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/udp.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/arp.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/dhcp.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/dns.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ftp.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/http.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/icmp.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/nbns.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/smtp.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/sntp.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/telnet.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/zero_conf_helper.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/zero_conf_link_local.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/zero_conf_multicast_dns.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_announce.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/iperf.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_commands.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/hash_fnv.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/oahash.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_heap_alloc.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_helpers.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_helper_c32.S</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_manager.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_notify.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_packet.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ipv4.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ssl.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/arcfour.c</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/rsa.c</AddFile>
+                </Folder>
+                <Folder Name="Source Files/framework/driver/ethmac" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/driver/ethmac/src/dynamic/drv_ethmac.c</AddFile>
+                    <AddFile>$MAL/framework/driver/ethmac/src/dynamic/drv_ethmac_lib.c</AddFile>
+                </Folder>
+                <Folder Name="Source Files/framework/driver/ethphy" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/driver/ethphy/src/dynamic/drv_ethphy.c</AddFile>
+                    <AddFile>$MAL/framework/driver/ethphy/src/dynamic/drv_extphy_smsc8740.c</AddFile>
+                    <AddFile>$MAL/framework/driver/ethphy/src/dynamic/drv_extphy_dp83848.c</AddFile>
+                </Folder>
+                <Folder Name="Header Files/framework/tcpip/common" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/tcpip/src/common/sys_fs_wrapper.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/common/big_int.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/common/hashes.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/common/helpers.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/common/lfsr.h</AddFile>
+                </Folder>
+                <Folder Name="Header Files/framework/tcpip/stack" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_mac_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcp_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcp_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/udp_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/udp_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/arp_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/arp_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/dhcp_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/dhcp_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/dns_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/dns_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ftp_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ftp_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/http_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/http_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/icmp_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/nbns_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/smtp_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/sntp_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/telnet_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/zero_conf_helper.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/zero_conf_link_local_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/zero_conf_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_announce_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/iperf.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_commands_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/hash_fnv.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/link_list.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/oahash.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_heap_alloc.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_helpers_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_manager_control.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_module_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_notify.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_packet.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/tcpip_types.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ipv4_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ipv4_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ssl_private.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/ssl_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/arcfour.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/rsa.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/src/rsa_manager.h</AddFile>
+                </Folder>
+                <Folder Name="Header Files/tcpip" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/tcpip/tcpip_mac.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/tcpip_mac_object.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/tcp.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/udp.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/arp.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/dhcp.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/dns.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/ftp.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/http.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/icmp.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/nbns.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/smtp.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/sntp.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/telnet.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/zero_conf_link_local.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/zero_conf_multicast_dns.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/tcpip_helpers.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/tcpip_manager.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/tcpip.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/tcpip_common_ports.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/ipv4.h</AddFile>
+                    <AddFile>$MAL/framework/tcpip/ssl.h</AddFile>
+                </Folder>
+                <Folder Name="Header Files/driver/ethmac" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/driver/ethmac/drv_ethmac.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethmac/drv_ethernet_flags.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethmac/src/drv_ethmac_local.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethmac/src/dynamic/_eth_dcpt_lists.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethmac/src/dynamic/drv_ethmac_lib.h</AddFile>
+                </Folder>
+                <Folder Name="Header Files/driver/ethphy" Option="chkTCPIP">
+                    <AddFile>$MAL/framework/driver/ethphy/drv_ethphy.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethphy/src/drv_ethphy_local.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethphy/src/dynamic/drv_extphy.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethphy/src/dynamic/drv_extphy_regs.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethphy/src/dynamic/drv_extphy_smsc8740.h</AddFile>
+                    <AddFile>$MAL/framework/driver/ethphy/src/dynamic/drv_extphy_dp83848.h</AddFile>
+                </Folder>
+                <Folder Name="Header Files/driver/ethphy" Option="chkTCPIP">
+                </Folder>
+                <Folder Name="Source Files/TCPIP App" Option="chkTCPIP">
+                    <!--<AddVGDDFile>CustomHTTPApp.c</AddVGDDFile>
+                    <AddVGDDFile>GenericTCPServer.c</AddVGDDFile>
+                    <AddVGDDFile>TCPIPConfig.h</AddVGDDFile>
+                    <AddVGDDFile>SNTP.c</AddVGDDFile>
+                    <AddVGDDFile>HTTPPrint.h</AddVGDDFile>
+                    <AddVGDDFile DestDir="TCPIP Stack">TCPIP.h</AddVGDDFile>
+                    <AddVGDDFile DestDir="TCPIP Stack">StackTsk.h</AddVGDDFile>-->
+                </Folder>
+                <!--<Folder Name="Source Files/TCPIP App" Option="chkMPFS,chkTCPIP">
+                    <AddFile>$MAL/TCPIP Stack/HTTP2.c</AddFile>
+                    <AddFile>$MAL/TCPIP Stack/MPFS2.c</AddFile>
+                    <AddVGDDFile>MPFSImg2.c</AddVGDDFile>
+                    <AddVGDDFile>FSconfig.h</AddVGDDFile>
+                    <RemoveFile>HTTP2_MDD.c</RemoveFile>
+                    <RemoveFile>_HTTP2.h</RemoveFile>
+                    <EnableDisableDefine File="TCPIPConfig.h">
+                        <Disable>STACK_USE_MDD</Disable>
+                        <Disable>STACK_USE_MPFS</Disable>
+                        <Enable>STACK_USE_MPFS2</Enable>
+                        <Disable>STACK_USE_FATFS</Disable>
+                    </EnableDisableDefine>
+                </Folder>
+                <Folder Name="Source Files/TCPIP App" Option="chkFatFs,chkTCPIP">
+                    <AddVGDDFile>HTTP2_MDD.c</AddVGDDFile>
+                    <AddVGDDFile DestDir="TCPIP Stack">_HTTP2.h</AddVGDDFile>
+                    <AddVGDDFile>FSconfig.h</AddVGDDFile>
+                    <RemoveFile>HTTP2.c</RemoveFile>
+                    <RemoveFile>MPFSImg2.c</RemoveFile>
+                    <EnableDisableDefine File="TCPIPConfig.h">
+                        <Disable>STACK_USE_MDD</Disable>
+                        <Disable>STACK_USE_MPFS</Disable>
+                        <Disable>STACK_USE_MPFS2</Disable>
+                        <Enable>STACK_USE_FATFS</Enable>
+                    </EnableDisableDefine>
+                </Folder>
+                <Folder Name="Source Files/TCPIP App" Option="chkFSIO,chkTCPIP">
+                    <AddVGDDFile>HTTP2_MDD.c</AddVGDDFile>
+                    <AddVGDDFile DestDir="TCPIP Stack">_HTTP2.h</AddVGDDFile>
+                    <AddVGDDFile>FSconfig.h</AddVGDDFile>
+                    <RemoveFile>HTTP2.c</RemoveFile>
+                    <RemoveFile>MPFSImg2.c</RemoveFile>
+                    <EnableDisableDefine File="TCPIPConfig.h">
+                        <Enable>STACK_USE_MDD</Enable>
+                        <Disable>STACK_USE_MPFS</Disable>
+                        <Disable>STACK_USE_MPFS2</Disable>
+                        <Disable>STACK_USE_FATFS</Disable>
+                    </EnableDisableDefine>
+                </Folder>
+                <Folder Name="ExternalFiles" Option="chkTCPIP">
+                    <AddVGDDFile DestDir="WebPages/protect">upload.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages/protect">auth.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages/protect">reboot.cgi</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages/protect">reboot.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages/protect">config.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages/protect" DestFile="index.htm">protect_index.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">noupload.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">cookies.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">dynvars.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">footer.inc</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">forms.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">header.inc</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">index.htm</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">leds.cgi</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">mchp.css</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">mchp.gif</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">mchp.js</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">snmp.bib</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">status.xml</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">temp.cgi</AddVGDDFile>
+                    <AddVGDDFile DestDir="WebPages">virtfab.png</AddVGDDFile>
+                </Folder>-->
+                <Folder Name="" Option="chkTCPIP">
+                    <RemoveFile>TimeDelay.c</RemoveFile>
+                </Folder>
+            </Project>
+            <Code>
+                <Section Name="HardwareProfile" Option="chkTCPIP">
+<![CDATA[
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Middleware & Other Library Configuration
+// *****************************************************************************
+// *****************************************************************************
+
+
+#define HAVE_MCAPI
+#define NO_MD5
+#define NO_SHA
+#define NO_SHA256
+#define NO_AES
+#define NO_RSA
+#define NO_HMAC
+
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: TCPIP Stack Configuration
+// *****************************************************************************
+// *****************************************************************************
+#define TCPIP_STACK_USE_IPV4
+#define TCPIP_STACK_USE_TCP
+#define TCPIP_STACK_USE_UDP
+#define TCPIP_STACK_USE_ICMP_SERVER
+#define TCPIP_STACK_USE_ICMP_CLIENT
+#define TCPIP_STACK_DRAM_SIZE		        		39250
+#define TCPIP_STACK_DRAM_RUN_LIMIT		    		2048
+#define TCPIP_STACK_DRAM_DEBUG_ENABLE
+#define TCPIP_STACK_DRAM_TRACE_ENABLE
+#define TCPIP_STACK_TICK_RATE		        		5
+#define TCPIP_STACK_DRAM_TRACE_SLOTS				12
+
+#define TCPIP_STACK_MALLOC_FUNC		    	malloc
+
+#define TCPIP_STACK_CALLOC_FUNC		    	calloc
+
+#define TCPIP_STACK_FREE_FUNC		    	free
+
+/* Console and Debug Symbols */
+#ifndef SYSTEM_CURRENT_ERROR_LEVEL
+    #define SYSTEM_CURRENT_ERROR_LEVEL  SYS_ERROR_WARNING
+#endif
+
+typedef enum
+{
+    SYS_MODULE_UART_1,
+    SYS_MODULE_UART_2,
+} SYS_MODULE_ID;
+
+#define SYS_CONSOLE_ENABLE					true
+#define SYS_DEBUG_ENABLE					true
+#define SYS_DEBUG_PORT            				SYS_MODULE_UART_2
+#define SYS_CONSOLE_PORT          				SYS_MODULE_UART_2
+#define SYS_CONSOLE_BAUDRATE                            	115200
+#define SYS_CONSOLE_BUFFER_LEN                          	64
+#define SYS_DEBUG_BAUDRATE                              	115200
+
+
+/*** ARP Configuration ***/
+#define TCPIP_ARP_CACHE_ENTRIES                 		5
+#define TCPIP_ARP_CACHE_DELETE_OLD		        	true
+#define TCPIP_ARP_CACHE_SOLVED_ENTRY_TMO			1200
+#define TCPIP_ARP_CACHE_PENDING_ENTRY_TMO			60
+#define TCPIP_ARP_CACHE_PENDING_RETRY_TMO			2
+#define TCPIP_ARP_CACHE_PERMANENT_QUOTA		    		50
+#define TCPIP_ARP_CACHE_PURGE_THRESHOLD		    		75
+#define TCPIP_ARP_CACHE_PURGE_QUANTA		    		1
+#define TCPIP_ARP_CACHE_ENTRY_RETRIES		    		3
+#define TCPIP_ARP_GRATUITOUS_PROBE_COUNT			1
+#define TCPIP_ARP_TASK_PROCESS_RATE		        	2
+
+
+/*** DHCP Configuration ***/
+#define TCPIP_DHCP_TIMEOUT		        		2
+#define TCPIP_DHCP_TASK_TICK_RATE	    			200
+#define TCPIP_DHCP_CLIENT_CONNECT_PORT  			68
+#define TCPIP_DHCP_SERVER_LISTEN_PORT				67
+#define TCPIP_DHCP_CLIENT_ENABLED             			true
+#define TCPIP_STACK_USE_DHCP_CLIENT
+
+
+/*** DHCP Server Configuration ***/
+
+
+/*** DNS Client Configuration ***/
+#define TCPIP_DNS_CLIENT_SERVER_TMO		    		60
+#define TCPIP_DNS_CLIENT_TASK_PROCESS_RATE		    	200
+#define TCPIP_DNS_CLIENT_CACHE_ENTRIES				5
+#define TCPIP_DNS_CLIENT_CACHE_ENTRY_TMO			0
+#define TCPIP_DNS_CLIENT_CACHE_PER_IPV4_ADDRESS			5
+#define TCPIP_DNS_CLIENT_CACHE_PER_IPV6_ADDRESS	    		
+#define TCPIP_DNS_CLIENT_OPEN_ADDRESS_TYPE		    	IP_ADDRESS_TYPE_IPV4
+#define TCPIP_DNS_CLIENT_CACHE_DEFAULT_TTL_VAL			1200
+#define TCPIP_DNS_CLIENT_CACHE_UNSOLVED_ENTRY_TMO		10
+#define TCPIP_DNS_CLIENT_MAX_HOSTNAME_LEN			32
+#define TCPIP_DNS_CLIENT_DELETE_OLD_ENTRIES			true
+#define TCPIP_STACK_USE_DNS
+
+
+/*** DNS Server Configuration ***/
+
+
+/*** FTP Configuration ***/
+#define TCPIP_FTP_USER_NAME_LEN		    			10
+#define TCPIP_FTP_PASSWD_LEN		    			10
+#define TCPIP_FTP_MAX_CONNECTIONS				1
+#define TCPIP_FTP_DATA_SKT_TX_BUFF_SIZE				0
+#define TCPIP_FTP_DATA_SKT_RX_BUFF_SIZE				0
+#define TCPIP_FTPS_TASK_TICK_RATE	    			333
+#define TCPIP_FTP_USER_NAME		        		"Microchip"
+#define TCPIP_FTP_PASSWORD		        		"Harmony"
+#define TCPIP_STACK_USE_FTP_SERVER
+/***Comment this line out to disable MPFS***/
+#define TCPIP_TCPIP_FTP_PUT_ENABLED				true
+
+
+/*** HTTP Configuration ***/
+#define TCPIP_HTTP_MAX_HEADER_LEN		    		15
+#define TCPIP_HTTP_CACHE_LEN		        		"600"
+#define TCPIP_HTTP_TIMEOUT		            		45
+#define TCPIP_HTTP_MAX_CONNECTIONS		    		4
+#define TCPIP_HTTP_DEFAULT_FILE		        		"index.htm"
+#define TCPIP_HTTPS_DEFAULT_FILE	        		"index.htm"
+#define TCPIP_HTTP_DEFAULT_LEN		        		10
+#define TCPIP_HTTP_MAX_DATA_LEN		        		100
+#define TCPIP_HTTP_MIN_CALLBACK_FREE				16
+#define TCPIP_HTTP_SKT_TX_BUFF_SIZE		    		0
+#define TCPIP_HTTP_SKT_RX_BUFF_SIZE		    		0
+#define TCPIP_HTTP_CFG_FLAGS		        		TCPIP_HTTP_MODULE_FLAG_ADJUST_SKT_FIFOS
+#define TCPIP_HTTP_CONFIG_FLAGS		        		1
+#define TCPIP_HTTP_USE_POST             			true
+#define TCPIP_HTTP_USE_COOKIES             			true
+#define TCPIP_STACK_USE_BASE64_DECODE             		true
+#define TCPIP_HTTP_USE_AUTHENTICATION             		true
+#define TCPIP_HTTP_NO_AUTH_WITHOUT_SSL             		false
+#define TCPIP_HTTP_TASK_RATE				33
+#define TCPIP_STACK_USE_HTTP_SERVER
+
+/*** HTTP FS Wrapper ***/
+#define SYS_FS_MAX_PATH						80
+#define LOCAL_WEBSITE_PATH_FS					"/mnt/mchpSite1"
+#define LOCAL_WEBSITE_PATH					"/mnt/mchpSite1/"
+#define SYS_FS_DRIVE						"SDCARD"
+#define SYS_FS_SD_VOL						"/dev/mmcblka1"
+#define SYS_FS_FATFS_STRING					"FATFS"
+#define SYS_FS_MPFS_STRING					"MPFS2"
+
+
+
+/*** ICMP Configuration ***/
+
+
+
+
+/*** iperf Configuration ***/
+#define TCPIP_IPERF_TX_BUFFER_SIZE				4096
+#define TCPIP_IPERF_RX_BUFFER_SIZE  				4096
+#define TCPIP_IPERF_TX_WAIT_TMO     				100
+#define TCPIP_IPERF_TX_QUEUE_LIMIT  				2
+#define TCPIP_STACK_USE_IPERF
+
+
+
+/*** NBNS Configuration ***/
+#define TCPIP_NBNS_TASK_TICK_RATE    				110
+#define TCPIP_STACK_USE_NBNS
+
+
+/*** SMTP Configuration ***/
+#define TCPIP_SMTP_SERVER_REPLY_TIMEOUT 			8
+#define TCPIP_SMTP_TASK_TICK_RATE				55
+#define TCPIP_STACK_USE_SMTP_CLIENT
+
+
+/*** SNTP Configuration ***/
+#define TCPIP_NTP_DEFAULT_IF		        		"PIC32INT"
+#define TCPIP_NTP_VERSION             			    	4
+#define TCPIP_NTP_DEFAULT_CONNECTION_TYPE   			IP_ADDRESS_TYPE_IPV4
+#define TCPIP_NTP_EPOCH		                		2208988800ul
+#define TCPIP_NTP_REPLY_TIMEOUT		        		6
+#define TCPIP_NTP_MAX_STRATUM		        		15
+#define TCPIP_NTP_TIME_STAMP_TMO				660
+#define TCPIP_NTP_SERVER		        		"pool.ntp.org"
+#define TCPIP_NTP_SERVER_MAX_LENGTH				30
+#define TCPIP_NTP_QUERY_INTERVAL				600
+#define TCPIP_NTP_FAST_QUERY_INTERVAL	    			14
+#define TCPIP_NTP_TASK_TICK_RATE				1100
+#define TCPIP_NTP_RX_QUEUE_LIMIT				2
+#define TCPIP_STACK_USE_SNTP_CLIENT
+
+
+
+
+
+#define TCPIP_STACK_USE_SSL_SERVER
+#define TCPIP_STACK_USE_SSL_CLIENT
+#define TCPIP_SSL_MIN_SESSION_LIFETIME 				1
+#define TCPIP_SSL_RSA_LIFETIME_EXTENSION 				8
+#define TCPIP_SSL_MAX_CONNECTIONS 					2
+#define TCPIP_SSL_MAX_SESSIONS 					2
+#define TCPIP_SSL_MULTIPLE_INTERFACES 				true
+#define TCPIP_SSL_MAX_BUFFERS 					4
+#define TCPIP_SSL_MAX_HASHES 						5
+#define TCPIP_SSL_RSA_SERVER_KEY_SIZE 					1024
+#define TCPIP_SSL_RSA_CLIENT_KEY_SIZE 					1024
+#define TCPIP_STACK_USE_SSL_SERVER
+#define TCPIP_STACK_USE_SSL_CLIENT
+#define TCPIP_SSL_VERSION                       (0x0300u)
+#define TCPIP_SSL_VERSION_HI                    (0x03u)
+#define TCPIP_SSL_VERSION_LO                    (0x00u)
+
+
+/*** TCP Configuration ***/
+#define TCPIP_TCP_MAX_SEG_SIZE_TX		        	1460
+#define TCPIP_TCP_MAX_SEG_SIZE_RX_LOCAL		    		1460
+#define TCPIP_TCP_MAX_SEG_SIZE_RX_NON_LOCAL			536
+#define TCPIP_TCP_SOCKET_DEFAULT_TX_SIZE			512
+#define TCPIP_TCP_SOCKET_DEFAULT_RX_SIZE			512
+#define TCPIP_TCP_START_TIMEOUT_VAL		        	1000
+#define TCPIP_TCP_DELAYED_ACK_TIMEOUT		    		100
+#define TCPIP_TCP_FIN_WAIT_2_TIMEOUT		    		5000
+#define TCPIP_TCP_KEEP_ALIVE_TIMEOUT		    		10000
+#define TCPIP_TCP_CLOSE_WAIT_TIMEOUT		    		200
+#define TCPIP_TCP_MAX_RETRIES		            		5
+#define TCPIP_TCP_MAX_UNACKED_KEEP_ALIVES			6
+#define TCPIP_TCP_MAX_SYN_RETRIES		        	2
+#define TCPIP_TCP_AUTO_TRANSMIT_TIMEOUT_VAL			40
+#define TCPIP_TCP_WINDOW_UPDATE_TIMEOUT_VAL			200
+#define TCPIP_TCP_MAX_SOCKETS		            		10
+#define TCPIP_TCP_TASK_TICK_RATE		        	5
+
+
+/*** announce Configuration ***/
+#define TCPIP_ANNOUNCE_MAX_PAYLOAD  				512
+#define TCPIP_ANNOUNCE_TASK_RATE    				333
+#define TCPIP_STACK_USE_ANNOUNCE
+
+
+/*** TCPIP MAC Configuration ***/
+#define TCPIP_EMAC_TX_DESCRIPTORS				8
+#define TCPIP_EMAC_RX_DESCRIPTORS				6
+#define TCPIP_EMAC_RX_BUFF_SIZE		    			1536
+#define TCPIP_EMAC_RX_MAX_FRAME		    			1536
+#define TCPIP_EMAC_RX_FRAGMENTS		    			1
+#define TCPIP_EMAC_ETH_OPEN_FLAGS       			0x11f
+#define TCPIP_EMAC_PHY_CONFIG_FLAGS     			0x10
+#define TCPIP_EMAC_PHY_LINK_INIT_DELAY  			500
+#define TCPIP_EMAC_PHY_ADDRESS		    			1
+#define TCPIP_EMAC_INTERRUPT_MODE        			true
+#define TCPIP_STACK_USE_EVENT_NOTIFICATION
+#define DRV_ETHPHY_INSTANCES_NUMBER				1
+#define DRV_ETHPHY_CLIENTS_NUMBER				1
+#define DRV_ETHPHY_INDEX		        		1
+#define DRV_ETHPHY_PERIPHERAL_ID				1
+#define DRV_ETHPHY_NEG_INIT_TMO		    			1
+#define DRV_ETHPHY_NEG_DONE_TMO		    			2000
+#define DRV_ETHPHY_RESET_CLR_TMO				500
+#define DRV_ETHMAC_INSTANCES_NUMBER				1
+#define DRV_ETHMAC_CLIENTS_NUMBER				1
+#define DRV_ETHMAC_INDEX	    	    			1
+#define DRV_ETHMAC_PERIPHERAL_ID				1
+#define DRV_ETHMAC_INTERRUPT_VECTOR				INT_VECTOR_ETHERNET
+#define DRV_ETHMAC_INTERRUPT_SOURCE				INT_SOURCE_ETH_1
+#define DRV_ETHMAC_POWER_STATE		    			SYS_MODULE_POWER_RUN_FULL
+
+#define DRV_ETHMAC_INTERRUPT_MODE        			true
+#define TCPIP_STACK_USE_EVENT_NOTIFICATION
+
+
+/*** TCP/IP Reboot Configuration ***/
+
+
+/*** telnet Configuration ***/
+#define TCPIP_TELNET_MAX_CONNECTIONS    			2
+#define TCPIP_TELNET_USERNAME           			"admin"
+#define TCPIP_TELNET_PASSWORD           			"microchip"
+#define TCPIP_TELNET_TASK_TICK_RATE     			100
+
+#define TCPIP_TELNET_REJECT_UNSECURED             		false
+#define TCPIP_STACK_USE_TELNET_SERVER
+
+
+/*** UDP Configuration ***/
+#define TCPIP_UDP_MAX_SOCKETS		                	10
+#define TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE		    	512
+#define TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT    	 	3
+#define TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT			5
+#define TCPIP_UDP_SOCKET_POOL_BUFFERS		        	4
+#define TCPIP_UDP_SOCKET_POOL_BUFFER_SIZE		    	512
+
+#define TCPIP_UDP_USE_TX_CHECKSUM             			true
+
+#define TCPIP_UDP_USE_RX_CHECKSUM             			true
+
+#define TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL
+#define TCPIP_STACK_USE_ZEROCONF_MDNS_SD
+
+/*** Network Configuration Index 0 ***/
+#define TCPIP_NETWORK_DEFAULT_INTERFACE_NAME 			"PIC32INT"
+#define TCPIP_IF_PIC32INT
+#define TCPIP_NETWORK_DEFAULT_HOST_NAME 			"MCHPBOARD_E"
+#define TCPIP_NETWORK_DEFAULT_MAC_ADDR	 			0
+#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS 			"192.168.100.115"
+#define TCPIP_NETWORK_DEFAULT_IP_MASK 				"255.255.255.0"
+#define TCPIP_NETWORK_DEFAULT_GATEWAY	 			"192.168.100.1"
+#define TCPIP_NETWORK_DEFAULT_DNS 				"192.168.100.1"
+#define TCPIP_NETWORK_DEFAULT_SECOND_DNS 			"0.0.0.0"
+#define TCPIP_NETWORK_DEFAULT_POWER_MODE 			"full"
+#define TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS   		TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON
+#define TCPIP_NETWORK_DEFAULT_IPV6_ADDRESS 			0
+#define TCPIP_NETWORK_DEFAULT_IPV6_PREFIX_LENGTH 		0
+#define TCPIP_NETWORK_DEFAULT_IPV6_GATEWAY 		        0
+
+/*** tcpip_cmd Configuration ***/
+#define TCPIP_STACK_COMMANDS_STORAGE_ENABLE             true
+#define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUESTS         4
+#define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUEST_DELAY    1000
+#define TCPIP_STACK_COMMANDS_ICMP_ECHO_TIMEOUT          5000
+#define TCPIP_STACK_COMMANDS_WIFI_ENABLE             	true
+#define TCPIP_STACK_COMMAND_ENABLE
+]]>
+                </Section>-->
+                <!--<Section Name="InitializeBoard" Option="chkTCPIP" Order="8">
+<![CDATA[
+    TickInit();                  // initialize the timer that manages the tick counter for TCP/IP stack
+]]>
+                </Section>-->
+                <!--<Section Name="MainHeader" Option="chkTCPIP">
+<![CDATA[
+#include "TCPIP Stack/TCPIP.h"
+extern WORD intTemperature;
+extern BYTE LedState[];    // Stores virtual LEDs state
+]]>
+                </Section>-->
+                <!--<Section Name="MainHead" Option="chkTCPIP">
+<![CDATA[
+// Declare AppConfig structure and some other supporting stack variables
+APP_CONFIG AppConfig;
+BYTE AN0String[8];
+WORD intTemperature;
+BYTE LedState[4];    // Stores virtual LEDs state
+
+// Private helper functions.
+static void InitAppConfig(void);
+static void ProcessIO(void);
+
+// Public helper functions.
+void SaveAppConfig(const APP_CONFIG *ptrAppConfig);
+]]>
+                </Section>-->
+                <!--<Section Name="MainBeforeLoop" Option="chkTCPIP">
+<![CDATA[
+    static DWORD dwLastIP = 0;
+
+    // Initialize Stack and application related NV variables into AppConfig.
+    InitAppConfig();
+
+    // Initialize core stack layers (MAC, ARP, TCP, UDP) and
+    // application modules (HTTP, SNMP, etc.)
+    StackInit();
+
+    TouchHardwareInit(NULL);	// Confirm ADC config so if stack initialization has scrambled the ADC config, touchscreen can work fine
+]]>
+                </Section>-->
+                <!--<Section Name="MainBeforeLoop" Option="chkMPFS">
+<![CDATA[
+    MPFSInit();
+]]>
+                </Section>
+                <Section Name="MainLoop" Option="chkTCPIP">
+<![CDATA[
+        // This task performs normal stack task including checking
+        // for incoming packet, type of packet and calling
+        // appropriate stack entity to process it.
+        StackTask();
+
+        // This tasks invokes each of the core stack application tasks
+        StackApplications();
+
+#if defined(STACK_USE_ZEROCONF_LINK_LOCAL)
+        ZeroconfLLProcess();
+#endif
+
+#if defined(STACK_USE_ZEROCONF_MDNS_SD)
+        mDNSProcess();
+        // Use this function to exercise service update function
+        // HTTPUpdateRecord();
+#endif
+
+        // Process application specific tasks here.
+        // For this demo app, this will include the Generic TCP
+        // client and servers, and the SNMP, Ping, and SNMP Trap
+        // demos.  Following that, we will process any IO from
+        // the inputs on the board itself.
+        // Any custom modules or processing you need to do should
+        // go here.
+#if defined(STACK_USE_GENERIC_TCP_CLIENT_EXAMPLE)
+        GenericTCPClient();
+#endif
+
+#if defined(STACK_USE_GENERIC_TCP_SERVER_EXAMPLE)
+        GenericTCPServer();
+#endif
+
+#if defined(STACK_USE_SMTP_CLIENT)
+        SMTPDemo();
+#endif
+
+#if defined(STACK_USE_ICMP_CLIENT)
+        PingDemo();
+#endif
+
+#if defined(STACK_USE_SNMP_SERVER) && !defined(SNMP_TRAP_DISABLED)
+        //User should use one of the following SNMP demo
+        // This routine demonstrates V1 or V2 trap formats with one variable binding.
+        SNMPTrapDemo();
+    #if defined(SNMP_STACK_USE_V2_TRAP)
+        //This routine provides V2 format notifications with multiple (3) variable bindings
+        //User should modify this routine to send v2 trap format notifications with the required varbinds.
+        //SNMPV2TrapDemo();
+    #endif
+        if (gSendTrapFlag)
+            SNMPSendTrap();
+#endif
+
+#if defined(STACK_USE_BERKELEY_API)
+        BerkeleyTCPClientDemo();
+        BerkeleyTCPServerDemo();
+        BerkeleyUDPClientDemo();
+#endif
+
+        //ProcessIO();
+
+        // If the local IP address has changed (ex: due to DHCP lease change)
+        // write the new IP address to the LCD display, UART, and Announce
+        // service
+        if (dwLastIP != AppConfig.MyIPAddr.Val) {
+            dwLastIP = AppConfig.MyIPAddr.Val;
+#if defined(STACK_USE_UART)
+            putrsUART((ROM char*) "\r\nNew IP Address: ");
+#endif
+            //DisplayIPValue(AppConfig.MyIPAddr); // Replace with your display IP routine
+            TFTShowMyIp();
+#if defined(STACK_USE_UART)
+            putrsUART((ROM char*) "\r\n");
+#endif
+#if defined(STACK_USE_ANNOUNCE)
+            AnnounceIP();
+#endif
+#if defined(STACK_USE_ZEROCONF_MDNS_SD)
+            mDNSFillHostRecord();
+#endif
+		}
+]]>
+                </Section>-->
+                <!--<Section Name="Main" Option="chkTCPIP">
+<![CDATA[
+/*********************************************************************
+ * Function:        void InitAppConfig(void)
+ *
+ * PreCondition:    MPFSInit() is already called.
+ *
+ * Input:           None
+ *
+ * Output:          Write/Read non-volatile config variables.
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *
+ * Note:            None
+ ********************************************************************/
+// MAC Address Serialization using a MPLAB PM3 Programmer and
+// Serialized Quick Turn Programming (SQTP).
+// The advantage of using SQTP for programming the MAC Address is it
+// allows you to auto-increment the MAC address without recompiling
+// the code for each unit.  To use SQTP, the MAC address must be fixed
+// at a specific location in program memory.  Uncomment these two pragmas
+// that locate the MAC address at 0x1FFF0.  Syntax below is for MPLAB C
+// Compiler for PIC18 MCUs. Syntax will vary for other compilers.
+//#pragma romdata MACROM=0x1FFF0
+static ROM BYTE SerializedMACAddress[6] = {MY_DEFAULT_MAC_BYTE1, MY_DEFAULT_MAC_BYTE2, MY_DEFAULT_MAC_BYTE3, MY_DEFAULT_MAC_BYTE4, MY_DEFAULT_MAC_BYTE5, MY_DEFAULT_MAC_BYTE6};
+//#pragma romdata
+
+static void InitAppConfig(void) {
+    AppConfig.Flags.bIsDHCPEnabled = TRUE;
+    AppConfig.Flags.bInConfigMode = TRUE;
+    memcpypgm2ram((void*) &AppConfig.MyMACAddr, (ROM void*) SerializedMACAddress, sizeof (AppConfig.MyMACAddr));
+    //   {
+    //      _prog_addressT MACAddressAddress;
+    //      MACAddressAddress.next = 0x157F8;
+    //      _memcpy_p2d24((char*)&AppConfig.MyMACAddr, MACAddressAddress, sizeof(AppConfig.MyMACAddr));
+    //   }
+    AppConfig.MyIPAddr.Val = MY_DEFAULT_IP_ADDR_BYTE1 | MY_DEFAULT_IP_ADDR_BYTE2 << 8ul | MY_DEFAULT_IP_ADDR_BYTE3 << 16ul | MY_DEFAULT_IP_ADDR_BYTE4 << 24ul;
+    AppConfig.DefaultIPAddr.Val = AppConfig.MyIPAddr.Val;
+    AppConfig.MyMask.Val = MY_DEFAULT_MASK_BYTE1 | MY_DEFAULT_MASK_BYTE2 << 8ul | MY_DEFAULT_MASK_BYTE3 << 16ul | MY_DEFAULT_MASK_BYTE4 << 24ul;
+    AppConfig.DefaultMask.Val = AppConfig.MyMask.Val;
+    AppConfig.MyGateway.Val = MY_DEFAULT_GATE_BYTE1 | MY_DEFAULT_GATE_BYTE2 << 8ul | MY_DEFAULT_GATE_BYTE3 << 16ul | MY_DEFAULT_GATE_BYTE4 << 24ul;
+    AppConfig.PrimaryDNSServer.Val = MY_DEFAULT_PRIMARY_DNS_BYTE1 | MY_DEFAULT_PRIMARY_DNS_BYTE2 << 8ul | MY_DEFAULT_PRIMARY_DNS_BYTE3 << 16ul | MY_DEFAULT_PRIMARY_DNS_BYTE4 << 24ul;
+    AppConfig.SecondaryDNSServer.Val = MY_DEFAULT_SECONDARY_DNS_BYTE1 | MY_DEFAULT_SECONDARY_DNS_BYTE2 << 8ul | MY_DEFAULT_SECONDARY_DNS_BYTE3 << 16ul | MY_DEFAULT_SECONDARY_DNS_BYTE4 << 24ul;
+
+    // Load the default Admin UserName and Password
+    memcpypgm2ram(AppConfig.AdminUser, (ROM void*) MY_DEFAULT_ADMIN_USER, 16);
+    memcpypgm2ram(AppConfig.AdminPassword, (ROM void*) MY_DEFAULT_ADMIN_PASSWORD, 16);
+
+    // SNMP Community String configuration
+#if defined(STACK_USE_SNMP_SERVER)
+    {
+        BYTE i;
+        static ROM char * ROM cReadCommunities[] = SNMP_READ_COMMUNITIES;
+        static ROM char * ROM cWriteCommunities[] = SNMP_WRITE_COMMUNITIES;
+        ROM char * strCommunity;
+
+        for (i = 0; i < SNMP_MAX_COMMUNITY_SUPPORT; i++) {
+            // Get a pointer to the next community string
+            strCommunity = cReadCommunities[i];
+            if (i >= sizeof (cReadCommunities) / sizeof (cReadCommunities[0]))
+                strCommunity = "";
+
+            // Ensure we don't buffer overflow.  If your code gets stuck here,
+            // it means your SNMP_COMMUNITY_MAX_LEN definition in TCPIPConfig.h
+            // is either too small or one of your community string lengths
+            // (SNMP_READ_COMMUNITIES) are too large.  Fix either.
+            if (strlenpgm(strCommunity) >= sizeof (AppConfig.readCommunity[0]))
+                while (1);
+
+            // Copy string into AppConfig
+            strcpypgm2ram((char*) AppConfig.readCommunity[i], strCommunity);
+
+            // Get a pointer to the next community string
+            strCommunity = cWriteCommunities[i];
+            if (i >= sizeof (cWriteCommunities) / sizeof (cWriteCommunities[0]))
+                strCommunity = "";
+
+            // Ensure we don't buffer overflow.  If your code gets stuck here,
+            // it means your SNMP_COMMUNITY_MAX_LEN definition in TCPIPConfig.h
+            // is either too small or one of your community string lengths
+            // (SNMP_WRITE_COMMUNITIES) are too large.  Fix either.
+            if (strlenpgm(strCommunity) >= sizeof (AppConfig.writeCommunity[0]))
+                while (1);
+
+            // Copy string into AppConfig
+            strcpypgm2ram((char*) AppConfig.writeCommunity[i], strCommunity);
+        }
+    }
+#endif
+
+    // Load the default NetBIOS Host Name
+    memcpypgm2ram(AppConfig.NetBIOSName, (ROM void*) MY_DEFAULT_HOST_NAME, 16);
+    FormatNetBIOSName(AppConfig.NetBIOSName);
+
+#if defined(WF_CS_TRIS)
+    // Load the default SSID Name
+    WF_ASSERT(sizeof (MY_DEFAULT_SSID_NAME) <= sizeof (AppConfig.MySSID));
+    memcpypgm2ram(AppConfig.MySSID, (ROM void*) MY_DEFAULT_SSID_NAME, sizeof (MY_DEFAULT_SSID_NAME));
+    AppConfig.SsidLength = sizeof (MY_DEFAULT_SSID_NAME) - 1;
+
+    AppConfig.SecurityMode = MY_DEFAULT_WIFI_SECURITY_MODE;
+    AppConfig.WepKeyIndex = MY_DEFAULT_WEP_KEY_INDEX;
+
+    #if (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_OPEN)
+    memset(AppConfig.SecurityKey, 0x00, sizeof (AppConfig.SecurityKey));
+    AppConfig.SecurityKeyLength = 0;
+
+    #elif MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WEP_40
+    memcpypgm2ram(AppConfig.SecurityKey, (ROM void*) MY_DEFAULT_WEP_KEYS_40, sizeof (MY_DEFAULT_WEP_KEYS_40) - 1);
+    AppConfig.SecurityKeyLength = sizeof (MY_DEFAULT_WEP_KEYS_40) - 1;
+
+    #elif MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WEP_104
+    memcpypgm2ram(AppConfig.SecurityKey, (ROM void*) MY_DEFAULT_WEP_KEYS_104, sizeof (MY_DEFAULT_WEP_KEYS_104) - 1);
+    AppConfig.SecurityKeyLength = sizeof (MY_DEFAULT_WEP_KEYS_104) - 1;
+
+    #elif (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA_WITH_KEY)       || \
+              (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA2_WITH_KEY)      || \
+              (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA_AUTO_WITH_KEY)
+    memcpypgm2ram(AppConfig.SecurityKey, (ROM void*) MY_DEFAULT_PSK, sizeof (MY_DEFAULT_PSK) - 1);
+    AppConfig.SecurityKeyLength = sizeof (MY_DEFAULT_PSK) - 1;
+
+    #elif (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA_WITH_PASS_PHRASE)     || \
+              (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA2_WITH_PASS_PHRASE)    || \
+              (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA_AUTO_WITH_PASS_PHRASE)
+    memcpypgm2ram(AppConfig.SecurityKey, (ROM void*) MY_DEFAULT_PSK_PHRASE, sizeof (MY_DEFAULT_PSK_PHRASE) - 1);
+    AppConfig.SecurityKeyLength = sizeof (MY_DEFAULT_PSK_PHRASE) - 1;
+
+    #else
+        #error "No security defined"
+    #endif /* MY_DEFAULT_WIFI_SECURITY_MODE */
+
+#endif
+
+#if defined(USE_DEE_EMU)
+    {
+        DWORD c;
+
+        DataEEReadArray((unsigned char *)&c, ADDRESS_TCPIP_APP_VERSION, 4);
+        if (c == 0x61616161)
+            DataEEReadArray((unsigned char *) &AppConfig, ADDRESS_TCPIP_APP_VERSION+4, sizeof (AppConfig));
+        else
+            SaveAppConfig(&AppConfig);
+    }
+#elif defined(EEPROM_CS_TRIS)
+    {
+        BYTE c;
+
+        // When a record is saved, first byte is written as 0x61 to indicate
+        // that a valid record was saved.  Note that older stack versions
+        // used 0x60.  This change has been made to so old EEPROM contents
+        // will get overwritten.  The AppConfig() structure has been changed,
+        // resulting in parameter misalignment if still using old EEPROM
+        // contents.
+        XEEReadArray(0x0000, &c, 1);
+        if (c == 0x61u)
+            XEEReadArray(0x0001, (BYTE*) & AppConfig, sizeof (AppConfig));
+        else
+            SaveAppConfig();
+    }
+#elif defined(SPIFLASH_CS_TRIS)
+    {
+        BYTE c;
+
+        SPIFlashReadArray(0x0000, &c, 1);
+        if (c == 0x61u)
+            SPIFlashReadArray(0x0001, (BYTE*) & AppConfig, sizeof (AppConfig));
+        else
+            SaveAppConfig();
+    }
+#endif
+}
+void SaveAppConfig(const APP_CONFIG *ptrAppConfig) {
+#if defined(USE_DEE_EMU)
+    DWORD version=0x61616161;
+    DataEEWriteArray((unsigned char *)&version, ADDRESS_TCPIP_APP_VERSION, 4);
+    DataEEWriteArray((unsigned char *)ptrAppConfig, ADDRESS_TCPIP_APP_VERSION+4, sizeof(AppConfig));
+#elif defined(EEPROM_CS_TRIS)
+#elif defined(SPIFLASH_CS_TRIS)
+#endif
+}
+]]>
+                </Section>-->
+                <!--<Section Name="Main" Option="chkTCPIP">
+<![CDATA[
+// ====================================================================
+// Functions used in VGDD TCPIP demo app
+// ====================================================================
+void TemperatureChanged(void) {
+#if defined(ID_Screen1_txtTemperature)
+    SLIDER *pSld;
+    STATICTEXT *pTxt;
+
+    pTxt = (STATICTEXT *) GOLFindObject(ID_Screen1_txtTemperature);
+    sprintf(pTxt->pText, "%i.C", intTemperature);
+    SetState(pTxt, ST_DRAW);
+    pSld = (SLIDER *) GOLFindObject(ID_Screen1_Slider1);
+    if (intTemperature != (pSld)->pos) { // If it has been changed from web page, update the slider
+        SldSetPos(pSld, intTemperature);
+        SetState(pSld, SLD_DRAW);
+    }
+#endif
+}
+
+void WriteMessageFromWeb(char* cDest) {
+#if defined(ID_Screen1_txtMessageFromWeb)
+    if (strlen(cDest) < 32u) {
+        STATICTEXT *pTxt;
+        pTxt = (STATICTEXT *) (GOLFindObject(ID_Screen1_txtMessageFromWeb));
+        if (pTxt != NULL) {
+            strcpy((char*) pTxt->pText, (char*) cDest);
+            SetState(pTxt, ST_DRAW);
+        }
+    }
+#endif
+}
+
+void SwitchLedFromWeb(WORD num) {
+#if defined(ID_Screen1_btnLED0)
+    XCHAR buffer[32];
+    BUTTON *pBtn;
+    pBtn=(BUTTON *)(GOLFindObject(ID_Screen1_btnLED0+num));
+    if(pBtn != NULL) {
+        if(LedState[num]) {
+            CreateScheme_ButtonOn(); // Ensure that the needed scheme is created the first time
+            GOLSetScheme(pBtn,GOLScheme_ButtonOn);
+            sprintf(buffer,"Led %i turned ON",num);
+        } else {
+            CreateScheme_ButtonOff(); // Ensure that the needed scheme is created the first time
+            GOLSetScheme(pBtn,GOLScheme_ButtonOff);
+            sprintf(buffer,"Led %i turned OFF",num);
+        }
+        SetState(pBtn, BTN_DRAW);
+        WriteMessageFromWeb(buffer);
+    }
+#endif
+}
+
+void TFTShowMyIp(void) {
+#if defined(ID_Screen1_txtMessageFromWeb)
+    STATICTEXT *pTxt;
+    pTxt = (STATICTEXT *) (GOLFindObject(ID_Screen1_txtMessageFromWeb));
+    if (pTxt != NULL) {
+        BYTE digits[4];
+        BYTE i;
+        extern XCHAR Screen1_txtMessageFromWeb_Text[];
+        char *pTxtText;
+        pTxtText = &Screen1_txtMessageFromWeb_Text[0];
+        strcpypgm2ram((char *) pTxtText, "My IP: ");
+        for (i = 0; i < 4u; i++) {
+            if (i)
+                strcatpgm2ram((char *) pTxtText, ".");
+            uitoa(AppConfig.MyIPAddr.v[i], digits);
+            strcatpgm2ram((char *) pTxtText, digits);
+        }
+        SetState(pTxt, ST_DRAW);
+    }
+#endif
+}
+
+]]>
+                </Section>-->
+                <!--<Section Name="MainHeader" Option="chkTCPIP">
+<![CDATA[
+// ====================================================================
+// Functions used in VGDD TCPIP demo app
+// ====================================================================
+void TemperatureChanged(void);
+void WriteMessageFromWeb(char* cDest);
+void SwitchLedFromWeb(WORD num);
+void TFTShowMyIp(void);
+]]>
+                </Section>-->
+            </Code>
+        </Group>
+        <Group Name="WiFi">
+            <Project>
+                <Folder Name="Source Files/TCPIP App" Option="chkWiFi">
+                    <AddVGDDFile>WF_Config.c</AddVGDDFile>
+                    <AddVGDDFile>WF_Config.h</AddVGDDFile>
+                    <AddVGDDFile>WFEasyConfig.c</AddVGDDFile>
+                    <AddVGDDFile DestDir="TCPIP Stack">WFEasyConfig.h</AddVGDDFile>
+                </Folder>
+                <Folder Name="Source Files/framework/driver/wifi" Option="chkWiFi">
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_com.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_commands.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_config_data.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_connect.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_connection_algorithm.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_connection_manager.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_connection_profile.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_debug_output.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_easy_config.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_eint.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_event_handler.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_events.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_init.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_mac.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_mac_pic32.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_mgmt_msg.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_param_msg.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_pbkdf2.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_power_save.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_scan.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_spi.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_spi_init.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_tx_power.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_update_firmware_common.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_update_firmware_uart.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_update_firmware_tcpclient_txt.c</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_client_table.c</AddFile>
+                </Folder>
+                <Folder Name="Header Files/driver/wifi" Option="chkWiFi">
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/drv_wifi.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_commands.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_config_data.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_debug_output.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_easy_config.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_eint.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_mac.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_mgmt_msg.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_priv.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_raw.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_spi.h</AddFile>
+                    <AddFile>$MAL/framework/driver/wifi/mrf24w/src/drv_wifi_client_table.h</AddFile>
+                </Folder>
+            </Project>
+            <Code>
+                <!--<Section Name="HardwareProfile" Option="chkWiFi">
+<![CDATA[
+// ====================================================================
+// IOS FOR WiFi Module
+// ====================================================================
+#define WF_CS_TRIS           (TRISDbits.TRISD14) 
+#define WF_CS_IO             (LATDbits.LATD14)   
+#define WF_SDI_TRIS          (TRISFbits.TRISF4)  // MOSI4
+#define WF_SCK_TRIS          (TRISFbits.TRISF13) // SCK4
+#define WF_SDO_TRIS          (TRISFbits.TRISF5)  // MISO4
+#define WF_RESET_TRIS        (TRISBbits.TRISB12)
+#define WF_RESET_IO          (LATBbits.LATB12)
+#define WF_SSPBUF            (SPI4BUF)
+#define WF_SPISTAT           (SPI4STAT)
+#define WF_SPISTATbits       (SPI4STATbits)
+#define WF_SPICON1           (SPI4CON)
+#define WF_SPICON1bits       (SPI4CONbits)
+#define WF_SPI_BRG           (SPI4BRG)
+#define WF_MAX_SPI_FREQ      (10000000ul) // Hz
+#define WF_HIBERNATE_TRIS    (TRISBbits.TRISB15)
+#define WF_HIBERNATE_IO      (PORTBbits.RB15)
+
+#define MRF24W_IN_SPI2       // This is to make WF_Eint.c handle INT3 interrupts, otherwise the module assumes MRF24WB0MA is on INT1
+#define WF_INT_TRIS          (TRISAbits.TRISA14) // INT3
+#define WF_INT_IO            (PORTAbits.RA14)
+#define WF_INT_EDGE          (INTCONbits.INT3EP)
+#define WF_INT_IE            (IEC0bits.INT3IE)
+#define WF_INT_IF            (IFS0bits.INT3IF)
+#define WF_INT_IE_CLEAR      IEC0CLR
+#define WF_INT_IF_CLEAR      IFS0CLR
+#define WF_INT_IE_SET        IEC0SET
+#define WF_INT_IF_SET        IFS0SET
+#define WF_INT_BIT           0x00008000
+#define WF_INT_IPCSET        IPC3SET
+#define WF_INT_IPCCLR        IPC3CLR
+#define WF_INT_IPC_MASK      0xFF000000
+#define WF_INT_IPC_VALUE     0x0C000000
+#define WF_SPI_IE_CLEAR      IEC1CLR
+#define WF_SPI_IF_CLEAR      IFS1CLR
+#define WF_SPI_INT_BITS      0x00000700
+]]>
+                </Section>-->
+                <!--<Section Name="MainHead" Option="chkWiFi">
+<![CDATA[
+static void WF_Connect(void);
+// used for WiFi assertions 
+#ifdef WF_DEBUG
+	#define WF_MODULE_NUMBER   WF_MODULE_MAIN_DEMO
+#endif
+]]>
+                </Section>-->
+                <!--<Section Name="MainBeforeLoop" Option="chkWiFi">
+<![CDATA[
+    WF_Connect();
+]]>
+                </Section>-->
+                <!--<Section Name="Main" Option="chkWiFi">
+<![CDATA[
+ /*****************************************************************************
+ * FUNCTION: WF_Connect
+ *
+ * RETURNS:  None
+ *
+ * PARAMS:   None
+ *
+ *  NOTES:   Connects to an 802.11 network.  Customize this function as needed
+ *           for your application.
+ *****************************************************************************/
+static void WF_Connect(void) {
+    UINT8 ConnectionProfileID;
+    UINT8 channelList[] = MY_DEFAULT_CHANNEL_LIST;
+    #if defined(WF_USE_POWER_SAVE_FUNCTIONS)
+    BOOL PsPollEnabled;
+    #endif
+
+    /* create a Connection Profile */
+    WF_CPCreate(&ConnectionProfileID);
+
+    #if defined(STACK_USE_UART)
+    putrsUART("Set SSID\r\n");
+    #endif
+    WF_CPSetSsid(ConnectionProfileID,
+            AppConfig.MySSID,
+            AppConfig.SsidLength);
+
+    #if defined(STACK_USE_UART)
+    putrsUART("Set Network Type\r\n");
+    #endif
+    WF_CPSetNetworkType(ConnectionProfileID, MY_DEFAULT_NETWORK_TYPE);
+
+    #if defined(STACK_USE_UART)
+    putrsUART("Set Scan Type\r\n");
+    #endif
+    WF_CASetScanType(MY_DEFAULT_SCAN_TYPE);
+
+    #if defined(STACK_USE_UART)
+    putrsUART("Set Channel List\r\n");
+    #endif
+    WF_CASetChannelList(channelList, sizeof (channelList));
+
+    #if defined(STACK_USE_UART)
+    putrsUART("Set list retry count\r\n");
+    #endif
+    WF_CASetListRetryCount(MY_DEFAULT_LIST_RETRY_COUNT);
+
+    #if defined(STACK_USE_UART)
+    putrsUART("Set Event Notify\r\n");
+    #endif
+    WF_CASetEventNotificationAction(MY_DEFAULT_EVENT_NOTIFICATION_LIST);
+
+    #if defined(WF_USE_POWER_SAVE_FUNCTIONS)
+    PsPollEnabled = (MY_DEFAULT_PS_POLL == WF_ENABLED);
+    if (!PsPollEnabled) {
+        /* disable low power (PS-Poll) mode */
+        #if defined(STACK_USE_UART)
+        putrsUART("Disable PS-Poll\r\n");
+        #endif
+        WF_PsPollDisable();
+    }
+    else {
+        /* Enable low power (PS-Poll) mode */
+        #if defined(STACK_USE_UART)
+        putrsUART("Enable PS-Poll\r\n");
+        #endif
+        WF_PsPollEnable(TRUE);
+    }
+    #endif
+    #if defined(STACK_USE_UART)
+    putrsUART("Set Beacon Timeout\r\n");
+    #endif
+    WF_CASetBeaconTimeout(40);
+
+    /* Set Security */
+    #if (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_OPEN)
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (Open)\r\n");
+        #endif
+    #elif (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WEP_40)
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (WEP40)\r\n");
+        #endif
+    #elif (MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WEP_104)
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (WEP104)\r\n");
+        #endif
+    #elif MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA_WITH_KEY
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (WPA with key)\r\n");
+        #endif
+    #elif MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA2_WITH_KEY
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (WPA2 with key)\r\n");
+        #endif
+    #elif MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA_WITH_PASS_PHRASE
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (WPA with pass phrase)\r\n");
+        #endif
+    #elif MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA2_WITH_PASS_PHRASE
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (WPA2 with pass phrase)\r\n");
+        #endif
+    #elif MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA_AUTO_WITH_KEY
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (WPA with key, auto-select)\r\n");
+        #endif
+    #elif MY_DEFAULT_WIFI_SECURITY_MODE == WF_SECURITY_WPA_AUTO_WITH_PASS_PHRASE
+        #if defined(STACK_USE_UART)
+    putrsUART("Set Security (WPA with pass phrase, auto-select)\r\n");
+        #endif
+    #endif /* MY_DEFAULT_WIFI_SECURITY_MODE */
+
+    WF_CPSetSecurity(ConnectionProfileID,
+            AppConfig.SecurityMode,
+            AppConfig.WepKeyIndex, /* only used if WEP enabled */
+            AppConfig.SecurityKey,
+            AppConfig.SecurityKeyLength);
+    #if defined(STACK_USE_UART)
+    putrsUART("Start WiFi Connect\r\n");
+    #endif
+    WF_CMConnect(ConnectionProfileID);
+}
+]]>
+                </Section>-->
+            </Code>
+        </Group>"
+    </Groups>
+    <Checks>
+        <Check ExpBoardIds="LCC_BOARD" Evaluate="chkLCCInternalMemory | chkLCCExternalMemory" Warning="You must select either Internal or External memory option" />
+        <Check ExpBoardIds="GFX_S1D13517,GFX_SSD1926,MEB_BOARD,TECHTOYS_SSD1963_EVK" Evaluate="chkPMP8 | chkPMP16"  Warning="You must select either 8 or 16 bits PMP mode" />
+    </Checks>
+</MplabXWizard>

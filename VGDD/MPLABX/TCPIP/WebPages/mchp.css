@@ -1,0 +1,241 @@
+body {
+	font-family: Verdana, Arial, sans-serif;
+	background: #5b5b5b;
+	margin: 0px auto;
+	padding: 0 0 10px 0;
+	min-width: 240px;
+}
+
+#shadow-one {
+	width: 90%;
+	border: 1px solid #555;
+	border-top: 0;
+	margin: 0px auto;
+}
+#shadow-two {
+	border: 1px solid #4b4b4b;
+	border-top: 0;
+}
+#shadow-three {
+	border: 1px solid #444;
+	border-top: 0;
+}
+#shadow-four {
+	border: 1px solid #3a3a3a;
+	border-top: 0;
+}
+
+#page {
+	border: 1px solid #333;
+	background: #fff;
+	border-top: 0;
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+	font-size: 10pt;
+}
+
+#page td {
+	font-size: 10pt;
+}
+
+#title {
+	background: #5ac331;
+	padding: 4px;
+	font-weight: bold;
+	color: black;
+	margin-top: 15px;
+	height: 16px;
+}
+
+#title .right {
+	float: right;
+	width: 80%;
+	text-align: right;
+}
+
+#menupanel {
+    position: absolute;
+    top: 100px; 
+    right: 40px;
+	width: 20%;
+	margin: auto;
+}
+
+#menu {
+	width: 150px;
+	padding-top: 0px;
+	padding-right: 0px;
+	text-align: center;
+}
+
+#menu a {
+	display: block;
+	background: #5ac331;
+	color: black;
+	padding: 8px;
+	font-weight: bold;
+	border-bottom: 1px solid #fff;
+	text-decoration: none;
+}
+
+#menu a:hover {
+	background: #1a8301;
+	color: white;
+}
+
+#content {
+	width: 75%;
+	float: left;
+	padding-left: 10px;
+	min-height: 480px;
+}
+
+#content a {
+	color: #00c;
+	text-decoration: none;
+}
+
+#content a:hover {
+	color: #d33;
+	text-decoration: underline;
+}
+
+#content h1 {
+	margin-top: 0px;
+}
+
+.spacer {
+	clear: both;
+}
+
+#footer {
+	font-size: 0.8em;
+	color: #666;
+	text-align: center;
+	margin: 10px 50px 0 50px;
+	padding-top: 10px;
+	border-top: 1px dotted #666;
+}
+
+#status {
+	padding: 10px;
+	margin: 10px;
+	border: 1px dotted #666;
+	font-weight: bold;
+}
+
+#status p {
+	padding: 5px 0 5px 10px;
+	text-indent: -10px;
+	margin: 0;
+}
+
+#status .leds {
+	font-size: 36pt;
+}
+
+#status .leds a {
+	color: #ddd;
+	cursor: pointer;
+}
+
+#status .leds a:hover {
+	color: #ddd;
+	text-decoration: none;
+}
+
+.examplebox {
+	margin:10px 40px 10px 40px;
+	padding: 8px;
+	border: 1px dotted #333;
+	text-align:center;
+	background:#ddd;
+}
+
+.code {
+	font-family: Courier New, Courier, fixed-width, fixed;
+}
+
+.exercise {
+	background: #fe9;
+	padding: 5px;
+	margin-left: 10px;
+	border-left: 2px solid #eb3;
+}
+
+.error {
+	margin-left: 10px;
+	padding: 10px;
+	background: #fdd;
+	border-left: 2px solid #900;
+}
+
+#content h6 {
+	border-top: 1px dashed #333;
+	margin: 15px;
+	padding: 0px;
+	height: 1px;
+}
+
+.examplebox td {
+	text-align:left;
+	padding-right: 15px;
+}
+
+fieldset {
+	margin:10px 40px 10px 40px;
+	padding: 8px;
+	border: 1px dotted #333;
+	background:#ddd;
+}
+
+fieldset div {
+	padding: 2px 0px 2px 150px;
+}
+
+fieldset div label {
+	margin-left: -140px;
+	padding-top: 2px;
+	width: 135px;
+	font-weight: bold;
+	position: absolute;
+}
+
+fieldset input {
+	width: 250px;
+}
+
+fieldset input.sm {
+	width: auto;
+}
+
+fieldset textarea {
+	width: 250px;
+}
+
+.result
+{
+	margin: 10px 40px 10px 40px;
+	padding: 8px;
+	border: 1px solid #333;
+	text-align: center;
+	font-weight: bold;
+	background: #eee;
+}
+
+	.ok {
+		border-color: #6b6;
+		background: #efe;
+	}
+	
+	.fail {
+		border-color: #b66;
+		background: #fee;
+	}
+	
+	.unk {
+		border-color: #cc6;
+		background: #ffd;
+	}

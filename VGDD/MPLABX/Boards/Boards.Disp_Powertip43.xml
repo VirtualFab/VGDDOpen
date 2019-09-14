@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="POWERTIP_4_3"
+	   Description="Graphics Display Powertip 4.3in. 480x272 Board"
+	   Type="Display"
+	   Img="Disp_Powertip43.png"
+	   Width="480"
+	   Height="272"
+     PartNumber="AC164127-6"
+	   URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=AC164127-6"
+	   DefaultOrientation="0">
+    <Note>
+
+    </Note>
+    <Project>
+    </Project>
+    <AddGroup Name="TouchScreenResistive" />
+    <Code>
+        <MLALegacy>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#define GFX_USE_DISPLAY_PANEL_PH480272T_005_I11Q
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 90)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+    #define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR    6
+#elif (DISP_ORIENTATION == 180)	
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+    #define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR    5
+#elif (DISP_ORIENTATION == 270)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#endif	
+            
+#define DISP_HOR_RESOLUTION		480
+#define DISP_VER_RESOLUTION		272
+#define DISP_DATA_WIDTH			24
+#define DISP_HOR_PULSE_WIDTH    41
+#define DISP_HOR_BACK_PORCH     2
+#define DISP_HOR_FRONT_PORCH    2
+#define DISP_VER_PULSE_WIDTH    10
+#define DISP_VER_BACK_PORCH     2
+#define DISP_VER_FRONT_PORCH    2
+#define DISP_INV_LSHIFT         1
+#define GFX_LCD_TYPE GFX_LCD_TFT
+#define GFX_GCLK_DIVIDER 38
+
+#define BACKLIGHT_ENABLE_LEVEL      1
+#define BACKLIGHT_DISABLE_LEVEL     0
+
+]]>
+        </Section>
+            <Section Name="MainHeader">
+<![CDATA[
+#include "TouchScreen.h"
+]]>
+            </Section>
+        </MLALegacy>
+        <MLA>
+            <Section Name="HardwareProfileHead">
+<![CDATA[
+#define GFX_USE_DISPLAY_PANEL_PH480272T_005_I11Q
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+]]>
+            </Section>
+            <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 90)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+    #define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR    6
+#elif (DISP_ORIENTATION == 180)	
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+    #define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR    5
+#elif (DISP_ORIENTATION == 270)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+#endif	
+            
+#define DISP_HOR_RESOLUTION		480
+#define DISP_VER_RESOLUTION		272
+#define DISP_DATA_WIDTH			24
+#define DISP_HOR_PULSE_WIDTH    41
+#define DISP_HOR_BACK_PORCH     2
+#define DISP_HOR_FRONT_PORCH    2
+#define DISP_VER_PULSE_WIDTH    10
+#define DISP_VER_BACK_PORCH     2
+#define DISP_VER_FRONT_PORCH    2
+#define DISP_INV_LSHIFT         1
+#define GFX_LCD_TYPE GFX_LCD_TFT
+#define GFX_GCLK_DIVIDER 38
+
+#define BACKLIGHT_ENABLE_LEVEL      1
+#define BACKLIGHT_DISABLE_LEVEL     0
+
+]]>
+            </Section>
+            <Section Name="SystemHead">
+<![CDATA[
+#include "driver/touch_screen/drv_touch_screen.h"
+]]>
+            </Section>
+        </MLA>
+        <Harmony>
+            <Section Name="HardwareProfile">
+<![CDATA[
+#define TCON_MODULE NULL
+]]>
+            </Section>
+        </Harmony>
+        <Section Name="SystemDefinitions">
+<![CDATA[
+//#include "driver/gfx/display/powertip_4.3_480x272/drv_gfx_powertip_4.3_480x272.h" //Superseded in Harmony 1.06
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+#define DISP_HOR_RESOLUTION		480
+#define DISP_VER_RESOLUTION		272
+#define DISP_DATA_WIDTH			24
+#define DISP_HOR_PULSE_WIDTH    42
+#define DISP_HOR_BACK_PORCH     2
+#define DISP_HOR_FRONT_PORCH    2
+#define DISP_VER_PULSE_WIDTH    10
+#define DISP_VER_BACK_PORCH     2
+#define DISP_VER_FRONT_PORCH    2
+#define DISP_INV_LSHIFT         0
+#define GFX_LCD_TYPE            1 //GFX_LCD_TFT
+#define TCON_MODULE NULL
+#define BACKLIGHT_ENABLE_LEVEL      1
+#define BACKLIGHT_DISABLE_LEVEL     0
+
+// Default calibration points
+#define TOUCHCAL_ULX 0x0099
+#define TOUCHCAL_ULY 0x00FF
+#define TOUCHCAL_URX 0x0369
+#define TOUCHCAL_URY 0x00F1
+#define TOUCHCAL_LLX 0x00AC
+#define TOUCHCAL_LLY 0x032A
+#define TOUCHCAL_LRX 0x0368
+#define TOUCHCAL_LRY 0x033C
+
+#define RESISTIVETOUCH_ANALOG  0
+#define RESISTIVETOUCH_DIGITAL 1
+
+void BSP_Initialize(void);
+
+]]>
+        </Section>
+    </Code>
+</Board>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="EPD_1.44_V110_G1"
+       Description="PervasiveDisplays EPD 1.44 V110 G1 128x96"
+       Type="Display"
+       Img="Disp_EPD144.png"
+       Width="128"
+       Height="96"
+       PartNumber="EK014AS014"
+       URL="http://www.pervasivedisplays.com/products/144"
+       DefaultOrientation="0">
+	<Note>
+
+	</Note>
+    <CompatibleExpansionBoard ID="EPD_PICTAIL" />
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+    <Project>
+    </Project>
+    <Code>
+        <Section Name="HardwareProfileHead" Order="0">
+<![CDATA[
+#define GFX_USE_DISPLAY_CONTROLLER_EPD
+#define COG_V110_G1
+#include "Pervasive_Displays_small_EPD.h"
+#define USE_EPD_Type EPD_144
+]]>
+        </Section>
+        <Section Name="HardwareProfile">
+<![CDATA[
+#define DISP_ORIENTATION		[DISP_ORIENTATION]
+#define DISP_HOR_RESOLUTION		128		
+#define DISP_VER_RESOLUTION		96		
+]]>
+        </Section>
+</Code>
+</Board>

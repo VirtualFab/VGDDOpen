@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="MEB_DISPLAY"
+   Description="MEB Integrated Display - Truly 3.2in. 320x240"
+   Type="Display"
+   Img="Disp_MEB.png"
+   Width="480"
+   Height="272"
+	 DefaultOrientation="90">
+  <Note>
+  </Note>
+    <Project>
+  </Project>
+  <Code>
+    <Section Name="HardwareProfileHead">
+<![CDATA[
+#define GFX_USE_DISPLAY_PANEL_TFT_G240320LTSW_118W_E	
+#define USE_TOUCHSCREEN_RESISTIVE  // use 4-wire resistive touch screen driver
+]]>
+    </Section>
+
+    <Section Name="HardwareProfile">
+<![CDATA[
+// --------------------------------------------------------------------
+// HARDWARE PROFILE FOR DISPLAY CONTROLLER INTERFACE 
+// --------------------------------------------------------------------
+#define DISP_ORIENTATION          [DISP_ORIENTATION]
+#if (DISP_ORIENTATION == 0)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+    #define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   6
+#elif (DISP_ORIENTATION == 90)	
+    #define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   6
+#elif (DISP_ORIENTATION == 180)	
+    #define TOUCHSCREEN_RESISTIVE_SWAP_XY
+    #define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   6
+#elif (DISP_ORIENTATION == 270)	
+    #define TOUCHSCREEN_RESISTIVE_FLIP_Y
+    #define TOUCHSCREEN_RESISTIVE_CALIBRATION_SCALE_FACTOR   6
+#endif	
+#define DISP_HOR_RESOLUTION       240
+#define DISP_VER_RESOLUTION       320
+#define DISP_DATA_WIDTH           18
+#define DISP_INV_LSHIFT
+#define DISP_HOR_PULSE_WIDTH      25
+#define DISP_HOR_BACK_PORCH       5
+#define DISP_HOR_FRONT_PORCH      10
+#define DISP_VER_PULSE_WIDTH      4
+#define DISP_VER_BACK_PORCH       0
+#define DISP_VER_FRONT_PORCH      2
+#define GFX_LCD_TYPE              GFX_LCD_TFT
+//#define GFX_GCLK_DIVIDER 31
+#define USE_TCON_SSD1289
+#define USE_TCON_MODULE
+#define USE_GFX_PMP
+#define PMP_DATA_SETUP_TIME       (18)    
+#define PMP_DATA_WAIT_TIME        (82)
+#define PMP_DATA_HOLD_TIME        (0) 
+#define BACKLIGHT_ENABLE_LEVEL    0
+#define BACKLIGHT_DISABLE_LEVEL   1
+
+]]>
+    </Section>
+    <Section Name="MainHeader" Condition="FRAMEWORK=MLALEGACY">
+<![CDATA[
+#include "TouchScreen.h"
+]]>
+    </Section>
+    <Section Name="MainHeader" Condition="FRAMEWORK=MLA">
+<![CDATA[
+#include "driver/touch_screen/drv_touch_screen.h"
+]]>
+    </Section>
+  </Code>
+</Board>

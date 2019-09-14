@@ -1,0 +1,141 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="DefaultWidth" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">320</Value>
+    </Setting>
+    <Setting Name="DefaultHeight" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">240</Value>
+    </Setting>
+    <Setting Name="MyTop" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MyLeft" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MyWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">797</Value>
+    </Setting>
+    <Setting Name="MyHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">614</Value>
+    </Setting>
+    <Setting Name="Recent" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DefaultColourDepth" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+    <Setting Name="UseIndexedColours" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UseMultiByteChars" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UseGRC" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="JavaCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">java.exe -jar</Value>
+    </Setting>
+    <Setting Name="DefaultCompiler" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C32</Value>
+    </Setting>
+    <Setting Name="SettingsUpgraded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MalPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">xxx</Value>
+    </Setting>
+    <Setting Name="MplabXWizardDevBoard" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MplabXWizardExpBoard" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BmpChooserTop" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="BmpChooserLeft" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="BmpChooserHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="BmpChooserWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MplabXWizardDispBoard" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MplabXWizardDispOrientation" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="MagnifyWindowLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">100, 100</Value>
+    </Setting>
+    <Setting Name="MagnifyWindowSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">200, 200</Value>
+    </Setting>
+    <Setting Name="MagnifyWindowZoomFactor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="DemoExtractFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MyWindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
+      <Value Profile="(Default)">Maximized</Value>
+    </Setting>
+    <Setting Name="CopyBitmapsInVgddProjectFolder" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ProjectUseBmpPrefix" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MyPropertySort" Type="System.Windows.Forms.PropertySort" Scope="User">
+      <Value Profile="(Default)">Alphabetical</Value>
+    </Setting>
+    <Setting Name="MyUserTemplatesFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MyMakeBackups" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MyStoreLayout" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MultiLanguageTranslations" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ConfiguredFrameworks" Type="VGDDCommon.VGDDFrameworkCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MplabXIpcIpAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MplabXIpcPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4242</Value>
+    </Setting>
+    <Setting Name="MplabXUseIpc" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DefaultSchemeXML" Type="System.String" Scope="User">
+      <Value Profile="(Default)">&lt;Scheme Name="Default" Font="GentiumBasicRegular11" BackgroundType="GFX_BACKGROUND_COLOR" FillStyle="GFX_FILL_STYLE_COLOR" CommonBkLeft="0" CommonBkTop="0" BackgroundImageName="" AlphaValue="0" EmbossSize="3"&gt;
+  &lt;Color0&gt;192,255,255&lt;/Color0&gt;
+  &lt;Color1&gt;128,128,255&lt;/Color1&gt;
+  &lt;Colordisabled&gt;208,224,240&lt;/Colordisabled&gt;
+  &lt;Commonbkcolor&gt;255,255,255&lt;/Commonbkcolor&gt;
+  &lt;Embossdkcolor&gt;0,0,255&lt;/Embossdkcolor&gt;
+  &lt;Embossltcolor&gt;192,192,255&lt;/Embossltcolor&gt;
+  &lt;Textcolor0&gt;24,24,24&lt;/Textcolor0&gt;
+  &lt;Textcolor1&gt;248,252,248&lt;/Textcolor1&gt;
+  &lt;Textcolordisabled&gt;128,128,128&lt;/Textcolordisabled&gt;
+  &lt;gradientStartColor&gt;211,211,211&lt;/gradientStartColor&gt;
+  &lt;gradientEndColor&gt;169,169,169&lt;/gradientEndColor&gt;
+&lt;/Scheme&gt;</Value>
+    </Setting>
+    <Setting Name="FallbackGRCPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">grc.jar</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

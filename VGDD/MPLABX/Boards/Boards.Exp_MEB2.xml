@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="MEB2_BOARD"
+       Description="Multimedia Expansion Board II"
+       Type="Expansion"
+       Img="Exp_MEB2.png"
+       PartNumber="DM320005-2"
+       URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=DM320005-2">
+    <Note>
+
+    </Note>
+    <CompatibleDisplay ID="MEB2_DISPLAY" />
+    <CompatibleOptions>
+        <Option>chkUSBhost</Option>
+        <Option>chkPutImageFromSD</Option>
+        <Option>chkPMP8</Option>
+        <Option>chkPMP16</Option>
+    </CompatibleOptions>
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="No" />
+    <CompatibleFrameworks Framework="MLA" Compatible="No" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <Project>
+        <Harmony>
+            <AddIncludeSearchPath>$MAL/framework/driver/gfx/gfx_lcc</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/driver</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/gfx</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/common</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/devcon</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/devcon/src</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/dma</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/int</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/msg</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/gfx/src/common_legacy</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/driver/gfx/controller/lcc</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/clk</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/clk/src</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/system/touch</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/driver/touch/mtch6301</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/driver/i2c</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/framework/driver/spi_flash/sst25vf016b</AddIncludeSearchPath>
+            <AddIncludeSearchPath>$MAL/bsp/pic32mz_ec_sk+meb2</AddIncludeSearchPath>
+            <ExcludeAllFilesInFolder Folder="Source Files/framework/driver/gfx" />
+            <ExcludeAllFilesInFolder Folder="Header Files/framework/driver/gfx" />
+            <Folder Name="Header Files/bsp/pic32mz_ec_sk+meb2">
+                <AddFile DestDir=".">$MAL/bsp/pic32mz_ec_sk+meb2/bsp_config.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver/gfx/controller/gfx_lcc">
+                <AddFile>$MAL/framework/driver/gfx/controller/lcc/drv_gfx_lcc.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver/gfx/display/newhaven_4.3_480x272_PCAP">
+                <AddFile>$MAL/framework/driver/gfx/display/newhaven_4.3_480x272_PCAP/drv_gfx_newhaven_4.3_480x272_PCAP.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver/i2c">
+                <AddFile>$MAL/framework/driver/i2c/drv_i2c.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver/touch/mtch6301">
+                <AddFile>$MAL/framework/driver/touch/mtch6301/drv_mtch6301.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/driver">
+                <AddFile>$MAL/framework/driver/driver.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/gfx">
+                <AddFile>$MAL/framework/gfx/gfx.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_primitive.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_scheme.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_button.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_check_box.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_custom_control.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_digital_meter.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_edit_box.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_group_box.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_list_box.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_meter.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_picture.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_progress_bar.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_radio_button.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_scroll_bar.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_static_text.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_text_entry.h</AddFile>
+                <AddFile>$MAL/framework/gfx/gfx_gol_window.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/common">
+                <AddFile>$MAL/framework/system/common/sys_common.h</AddFile>
+                <AddFile>$MAL/framework/system/common/sys_module.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/devcon">
+                <AddFile>$MAL/framework/system/devcon/sys_devcon.h</AddFile>
+                <AddFile>$MAL/framework/system/devcon/src/sys_devcon_cache.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/dma">
+                <AddFile>$MAL/framework/system/dma/sys_dma.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/int">
+                <AddFile>$MAL/framework/system/int/sys_int.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/msg">
+                <AddFile>$MAL/framework/system/msg/sys_msg.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/ports">
+                <AddFile>$MAL/framework/system/ports/sys_ports.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system/touch">
+                <AddFile>$MAL/framework/system/touch/sys_touch.h</AddFile>
+            </Folder>
+            <Folder Name="Header Files/framework/system">
+                <AddFile>$MAL/framework/system/system.h</AddFile>
+            </Folder>
+            <!--<Folder Name="Source Files/app/system_config/pic32mz_ec_sk_meb2/framework/system/clk/src">
+                <AddFile>$MAL/apps/gfx/object/firmware/src/system_config/pic32mz_ec_sk_meb2/framework/system/clk/src/sys_clk_static.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/app/system_config/pic32mz_ec_sk_meb2/framework/system/ports/src">
+                <AddFile>$MAL/apps/gfx/object/firmware/src/system_config/pic32mz_ec_sk_meb2/framework/system/ports/src/sys_ports_static.c</AddFile>
+            </Folder>-->
+            <!--<Folder Name="Source Files/app/system_config/pic32mz_ec_sk_meb2">-->
+                <!--<AddFile>$MAL/apps/gfx/object/firmware/src/system_config/pic32mz_ec_sk_meb2/system_init.c</AddFile>-->
+                <!--<AddFile>$MAL/apps/gfx/object/firmware/src/system_config/pic32mz_ec_sk_meb2/system_interrupt.c</AddFile>-->
+                <!--<AddFile>$MAL/apps/gfx/object/firmware/src/system_config/pic32mz_ec_sk_meb2/system_tasks.c</AddFile>-->
+            <!--</Folder>-->
+            <!--<Folder Name="Source Files/app">
+                <AddFile>../src/app.c</AddFile>
+                <AddFile>../src/main.c</AddFile>
+                <AddFile>../src/internal_resource.S</AddFile>
+                <AddFile>../src/internal_resource_reference.c</AddFile>
+            </Folder>-->
+            <Folder Name="Source Files/bsp/pic32mz_ec_sk+meb2">
+                <AddFile DestDir=".">$MAL/bsp/pic32mz_ec_sk+meb2/bsp_sys_init.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx/controller/gfx_lcc/src">
+                <AddFile>$MAL/framework/driver/gfx/controller/lcc/src/drv_gfx_lcc_ext.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/i2c/src/dynamic">
+                <AddFile>$MAL/framework/driver/i2c/src/dynamic/drv_i2c.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/touch/mtch6301/src">
+                <AddFile>$MAL/framework/driver/touch/mtch6301/src/drv_mtch6301.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/gfx/src">
+                <AddFile>$MAL/framework/gfx/src/gfx.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_primitive.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_scheme_default.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_button.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_check_box.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_custom_control.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_digital_meter.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_edit_box.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_group_box.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_list_box.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_meter.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_picture.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_progress_bar.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_radio_button.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_scroll_bar.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_static_text.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_text_entry.c</AddFile>
+                <AddFile>$MAL/framework/gfx/src/gfx_gol_window.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/clk">
+                <AddVGDDFile>sys_clk_static_pic32mz.c</AddVGDDFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/devcon/src">
+                <AddFile>$MAL/framework/system/devcon/src/sys_devcon.c</AddFile>
+                <AddFile>$MAL/framework/system/devcon/src/sys_devcon_pic32mz.c</AddFile>
+                <AddFile>$MAL/framework/system/devcon/src/sys_devcon_cache_pic32mz.S</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/dma">
+                <AddFile>$MAL/framework/system/dma/src/sys_dma.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/int/src">
+                <AddFile>$MAL/framework/system/int/src/sys_int_pic32.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/msg/src">
+                <AddFile>$MAL/framework/system/msg/src/sys_msg.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/ports/src">
+                <AddFile>$MAL/framework/system/ports/src/sys_ports.c</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/system/touch/src">
+                <AddFile>$MAL/framework/system/touch/src/sys_touch.c</AddFile>
+            </Folder>
+        </Harmony>
+    </Project>
+    <Code>
+        <Section Name="MainHeader">
+<![CDATA[
+#include "vgdd_main.h"
+]]>
+    </Section>
+        <Section Name="HardwareProfileHead">
+<![CDATA[
+#include "system/ports/sys_ports.h"
+]]>
+    </Section>
+    <Section Name="HardwareProfile">
+<![CDATA[
+/*** Interrupt System Service Configuration ***/
+#define SYS_INT                     true
+
+/*** Ports System Service Configuration ***/
+
+#define SYS_PORT_A_ANSEL        0x420
+#define SYS_PORT_A_TRIS         0xc4ff
+#define SYS_PORT_A_LAT          0x0
+#define SYS_PORT_A_ODC          0x0
+#define SYS_PORT_A_CNPU         0x1
+#define SYS_PORT_A_CNPD         0x0
+#define SYS_PORT_A_CNEN         0x0
+
+#define SYS_PORT_B_ANSEL        0x8fc9
+#define SYS_PORT_B_TRIS         0xffc9
+#define SYS_PORT_B_LAT          0x0
+#define SYS_PORT_B_ODC          0x0
+#define SYS_PORT_B_CNPU         0x7000
+#define SYS_PORT_B_CNPD         0x0
+#define SYS_PORT_B_CNEN         0x0
+
+#define SYS_PORT_C_ANSEL        0xe01e
+#define SYS_PORT_C_TRIS         0xf01e
+#define SYS_PORT_C_LAT          0x0
+#define SYS_PORT_C_ODC          0x0
+#define SYS_PORT_C_CNPU         0x0
+#define SYS_PORT_C_CNPD         0x0
+#define SYS_PORT_C_CNEN         0x0
+
+#define SYS_PORT_E_ANSEL        0x2f0
+#define SYS_PORT_E_TRIS         0x3ff
+#define SYS_PORT_E_LAT          0x0
+#define SYS_PORT_E_ODC          0x0
+#define SYS_PORT_E_CNPU         0x0
+#define SYS_PORT_E_CNPD         0x0
+#define SYS_PORT_E_CNEN         0x0
+
+#define SYS_PORT_F_ANSEL        0x1000
+#define SYS_PORT_F_TRIS         0x113f
+#define SYS_PORT_F_LAT          0x0
+#define SYS_PORT_F_ODC          0x0
+#define SYS_PORT_F_CNPU         0x0
+#define SYS_PORT_F_CNPD         0x0
+#define SYS_PORT_F_CNEN         0x0
+
+#define SYS_PORT_H_ANSEL        0x30
+#define SYS_PORT_H_TRIS         0xf7b0
+#define SYS_PORT_H_LAT          0x0
+#define SYS_PORT_H_ODC          0x0
+#define SYS_PORT_H_CNPU         0x0
+#define SYS_PORT_H_CNPD         0x0
+#define SYS_PORT_H_CNEN         0x0
+
+#define SYS_PORT_J_ANSEL        0xb00
+#define SYS_PORT_J_TRIS         0xeb37
+#define SYS_PORT_J_LAT          0x0
+#define SYS_PORT_J_ODC          0x0
+#define SYS_PORT_J_CNPU         0x0
+#define SYS_PORT_J_CNPD         0x0
+#define SYS_PORT_J_CNEN         0x0
+
+#define SYS_PORT_K_ANSEL        0x0
+#define SYS_PORT_K_TRIS         0xdf
+#define SYS_PORT_K_LAT          0x0
+#define SYS_PORT_K_ODC          0x0
+#define SYS_PORT_K_CNPU         0x0
+#define SYS_PORT_K_CNPD         0x0
+#define SYS_PORT_K_CNEN         0x0
+
+/*** Console System Service Configuration DISABLED ***/
+#define SYS_CONSOLE_MESSAGE(message)
+#define SYS_CONSOLE_PRINT(fmt, ...)
+
+/*** Message System Service Configuration ***/
+#define SYS_MSG_MAX_MAILBOXES        1
+#define SYS_MSG_MAX_TYPES            1
+
+/*** Command Processor System Service Configuration DISABLED ***/
+#define SYS_CMD_MESSAGE(message)
+#define SYS_CMD_PRINT(fmt, ...)
+#define SYS_CMD_READY_TO_READ()
+
+/*** SPI Driver Static Allocation Options ***/
+#define DRV_SPI_INSTANCES_NUMBER 		1
+#define DRV_SPI_CLIENTS_NUMBER 			1
+#define DRV_SPI_ELEMENTS_PER_QUEUE 		10
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Driver Configuration
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* I2C Driver Configuration Options
+*/
+
+#define DRV_I2C_INTERRUPT_MODE                    		true
+#define DRV_I2C_CLIENTS_NUMBER                    		1
+#define DRV_I2C_INSTANCES_NUMBER                  		1
+
+#define DRV_I2C_PERIPHERAL_ID_IDX0                		I2C_ID_1
+#define DRV_I2C_OPERATION_MODE_IDX0                     DRV_I2C_MODE_MASTER
+#define DRV_I2C_STOP_IN_IDLE_IDX0                       false
+#define DRV_I2C_SMBus_SPECIFICATION_IDX0			    false
+#define DRV_I2C_BAUD_RATE_IDX0                    		100000
+#define DRV_I2C_BRG_CLOCK_IDX0	                  		100000000
+#define DRV_I2C_SLEW_RATE_CONTROL_IDX0      			false
+
+#define DRV_I2C_MASTER_INT_SRC_IDX0               		INT_SOURCE_I2C_1_MASTER
+#define DRV_I2C_SLAVE_INT_SRC_IDX0                		INT_SOURCE_I2C_1_SLAVE
+#define DRV_I2C_ERR_MZ_INT_SRC_IDX0               		INT_SOURCE_I2C_1_BUS
+#define DRV_I2C_MASTER_INT_VECTOR_IDX0            		INT_VECTOR_I2C1_MASTER
+#define DRV_I2C_MASTER_ISR_VECTOR_IDX0			  	    _I2C1_MASTER_VECTOR
+#define DRV_I2C_MASTER_INT_PRIORITY_IDX0          		INT_PRIORITY_LEVEL1
+#define DRV_I2C_MASTER_INT_SUB_PRIORITY_IDX0      		INT_SUBPRIORITY_LEVEL0
+#define DRV_I2C_SLAVE_INT_VECTOR_IDX0             		INT_VECTOR_I2C1_SLAVE
+#define DRV_I2C_SLAVE_ISR_VECTOR_IDX0			  	    _I2C1_SLAVE_VECTOR
+#define DRV_I2C_SLAVE_INT_PRIORITY_IDX0           		
+#define DRV_I2C_SLAVE_INT_SUB_PRIORITY_IDX0       		
+#define DRV_I2C_ERR_INT_VECTOR_IDX0               		INT_VECTOR_I2C1_BUS
+#define DRV_I2C_ERR_ISR_VECTOR_IDX0				        _I2C1_BUS_VECTOR
+#define DRV_I2C_ERR_INT_PRIORITY_IDX0             		INT_PRIORITY_LEVEL1
+#define DRV_I2C_ERR_INT_SUB_PRIORITY_IDX0         		INT_SUBPRIORITY_LEVEL0
+#define DRV_I2C_POWER_STATE_IDX0                  		SYS_MODULE_POWER_RUN_FULL
+
+/*** MTCH6301 Driver Configuration ***/
+#define DRV_TOUCH_MTCH6301_INSTANCES_NUMBER   1
+#define DRV_TOUCH_MTCH6301_CLIENTS_NUMBER     1
+#define DRV_TOUCH_MTCH6301_NUM_QUEUE          10
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Middleware & Other Library Configuration
+// *****************************************************************************
+// *****************************************************************************
+/*** GFX Library Configuration ***/
+#define GFX_INSTANCES_NUMBER                            1
+#define GFX_SELF_PREEMPTION_LEVEL                       0
+#define GFX_CONFIG_COLOR_DEPTH                          16
+
+#define GFX_CONFIG_FONT_CHAR_SIZE                       8
+#define GFX_CONFIG_FONT_EXTERNAL_DISABLE
+#define GFX_CONFIG_FONT_RAM_DISABLE
+
+#define GFX_CONFIG_IMAGE_EXTERNAL_DISABLE
+#define GFX_CONFIG_IMAGE_RAM_DISABLE
+
+#define GFX_CONFIG_ALPHABLEND_DISABLE
+#define GFX_CONFIG_GRADIENT_DISABLE
+#define GFX_CONFIG_PALETTE_DISABLE
+#define GFX_CONFIG_FONT_ANTIALIASED_DISABLE
+#define GFX_CONFIG_TRANSPARENT_COLOR_DISABLE
+#define GFX_CONFIG_PALETTE_EXTERNAL_DISABLE
+#define GFX_CONFIG_DOUBLE_BUFFERING_DISABLE
+
+#define GFX_CONFIG_USE_KEYBOARD_DISABLE
+
+#define GFX_CONFIG_FOCUS_DISABLE
+#define GFX_malloc(size)                                    malloc(size)
+#define GFX_free(pObj)                                      free(pObj)
+
+// ---------------------------------------------------------------------
+
+#define BSP_OSC_FREQUENCY 24000000
+
+#define GFX_USE_DISPLAY_CONTROLLER_LCC
+#define DRV_GFX_LCC_INTERNAL_MEMORY
+#define DRV_GFX_LCC_DMA_CHANNEL_INDEX                 DMA_CHANNEL_1
+#define DRV_GFX_LCC_DMA_TRIGGER_SOURCE                DMA_TRIGGER_TIMER_3
+#define DRV_GFX_LCC_DMA_TRANSFER_LENGTH               2
+#define DRV_GFX_LCC_TMR_INDEX                         TMR_ID_3
+
+#define DISP_ORIENTATION		0
+#define DISP_HOR_RESOLUTION		480
+#define DISP_VER_RESOLUTION		272
+#define DISP_DATA_WIDTH			24
+#define DISP_HOR_PULSE_WIDTH    41
+#define DISP_HOR_BACK_PORCH     2
+#define DISP_HOR_FRONT_PORCH    2
+#define DISP_VER_PULSE_WIDTH    10
+#define DISP_VER_BACK_PORCH     2
+#define DISP_VER_FRONT_PORCH    2
+#define DISP_INV_LSHIFT         0
+//#define GFX_LCD_TYPE            1 //GFX_LCD_TFT
+
+#define TCON_MODULE NULL
+#define DATA_ENABLE      LATBbits.LATB4
+#define DATA_ENABLE_TRIS TRISBbits.TRISB4
+#define HSYNC            LATBbits.LATB1
+#define HSYNC_TRIS       TRISBbits.TRISB1
+#define VSYNC            LATAbits.LATA9
+#define VSYNC_TRIS       TRISAbits.TRISA9
+
+#define BACKLIGHT      LATFbits.LATF13
+#define BACKLIGHT_TRIS TRISFbits.TRISF13
+#define LCD_RESET      LATJbits.LATJ3
+#define LCD_RESET_TRIS TRISJbits.TRISJ3
+#define LCD_CS         LATJbits.LATJ6
+#define LCD_CS_TRIS    TRISJbits.TRISJ6
+
+#define BACKLIGHT_ENABLE_LEVEL      1
+#define BACKLIGHT_DISABLE_LEVEL     0
+
+// Definitions for reset pin
+#define DisplayResetConfig()        TRISCCLR = _TRISC_TRISC1_MASK
+#define DisplayResetEnable()        LATCCLR = _LATC_LATC1_MASK
+#define DisplayResetDisable()       LATCSET = _LATC_LATC1_MASK
+
+// Definitions for RS pin
+#define DisplayCmdDataConfig()      TRISCCLR = _TRISC_TRISC2_MASK
+#define DisplaySetCommand()         LATCCLR = _LATC_LATC2_MASK
+#define DisplaySetData()            LATCSET = _LATC_LATC2_MASK
+
+// Definitions for CS pin
+#define DisplayConfig()             TRISDCLR = _TRISD_TRISD10_MASK
+#define DisplayEnable()             LATDCLR = _LATD_LATD10_MASK
+#define DisplayDisable()            LATDSET = _LATD_LATD10_MASK
+
+// Definitions for backlight control pin
+#define DisplayBacklightConfig()    (TRISDbits.TRISD0 = 0)
+#define DisplayBacklightOn()        (LATDbits.LATD0 = BACKLIGHT_ENABLE_LEVEL)
+#define DisplayBacklightOff()       (LATDbits.LATD0 = BACKLIGHT_DISABLE_LEVEL)
+
+#define ADDR16        LATKbits.LATK0
+#define ADDR16_TRIS   TRISKbits.TRISK0
+#define ADDR17        LATKbits.LATK3
+#define ADDR17_TRIS   TRISKbits.TRISK3
+#define ADDR18        LATKbits.LATK4
+#define ADDR18_TRIS   TRISKbits.TRISK4
+#define ADDR19        LATKbits.LATK5
+#define ADDR19_TRIS   TRISKbits.TRISK5
+
+/*Macros for External SRAM*/
+#define SRAM_CS       LATJbits.LATJ4
+#define SRAM_TRIS     TRISJbits.TRISJ4
+#define PMP_INTERRUPT IEC4bits.PMPIE
+#define  PMADDR_OVERFLOW               65536
+#define USE_TCON_MODULE 0
+#define GFX_USE_TCON_CUSTOM
+#define PIXELCLOCK        LATDbits.LATD5
+#define PIXELCLOCK_TRIS   TRISDbits.TRISD5
+
+typedef enum
+{
+    /* SWITCH 1 */
+     BSP_SWITCH_1 = PORTS_BIT_POS_12,
+
+    /* SWITCH 2 */
+     BSP_SWITCH_2 = PORTS_BIT_POS_13,
+
+    /* SWITCH 3 */
+     BSP_SWITCH_3 = PORTS_BIT_POS_14,
+
+    /* Push button switch on MEB-II */
+     BSP_SWITCH_S1 = PORTS_BIT_POS_0,
+
+}BSP_SWITCH;
+
+typedef enum
+{
+    /* Switch pressed */
+    BSP_SWITCH_STATE_PRESSED = 0,
+
+   /* Switch not pressed */
+    BSP_SWITCH_STATE_RELEASED = 1
+
+} BSP_SWITCH_STATE;
+
+typedef enum
+{
+    /* LED State is on */
+    BSP_LED_STATE_OFF = 0,
+
+   /* LED State is off */
+    BSP_LED_STATE_ON = 1
+
+} BSP_LED_STATE;
+
+typedef enum
+{
+    /* LED 1 on SK */
+    BSP_LED_1 = PORTS_BIT_POS_0,
+
+    /* LED D3 on the MEB2 board */
+    BSP_LED_D3 = PORTS_BIT_POS_0,
+
+    /* LED 2 on SK */
+    BSP_LED_2 = PORTS_BIT_POS_1,
+
+    /* LED D5 on the MEB2 board */
+    BSP_LED_D5 = PORTS_BIT_POS_1,
+
+    /* LED 3 on SK */
+    BSP_LED_3 = PORTS_BIT_POS_2,
+
+    /* LED D4 on the MEB2 board */
+    BSP_LED_D4 = PORTS_BIT_POS_2,
+
+    /* LED D6 on the MEB2 board */
+    BSP_LED_D6 = PORTS_BIT_POS_6,
+
+    /* LED D7 on the MEB2 board */
+    BSP_LED_D7 = PORTS_BIT_POS_11,
+
+}BSP_LED;
+
+typedef enum
+{
+    /* USB VBUS Switch disable */
+    BSP_USB_VBUS_SWITCH_STATE_DISABLE = 0,
+
+    /* USB VBUS Switch enable */
+    BSP_USB_VBUS_SWITCH_STATE_ENABLE = 1
+
+} BSP_USB_VBUS_SWITCH_STATE;
+
+typedef enum
+{
+    /* Ak4953 Power down port channel */
+    BSP_AK4953_PORT_CHANNEL_POWER_DOWN =                PORT_CHANNEL_H
+} BSP_AK4953_PORT_CHANNEL;
+
+typedef enum
+{
+    /* Ak4953 Power down port channel bit position */
+    BSP_AK4953_PORT_BIT_POSITION_POWER_DOWN =                 PORTS_BIT_POS_3 
+
+} BSP_AK4953_PORT_BIT_POSITION;
+
+void BSP_Initialize(void);
+void BSP_LEDStateSet(BSP_LED led, BSP_LED_STATE state);
+BSP_LED_STATE BSP_LEDStateGet(BSP_LED led);
+void BSP_LEDToggle(BSP_LED led);
+void BSP_LEDOn(BSP_LED led);
+void BSP_LEDOff(BSP_LED led);
+BSP_SWITCH_STATE BSP_SwitchStateGet(BSP_SWITCH bspSwitch);
+void BSP_USBVBUSSwitchStateSet(BSP_USB_VBUS_SWITCH_STATE state);
+
+]]>
+        </Section>
+
+        <Section Name="SystemDefinitions">
+<![CDATA[
+#include "system/common/sys_common.h"
+#include "system/common/sys_module.h"
+#include "system/clk/sys_clk.h"
+//#include "framework/system/clk/sys_clk_static.h" // empty
+#include "system/int/sys_int.h"
+#include "system/dma/sys_dma.h"
+#include "driver/i2c/drv_i2c.h"
+#include "driver/touch/mtch6301/drv_mtch6301.h"
+#include "system/ports/sys_ports.h"
+#include "driver/gfx/controller/lcc/drv_gfx_lcc.h"
+#include "system/debug/sys_debug.h"
+#include "system/touch/sys_touch.h"
+#include <gfx.h>
+#include <gfx_gol.h>
+
+]]>
+        </Section>
+        <Section Name="SystemObjects">
+<![CDATA[
+    SYS_MODULE_OBJ  sysMsg0;
+    SYS_MODULE_OBJ  drvI2C0;
+    SYS_MODULE_OBJ  sysTouchObject0;
+    SYS_MODULE_OBJ  drvMtch6301;
+]]>
+        </Section>
+        <Section Name="InitializeBoard" Order="1">
+<![CDATA[
+
+    /* Initialize Drivers */
+    sysObj.drvI2C0 = DRV_I2C_Initialize(DRV_I2C_INDEX_0, (SYS_MODULE_INIT *)&drvI2C0InitData);
+    SYS_INT_VectorPrioritySet(INT_VECTOR_I2C1_MASTER, INT_PRIORITY_LEVEL1);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_I2C1_MASTER, INT_SUBPRIORITY_LEVEL0);
+    SYS_INT_VectorPrioritySet(INT_VECTOR_I2C1_BUS, INT_PRIORITY_LEVEL1);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_I2C1_BUS, INT_SUBPRIORITY_LEVEL0);
+    sysObj.sysDma = SYS_DMA_Initialize((SYS_MODULE_INIT *)&sysDmaInit);
+    DRV_GFX_LCC_Initialize(GFX_INDEX_0, (SYS_MODULE_INIT*)&drvGfxInit);
+#if defined(DRV_GFX_CONFIG_LCC_INTERNAL_MEMORY)
+    DRV_GFX_LCC_FrameBufferAddressSet(&frameBuffer);
+#endif
+
+    /* Setting priority for LCC Refresh ISR */
+    SYS_INT_VectorPrioritySet(INT_VECTOR_DMA1, INT_PRIORITY_LEVEL1);
+
+    sysObj.drvMtch6301 = DRV_TOUCH_MTCH6301_Initialize(DRV_TOUCH_MTCH6301_INDEX_0,
+                                    (SYS_MODULE_INIT *)&drvTouchInitData);
+]]>
+        </Section>
+        <Section Name="InitializeBoard" Order="6">
+<![CDATA[
+	
+    /*Setup the INT_SOURCE_EXTERNAL_1 and Enable it*/
+    SYS_INT_VectorPrioritySet(INT_VECTOR_INT1, INT_PRIORITY_LEVEL5);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_INT1, INT_SUBPRIORITY_LEVEL0);
+    SYS_INT_ExternalInterruptTriggerSet(INT_EXTERNAL_INT_SOURCE1,INT_EDGE_TRIGGER_RISING);
+    SYS_INT_SourceEnable(INT_SOURCE_EXTERNAL_1);
+
+    sysObj.sysTouchObject0 = SYS_TOUCH_Initialize(SYS_TOUCH_INDEX_0, (SYS_MODULE_INIT*)&sysTouchInit0);
+
+    /* Initialize Middleware */
+
+    sysObj.gfxObject0 = GFX_Initialize(GFX_INDEX_0, (SYS_MODULE_INIT *)&gfxInit0);
+]]>
+</Section>
+        <Section Name="InitializeObjects" Order="4">
+<![CDATA[
+//<editor-fold defaultstate="collapsed" desc="DRV_I2C Configuration">
+// ---------------------------------------------------------
+// I2C Driver Initialization Data
+// ---------------------------------------------------------
+const DRV_I2C_INIT drvI2C0InitData =
+{
+    .i2cId = DRV_I2C_PERIPHERAL_ID_IDX0,
+    .i2cMode = DRV_I2C_OPERATION_MODE_IDX0,
+    .baudRate = DRV_I2C_BAUD_RATE_IDX0,
+    .busspeed = DRV_I2C_SLEW_RATE_CONTROL_IDX0,
+    .buslevel = DRV_I2C_SMBus_SPECIFICATION_IDX0,
+    .mstrInterruptSource = DRV_I2C_MASTER_INT_SRC_IDX0,
+    .slaveInterruptSource = DRV_I2C_SLAVE_INT_SRC_IDX0,
+    .errInterruptSource = DRV_I2C_ERR_MZ_INT_SRC_IDX0,
+};
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="DRV_GFX_LCC Configuration">
+// ---------------------------------------------------------
+// DRV GFX Initialization Data 
+// ---------------------------------------------------------
+DRV_GFX_INIT drvGfxInit =
+{
+    .orientation             = DISP_ORIENTATION,
+    .horizontalResolution    = DISP_HOR_RESOLUTION,
+    .verticalResolution      = DISP_VER_RESOLUTION,
+    .dataWidth               = DISP_DATA_WIDTH,
+    .horizontalPulseWidth    = DISP_HOR_PULSE_WIDTH,
+    .horizontalBackPorch     = DISP_HOR_BACK_PORCH,
+    .horizontalFrontPorch    = DISP_HOR_FRONT_PORCH,
+    .verticalPulseWidth      = DISP_VER_PULSE_WIDTH,
+    .verticalBackPorch       = DISP_VER_BACK_PORCH,
+    .verticalFrontPorch      = DISP_VER_FRONT_PORCH,
+    .logicShift              = DISP_INV_LSHIFT,
+    .LCDType                 = 1,
+    .colorType               = 0,
+    .TCON_Init               = TCON_MODULE,
+};
+#if defined(DRV_GFX_CONFIG_LCC_INTERNAL_MEMORY)
+GFX_COLOR frameBuffer[1][DISP_HOR_RESOLUTION][DISP_VER_RESOLUTION];
+#endif
+
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="DRV_TOUCH_MTCH6301 Configuration">
+// ---------------------------------------------------------
+// MTCH6301 Touch Driver Initialization Data
+// ---------------------------------------------------------
+const DRV_TOUCH_INIT drvTouchInitData =
+{
+    .moduleInit                  = {0},
+    .touchId                     = DRV_TOUCH_INDEX_0,
+    .drvInitialize               = NULL,
+    .drvOpen                     = DRV_I2C_Open,
+    .orientation                 = DISP_ORIENTATION,
+    .horizontalResolution        = DISP_HOR_RESOLUTION,
+    .verticalResolution          = DISP_VER_RESOLUTION,
+    .pReadFunc                   = NULL,
+    .pWriteFunc                  = NULL,
+    .pSectorErase                = NULL,
+};
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="GFX Initialization Data">
+// ---------------------------------------------------------
+// GFX Initialization Data
+// ---------------------------------------------------------
+const GFX_INIT gfxInit0 =
+{
+    .drvInitialize    = NULL,
+    .drvOpen          = DRV_GFX_LCC_Open,
+    .drvInterfaceSet  = DRV_GFX_LCC_InterfaceSet,
+    .preemptionLevel  = GFX_SELF_PREEMPTION_LEVEL
+};
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="SYS_DMA Configuration">
+// ---------------------------------------------------------
+// System DMA Initialization Data
+// ---------------------------------------------------------
+const SYS_DMA_INIT sysDmaInit =
+{
+	.sidl = SYS_DMA_SIDL_DISABLE,
+};
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="SYS_MSG Configuration">
+// ---------------------------------------------------------
+// Message System Initialization Data
+// ---------------------------------------------------------
+static uint16_t queuePriorities0[2] = { 64, 32 };
+SYS_MSG_INIT msg0Init =
+{
+    .nMaxMsgsDelivered = 1,
+    .nMessagePriorities = 1,
+};
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="SYS_TOUCH Configuration">
+// ---------------------------------------------------------
+// System Touch Initialization Data
+// ---------------------------------------------------------
+const DRV_TOUCH_INIT sysTouchInit0 =
+{
+    .drvInitialize           = DRV_TOUCH_MTCH6301_Initialize,
+    .drvOpen                 = DRV_TOUCH_MTCH6301_Open,
+    .drvTouchStatus          = DRV_TOUCH_MTCH6301_TouchStatus,
+    .drvTouchDataRead        = DRV_TOUCH_MTCH6301_TouchDataRead,
+    .drvTouchGetX            = DRV_TOUCH_MTCH6301_TouchGetX,
+    .drvTouchGetY            = DRV_TOUCH_MTCH6301_TouchGetY,
+    .orientation             = DISP_ORIENTATION,
+    .horizontalResolution    = DISP_HOR_RESOLUTION,
+    .verticalResolution      = DISP_VER_RESOLUTION,
+};
+// </editor-fold>
+]]>
+</Section>
+        <Section Name="ISR">
+<![CDATA[
+//<editor-fold defaultstate="collapsed" desc="ISR Touch">
+void __ISR(_EXTERNAL_1_VECTOR, IPL5AUTO) _IntHandlerExternalInterruptInstance0(void)
+{
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_EXTERNAL_1);
+    DRV_TOUCH_MTCH6301_ReadRequest(sysObj.drvMtch6301);
+}
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="ISR I2C">
+void __ISR(_I2C1_MASTER_VECTOR, IPL1AUTO) _IntHandlerDrvI2CMasterInstance0(void)
+{
+    DRV_I2C_Tasks(sysObj.drvI2C0);
+}
+
+void __ISR(_I2C1_BUS_VECTOR, IPL1AUTO) _IntHandlerDrvI2CErrorInstance0(void)
+{
+    SYS_ASSERT(false, "I2C Driver Instance 0 Error");
+}
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="ISR DMA LCC DisplayRefresh">
+void __ISR(_DMA0_VECTOR + DMA_CHANNEL_1) _IntHandlerLCCRefresh(void)
+{
+    SYS_INT_SourceStatusClear(INT_SOURCE_DMA_0 + DMA_CHANNEL_1);
+    DRV_GFX_LCC_DisplayRefresh();
+}
+// </editor-fold>
+]]>
+</Section>
+        <Section Name="Tasks">
+<![CDATA[
+    /* Maintain the DMA system state machine. */
+    SYS_DMA_Tasks(sysObj.sysDma);
+    SYS_MSG_Tasks( (SYS_OBJ_HANDLE) sysObj.sysMsg0 );
+    SYS_TOUCH_Tasks(sysObj.sysTouchObject0);
+
+    /* Maintain Device Drivers */
+    DRV_TOUCH_MTCH6301_Tasks(sysObj.drvMtch6301);
+]]>
+</Section>
+
+</Code>
+</Board>

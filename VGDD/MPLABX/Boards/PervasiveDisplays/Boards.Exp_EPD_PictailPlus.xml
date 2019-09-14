@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Board ID="EPD_PICTAIL"
+       Description="PervasiveDisplays E-paper EPD PICtail Plus Daughter Board"
+       Type="Expansion"
+       Img="Exp_EPDPICtail.png"
+       PartNumber="EM027AS012"
+       URL="http://www.pervasivedisplays.com/kits/epd_pictail"
+       >
+  <Note>
+
+  </Note>
+  <CompatibleDisplay ID="EPD_1.44_V110_G1" />
+  <CompatibleDisplay ID="EPD_2_V110_G1" />
+  <CompatibleDisplay ID="EPD_2.7_V110_G1" />
+    <CompatibleDisplay ID="EPD_1.44_V230_G2" />
+    <CompatibleDisplay ID="EPD_2_V230_G2" />
+    <CompatibleDisplay ID="EPD_2.7_V230_G2" />
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+  <CompatibleFrameworks Framework="MLA" Compatible="No" />
+  <CompatibleFrameworks Framework="Harmony" Compatible="No" />
+  <Project>
+    <MLALegacy>
+      <Folder Name="Header Files">
+        <AddVGDDFile>config_EPD.h</AddVGDDFile>
+      </Folder>
+      <Folder Name="Header Files/Pervasive_Displays_small_EPD">
+        <AddVGDDFile>PDI e-paper display_driver.h</AddVGDDFile>
+        <AddVGDDFile>EPD_COG_process.h</AddVGDDFile>
+        <AddVGDDFile>EPD_controller.h</AddVGDDFile>
+        <AddVGDDFile>EPD_hardware_driver.h</AddVGDDFile>
+        <AddVGDDFile>EPD_hardware_gpio.h</AddVGDDFile>
+        <AddVGDDFile>Pervasive_Displays_small_EPD.h</AddVGDDFile>
+        <AddVGDDFile>SpiRAM.h</AddVGDDFile>
+      </Folder>
+      <Folder Name="Header Files/Workarounds">
+          <AddVGDDFile>timers_Pic24.h</AddVGDDFile>
+      </Folder>
+      <Folder Name="Source Files/Pervasive_Displays_small_EPD/COG/V110_G1">
+        <AddVGDDFile>EPD_COG_process_V110_G1.c</AddVGDDFile>
+      </Folder>
+      <Folder Name="Source Files/Pervasive_Displays_small_EPD/COG/V230_G2">
+        <AddVGDDFile>EPD_COG_process_V230_G2.c</AddVGDDFile>
+      </Folder>
+      <Folder Name="Source Files/Pervasive_Displays_small_EPD">
+        <AddVGDDFile>PDI e-paper display_driver.c</AddVGDDFile>
+        <AddVGDDFile>EPD_controller.c</AddVGDDFile>
+        <AddVGDDFile>EPD_hardware_driver.c</AddVGDDFile>
+        <AddVGDDFile>EPD_hardware_gpio.c</AddVGDDFile>
+        <AddVGDDFile>SpiRAM.c</AddVGDDFile>
+      </Folder>
+    </MLALegacy>
+    <MLA>
+    </MLA>
+    <Harmony>
+    </Harmony>
+  </Project>
+  <Code>
+    <Section Name="MainHead">
+<![CDATA[
+#include "Pervasive_Displays_small_EPD.h"
+#include "SpiRAM.h"
+]]>
+    </Section>
+    <Section Name="MainHeader">
+<![CDATA[
+#include "PDI e-paper display_driver.h"
+]]>
+    </Section>
+    <Section Name="InitializeBoard" Order="1">
+<![CDATA[
+        // Initialize the e-paper (EPD)
+        EPD_display_init();
+        SpiRAM_Init();
+        ResetDevice();
+]]>
+    </Section>
+    <Section Name="MainBeforeLoop">
+<![CDATA[
+        GOLDraw(); // Draw GOL objects
+        EPD_Global_Update(); // Update the e-paper (EPD)
+]]>
+    </Section>
+      <Section Name="MainFinishedDraw">
+<![CDATA[
+            EPD_Partial_Update(); // Update the e-paper (EPD)
+]]>
+      </Section>
+  </Code>
+</Board>

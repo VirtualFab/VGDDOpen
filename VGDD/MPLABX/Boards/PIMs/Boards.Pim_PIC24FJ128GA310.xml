@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Board ID="PIM_PIC24FJ128GA310"
+       Description="PIM PIC24FJ128GA310"
+       Type="PIM"
+       Compiler="C30"
+       Img="PIM_PIC24FJ128GA310.png"
+       PartNumber="DM240001"
+       URL="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=MA240029">
+    <Note>
+
+    </Note>
+    <CompatibleDevBoard ID="EXPLORER16" />
+    <CompatibleExpansionBoard ID="EXP_NONE" />
+    <CompatibleDisplay ID="DISPLAYTECH_EMB028TFTDEV" />
+    <CompatibleFrameworks Framework="MLALegacy" Compatible="Yes" />
+    <CompatibleFrameworks Framework="MLA" Compatible="Yes" />
+    <CompatibleFrameworks Framework="Harmony" Compatible="Yes" />
+    <Project>
+        <MLA>
+            <Folder Name="Header Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/drv_gfx_epmp.h</AddFile>
+            </Folder>
+            <Folder Name="Source Files/framework/driver/gfx">
+                <AddFile>$MAL/framework/driver/gfx/src/drv_gfx_epmp.c</AddFile>
+            </Folder>
+        </MLA>
+    </Project>
+    <Code>
+        <Section Name="ConfigBits" Option="!chkMCC">
+            <![CDATA[
+// *****************************************************************************
+// Configuration bits
+// *****************************************************************************
+// PIC24FJ128GA310 Configuration Bit Settings
+// CONFIG4
+#pragma config DSWDTPS = DSWDTPS1F      // Deep Sleep Watchdog Timer Postscale Select bits (1:68719476736 (25.7 Days))
+#pragma config DSWDTOSC = LPRC          // DSWDT Reference Clock Select (DSWDT uses LPRC as reference clock)
+#pragma config DSBOREN = OFF            // Deep Sleep BOR Enable bit (DSBOR Disabled)
+#pragma config DSWDTEN = OFF            // Deep Sleep Watchdog Timer Enable (DSWDT Disabled)
+#pragma config DSSWEN = ON              // DSEN Bit Enable (Deep Sleep is controlled by the register bit DSEN)
+
+// CONFIG3
+#pragma config WPFP = WPFP127           // Write Protection Flash Page Segment Boundary (Page 127 (0x1FC00))
+#pragma config VBTBOR = ON              // VBAT BOR enable bit (VBAT BOR enabled)
+#pragma config SOSCSEL = OFF            // SOSC Selection bits (Digital (SCLKI) mode)
+#pragma config WDTWIN = PS25_0          // Watch Dog Timer Window Width (Watch Dog Timer Window Width is 25 percent)
+#pragma config BOREN = ON               // Brown-out Reset Enable (Brown-out Reset Enable)
+#pragma config WPDIS = WPDIS            // Segment Write Protection Disable (Disabled)
+#pragma config WPCFG = WPCFGDIS         // Write Protect Configuration Page Select (Disabled)
+#pragma config WPEND = WPENDMEM         // Segment Write Protection End Page Select (Write Protect from WPFP to the last page of memory)
+
+// CONFIG2
+#pragma config POSCMD = XT              // Primary Oscillator Select (XT Oscillator Enabled)
+#pragma config BOREN1 = EN              // BOR Override bit (BOR Enabled [When BOREN=1])
+#pragma config IOL1WAY = ON             // IOLOCK One-Way Set Enable bit (Once set, the IOLOCK bit cannot be cleared)
+#pragma config OSCIOFCN = OFF           // OSCO Pin Configuration (OSCO/CLKO/RC15 functions as CLKO (FOSC/2))
+#pragma config FCKSM = CSDCMD           // Clock Switching and Fail-Safe Clock Monitor Configuration bits (Clock switching and Fail-Safe Clock Monitor are disabled)
+#pragma config FNOSC = PRIPLL           // Initial Oscillator Select (Primary Oscillator with PLL module (XTPLL,HSPLL, ECPLL))
+#pragma config ALTVREF = DLT_AV_DLT_CV  // Alternate VREF/CVREF Pins Selection bit (Voltage reference input, ADC =RA9/RA10 Comparator =RA9,RA10)
+#pragma config IESO = ON                // Internal External Switchover (Enabled)
+
+// CONFIG1
+#pragma config WDTPS = PS32768          // Watchdog Timer Postscaler Select (1:32,768)
+#pragma config FWPSA = PR128            // WDT Prescaler Ratio Select (1:128)
+#pragma config FWDTEN = WDT_DIS         // Watchdog Timer Enable (WDT disabled in hardware; SWDTEN bit disabled)
+#pragma config WINDIS = OFF             // Windowed WDT Disable (Standard Watchdog Timer)
+#pragma config ICS = PGx2               // Emulator Pin Placement Select bits (Emulator functions are shared with PGEC1/PGED1)
+#pragma config LPCFG = OFF              // Low power regulator control (Disabled)
+#pragma config GWRP = OFF               // General Segment Write Protect (Disabled)
+#pragma config GCP = OFF                // General Segment Code Protect (Code protection is disabled)
+#pragma config JTAGEN = OFF             // JTAG Port Enable (Disabled)
+]]>
+        </Section>
+        <Section Name="HardwareProfileHead" Order="9">
+            <![CDATA[
+#ifdef USE_GFX_PMP
+#undef USE_GFX_PMP
+#endif
+#define USE_GFX_EPMP
+#define EPMPCS1_ADDRESS_LINE_COUNT  (18)    // use 18 address lines (PMA[0:17]
+#define EPMPCS1_DATA_SETUP_TIME     (0)	    //
+#define EPMPCS1_DATA_WAIT_TIME		(10)    //
+#define EPMPCS1_DATA_HOLD_TIME		(0)     //
+
+#define EPMPCS1_CS_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_WR_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_RD_POLARITY                 GFX_ACTIVE_LOW
+#define EPMPCS1_BE_POLARITY                 GFX_ACTIVE_LOW
+
+#define EPMPCS1_ACCESS_TIME                 (10)		// chip select 1 Alternate Master access time.
+
+#define DRV_NVM_SST25_ChipSelectEnable()   (LATAbits.LATA14 = 0)
+#define DRV_NVM_SST25_ChipSelectDisable()  (LATAbits.LATA14 = 1)
+
+/*********************************************************************
+* IOS FOR THE RESISTIVE TOUCHSCREEN
+*********************************************************************/
+// definitions for resistive touch screen
+// ADC Input Channel Selector
+#define RESISTIVETOUCH_ADC_INPUT_SEL        AD1CHS
+// ADC Sample Start
+#define RESISTIVETOUCH_ADC_START            AD1CON1bits.SAMP
+// ADC Status
+#define RESISTIVETOUCH_ADC_DONE             AD1CON1bits.DONE
+
+// resistive touch screen analog pins
+#define RESISTIVETOUCH_ADC_XPOS             16
+#define RESISTIVETOUCH_ADC_YPOS             18
+
+#define RESISTIVETOUCH_ADPCFG_XPOS          ANSCbits.ANSC4
+#define RESISTIVETOUCH_ADPCFG_YPOS          ANSGbits.ANSG7
+
+// X port definitions
+#define RESISTIVETOUCH_XP_Signal            LATCbits.LATC4
+#define RESISTIVETOUCH_XM_Signal            LATAbits.LATA2
+#define RESISTIVETOUCH_XP_Direction         TRISCbits.TRISC4
+#define RESISTIVETOUCH_XM_Direction         TRISAbits.TRISA2
+
+// Y port definitions
+#define RESISTIVETOUCH_YP_Signal            LATGbits.LATG7
+#define RESISTIVETOUCH_YM_Signal            LATAbits.LATA1
+#define RESISTIVETOUCH_YP_Direction         TRISGbits.TRISG7
+#define RESISTIVETOUCH_YM_Direction         TRISAbits.TRISA1
+
+]]>
+        </Section>
+        <Section Name="InitializeBoard" Order="0" Option="!chkMCC">
+            <![CDATA[
+     // set pins with analog features to be digital
+    ANSAbits.ANSA7  = 0;        // display reset pin
+    ANSAbits.ANSA6  = 0;        // display RS pin
+    ANSDbits.ANSD11 = 0;        // display CS pin
+
+    ANSEbits.ANSE4  = 0;        // PMP Data (PMD4)
+    ANSEbits.ANSE5  = 0;        // PMP Data (PMD5)
+    ANSEbits.ANSE6  = 0;        // PMP Data (PMD6)
+    ANSEbits.ANSE7  = 0;        // PMP Data (PMD7)
+
+    ANSDbits.ANSD6  = 0;        // PMP Data (PMD14)
+    ANSDbits.ANSD7  = 0;        // PMP Data (PMD15)
+
+    ANSBbits.ANSB4  = 0;
+    ANSBbits.ANSB3  = 0;
+
+    TRISDbits.TRISD13 = 1;
+]]>
+        </Section>
+    </Code>
+</Board>

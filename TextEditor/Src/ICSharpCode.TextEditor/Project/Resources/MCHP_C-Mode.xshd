@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!-- syntaxdefinition for C/C++ 2001 by Andrea Paatz and Mike Krueger -->
+
+<SyntaxDefinition name = "MCHP_C" extensions = ".c;.h;.C">
+
+    <Properties>
+        <Property name="LineComment" value="//"/>
+    </Properties>
+
+    <Digits name = "Digits" bold = "false" italic = "false" color = "DarkBlue"/>
+
+    <RuleSets>
+        <RuleSet ignorecase = "false">
+            <Delimiters>~!%^*()-+=|\#/{}[]:;"'&lt;&gt; , .?</Delimiters>
+
+            <Span name = "PreprocessorDirectives" bold="false" italic="false" color="Green" stopateol = "true">
+                <Begin>#</Begin>
+            </Span>
+
+            <Span name = "LineComment" bold = "false" italic = "false" color = "Green" stopateol = "true">
+                <Begin>//</Begin>
+            </Span>
+
+            <Span name = "BlockComment" bold = "false" italic = "false" color = "Green" stopateol = "false">
+                <Begin>/*</Begin>
+                <End>*/</End>
+            </Span>
+
+            <Span name="XmlTag" rule="XmlTagSet" bold="false" italic="false" color="Gray" stopateol="false">
+                <Begin>&lt;</Begin>
+                <End>&gt;</End>
+            </Span>
+
+            <Span name = "String" bold = "false" italic = "false" color = "Magenta" stopateol = "true" escapecharacter="\">
+                <Begin>"</Begin>
+                <End>"</End>
+            </Span>
+
+            <Span name = "Char" bold = "false" italic = "false" color = "Magenta" stopateol = "true" escapecharacter="\">
+                <Begin>&apos;</Begin>
+                <End>&apos;</End>
+            </Span>
+
+            <MarkPrevious bold = "true" italic = "false" color = "MidnightBlue">(</MarkPrevious>
+
+            <KeyWords name = "Punctuation" bold = "false" italic = "false" color = "DarkGreen">
+                <Key word = "?" />
+                <Key word = "," />
+                <Key word = "." />
+                <Key word = ";" />
+                <Key word = "(" />
+                <Key word = ")" />
+                <Key word = "[" />
+                <Key word = "]" />
+                <Key word = "{" />
+                <Key word = "}" />
+                <Key word = "+" />
+                <Key word = "-" />
+                <Key word = "/" />
+                <Key word = "%" />
+                <Key word = "*" />
+                <Key word = "&lt;" />
+                <Key word = "&gt;" />
+                <Key word = "^" />
+                <Key word = "=" />
+                <Key word = "~" />
+                <Key word = "!" />
+                <Key word = "|" />
+                <Key word = "&amp;" />
+            </KeyWords>
+
+            <KeyWords name = "ManagedKeyWords" bold="true" italic="false" color="DarkGray">
+                <Key word = "_attribute" />
+            </KeyWords>
+
+            <KeyWords name = "AccessKeywords" bold="true" italic="false" color="Black">
+            </KeyWords>
+
+            <KeyWords name = "OperatorKeywords" bold="true" italic="false" color="DarkCyan">
+                <Key word = "GOL_SCHEME" />
+                <Key word = "XCHAR" />
+                <Key word = "STATICTEXT" />
+                <Key word = "CHECKBOX" />
+                <Key word = "CHECKBOX" />
+                <Key word = "TEXTENTRY" />
+                <Key word = "PICTURE" />
+                <Key word = "BUTTON" />
+                <Key word = "RADIOBUTTON" />
+                <Key word = "PROGRESSBAR" />
+                <Key word = "SLIDER" />
+                <Key word = "WINDOW" />
+                <Key word = "GROUPBOX" />
+                <Key word = "LISTBOX" />
+                <Key word = "LISTITEM" />
+                <Key word = "ROUNDDIAL" />
+                <Key word = "METER" />
+                <Key word = "CHART" />
+                <Key word = "SUPERGAUGE" />
+                <Key word = "INDICATOR" />
+                <Key word = "DISP7SEG" />
+                <Key word = "VUMETER" />
+                <Key word = "BARGRAPH" />
+                <Key word = "MSGBOX" />
+                <Key word = "TEXTENTRYEX" />
+                <Key word = "STATICTEXTEX" />
+            </KeyWords>
+
+            <KeyWords name = "AccessModifiers" bold="true" italic="false" color="Blue">
+                <Key word = "const" />
+                <Key word = "volatile" />
+
+                <Key word = "static" />
+            </KeyWords>
+
+            <KeyWords name = "Types" bold="false" italic="false" color="Red">
+                <Key word = "bool" />
+                <Key word = "char" />
+                <Key word = "unsigned" />
+                <Key word = "union" />
+                <Key word = "virtual" />
+                <Key word = "double" />
+                <Key word = "float" />
+                <Key word = "short" />
+                <Key word = "signed" />
+                <Key word = "void" />
+
+                <Key word = "enum" />
+                <Key word = "struct" />
+            </KeyWords>
+
+            <KeyWords name = "Literals" bold="true" italic="false" color="Black">
+                <Key word = "false" />
+                <Key word = "true" />
+            </KeyWords>
+
+            <KeyWords name = "IterationStatements" bold="true" italic="false" color="Blue">
+                <Key word = "do" />
+                <Key word = "for" />
+                <Key word = "while" />
+            </KeyWords>
+
+            <KeyWords name = "JumpStatements" bold="false" italic="false" color="Navy">
+                <Key word = "break" />
+                <Key word = "continue" />
+                <Key word = "goto" />
+                <Key word = "return" />
+            </KeyWords>
+
+            <KeyWords name = "SelectionStatements" bold="true" italic="false" color="Blue">
+                <Key word = "case" />
+                <Key word = "else" />
+                <Key word = "if" />
+                <Key word = "switch" />
+                <Key word = "default" />
+            </KeyWords>
+
+            <KeyWords name = "KEYWORD1" bold="true" italic="false" color="Blue">
+                <Key word = "asm" />
+                <Key word = "extern" />
+                <Key word = "inline" />
+                <Key word = "int" />
+                <Key word = "long" />
+                <Key word = "operator" />
+                <Key word = "register" />
+                <Key word = "sizeof" />
+                <Key word = "typedef" />
+            </KeyWords>
+        </RuleSet>
+        <RuleSet name="XmlTagSet" ignorecase="false">
+            <Delimiters>/=</Delimiters>
+            <!--<Span name="String" bold="false" italic="false" color="Blue" stopateol="true">
+                <Begin>&quot;</Begin>
+                <End>&quot;</End>
+            </Span>
+            <Span name="Char" bold="false" italic="false" color="Blue" stopateol="true">
+                <Begin>&apos;</Begin>
+                <End>&apos;</End>
+            </Span>
+            <MarkPrevious bold="false" italic="false" color="Red">=</MarkPrevious>
+            <KeyWords name="Slash" bold="false" italic="false" color="DarkMagenta">
+                <Key word="/" />
+            </KeyWords>
+            <KeyWords name="Assignment" bold="false" italic="false" color="Blue">
+                <Key word="=" />
+            </KeyWords>-->
+        </RuleSet>
+    </RuleSets>
+</SyntaxDefinition>
+
