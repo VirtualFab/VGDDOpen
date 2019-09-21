@@ -72,13 +72,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public Overrides ReadOnly Property Demolimit As Integer
-            Get
-                Return Common.DEMOCODELIMIT
-            End Get
-        End Property
-
         Private Sub ClearControls()
             Dim aControls(Me.Controls.Count) As Control
             Me.Controls.CopyTo(aControls, 0)

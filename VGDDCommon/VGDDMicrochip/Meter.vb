@@ -71,13 +71,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public Overrides ReadOnly Property Demolimit As Integer
-            Get
-                Return Common.DEMOCODELIMIT
-            End Get
-        End Property
-
         Protected Overrides Sub OnPaint(ByVal pe As PaintEventArgs)
             Dim aMeterColors As Color() = {Color.Green, Color.YellowGreen, Color.Cyan, Color.Yellow, Color.Orange, Color.Red}
             Dim displayGraphics As Graphics = pe.Graphics

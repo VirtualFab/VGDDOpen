@@ -37,7 +37,6 @@ Namespace VGDDCommon
             Property Scheme As String
             ReadOnly Property Instances As Integer
             ReadOnly Property HasChildWidgets As Boolean
-            ReadOnly Property DemoLimit As Integer
         End Interface
 
         Public Interface IVGDDWidgetWithBitmap : Inherits IVGDDWidget
@@ -104,7 +103,6 @@ Namespace VGDDCommon
         Public Shared ProjectHtmlTargetUser As String
         Public Shared ProjectHtmlTargetPassword As String
         Public Shared ProjectVGDDVersion As String
-        Public Shared ProjectVGDDIsLicensed As Boolean
 
         Public Shared CurrentScreen As VGDD.VGDDScreen
 
@@ -192,9 +190,6 @@ Namespace VGDDCommon
         Public Shared WizardWarnings As String
 
         Public Shared WizardForceAddVgddFiles As Boolean = False
-
-        Public Shared IsLicensed As Boolean = False
-        Public Const DEMOCODELIMIT = 4
 
 #If Not PlayerMonolitico Then
         Public Shared oSelectedFramework As VGDDCommon.VGDDFramework
@@ -1297,14 +1292,6 @@ Namespace VGDDCommon
             End If
             If oProjectNode.Attributes("VGDDVersion") IsNot Nothing AndAlso oProjectNode.Attributes("VGDDVersion").Value <> "" Then
                 Common.ProjectVGDDVersion = oProjectNode.Attributes("VGDDVersion").Value
-            End If
-            If oProjectNode.Attributes("VGDDLicensed") IsNot Nothing AndAlso oProjectNode.Attributes("VGDDLicensed").Value <> "" Then
-#If CONFIG = "DemoRelease" Or CONFIG = "DemoDebug" Then
-                MessageBox.Show("You are opening a project that has been created with a Licensed (Full) VGDD" & vbCrLf & _
-                                "but the running VGDD is a DEMO version and the project will break if you try to modify it." & vbCrLf & vbCrLf & _
-                                "Please purchase additional VGDD licenses if you need to work on different PCs", "Warning - DEMO version")
-#End If
-                Common.ProjectVGDDIsLicensed = oProjectNode.Attributes("VGDDLicensed").Value
             End If
 
             Dim oAttr As XmlAttribute

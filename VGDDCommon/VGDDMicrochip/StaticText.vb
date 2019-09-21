@@ -64,13 +64,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public Overrides ReadOnly Property Demolimit As Integer
-            Get
-                Return Common.DEMOCODELIMIT
-            End Get
-        End Property
-
         Protected Overrides Sub OnPaint(ByVal pevent As PaintEventArgs)
             If Me.Scheme Is Nothing OrElse Me.Scheme = String.Empty Then
                 If Not Common.VGDDIsRunning Then

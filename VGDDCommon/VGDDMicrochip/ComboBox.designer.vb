@@ -31,13 +31,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public Overrides ReadOnly Property Demolimit As Integer
-            Get
-                Return VGDDCommon.Common.DEMOCODELIMIT
-            End Get
-        End Property
-
         'Required by the Windows Form Designer
         Private components As System.ComponentModel.IContainer
 

@@ -77,13 +77,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public Overrides ReadOnly Property Demolimit As Integer
-            Get
-                Return Common.DEMOCODELIMIT
-            End Get
-        End Property
-
         Dim intBarRectWorH As Int32
         Dim intScaleInterval As Int16
         Dim intScaleWorH As Int32

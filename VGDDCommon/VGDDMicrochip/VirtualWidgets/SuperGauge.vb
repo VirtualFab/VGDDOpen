@@ -125,12 +125,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public Overrides ReadOnly Property Demolimit As Integer
-            Get
-                Return Common.DEMOCODELIMIT
-            End Get
-        End Property
 
 #Region "SuperGauge Public Properties"
 

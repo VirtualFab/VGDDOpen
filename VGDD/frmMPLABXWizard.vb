@@ -376,12 +376,6 @@ Public Class frmMPLABXWizard
 
     Private Sub btnModifyProject_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnModifyProject.Click
         Dim strLog As String = String.Empty
-        '#If (CONFIG = "Release" Or CONFIG = "ReleaseDebug") Then
-        '        If Not oMainShell._Lm.IsLicensed = "8henumEw" Then
-        '            MessageBox.Show("This feature is not available in DEMO mode. Please run it on the PC you purchase the licence for.")
-        '            Exit Sub
-        '        End If
-        '#End If
         Me.Cursor = Cursors.WaitCursor
         WizardLogClear()
         Common.WizardWarnings = String.Empty

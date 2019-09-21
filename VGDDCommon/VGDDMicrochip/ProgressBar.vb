@@ -51,13 +51,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public Overrides ReadOnly Property Demolimit As Integer
-            Get
-                Return Common.DEMOCODELIMIT
-            End Get
-        End Property
-
         Protected Overrides Sub OnPaint(ByVal pevent As PaintEventArgs)
             Dim g As Graphics = pevent.Graphics
             If MyBase.Top < 0 Then

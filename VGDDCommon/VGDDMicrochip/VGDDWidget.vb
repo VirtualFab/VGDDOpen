@@ -926,7 +926,6 @@ Namespace VGDDMicrochip
 
 #Region "MustOverride"
         Public MustOverride ReadOnly Property Instances As Integer Implements IVGDDWidget.Instances
-        Public MustOverride ReadOnly Property DemoLimit As Integer Implements IVGDDWidget.DemoLimit
 #End Region
 
         Private Sub VGDDWidget_FinishedLoading(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.FinishedLoading

@@ -735,17 +735,6 @@ Public Class BasicHostLoader
             instance = Activator.CreateInstance(type)
         End If
 
-        If TypeOf (instance) Is Common.IVGDDWidget Then
-            If Not Common.IsLicensed Then
-                Dim oVGDDWidget As Common.IVGDDWidget = instance
-                If oVGDDWidget.Instances > oVGDDWidget.DemoLimit Then
-                    Throw New SystemException("You cannot add more than " & oVGDDWidget.DemoLimit & " " & oVGDDWidget.ToString.Split(".")(1).Replace("]", "") & " Widgets in DEMO mode!")
-                    'instance.dispose()
-                    'Return Nothing
-                End If
-            End If
-        End If
-
         ' Got an object, now we must process it.  Check to see if this tag
         ' offers a child collection for us to add children to.
         '

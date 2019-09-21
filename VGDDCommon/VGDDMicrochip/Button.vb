@@ -65,13 +65,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public Overrides ReadOnly Property Demolimit As Integer
-            Get
-                Return Common.DEMOCODELIMIT
-            End Get
-        End Property
-
         Protected Overrides Sub OnPaintBackGround(ByVal pevent As PaintEventArgs)
             If _NoPanel Then
                 MyBase.OnPaintBackground(pevent)

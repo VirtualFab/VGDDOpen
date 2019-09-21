@@ -41,11 +41,6 @@ Partial Public Class MainShell
     Private _selectionService As ISelectionService
     Private _ComponentChangeService As IComponentChangeService
 
-    Private Shared xxx As String = "i1t59P5RTkhX/b6FaMwqHg==" 'IsLicensed
-    Public Shared GuBru7Ad As String = "cRQiI/SJWp34LfT7Ti8tWQ==" 'IsActive?
-    Private ReadOnly key() As Byte = {&H70, &H61, &H24, &H24, &H77, &H30, &H72, &H64, &H63, &H69, &H76, &H69, &H63, &H69, &H76, &H69, &H32, &H33, &H31, &H32, &H33, &H34, &H35, &H2A} 'pa$$w0rdcivicivi2312345*
-    Private ReadOnly iv() As Byte = {8, 7, 6, 5, 4, 3, 2, 1}
-    Public des As New cTripleDES(key, iv)
     Private CurrentSelection() As Object = Nothing
     Private LastSelection() As Object
     Private WithEvents tmrUpdateEvents As New Timer
@@ -57,13 +52,6 @@ Partial Public Class MainShell
     Public Sub New()
         MyBase.New()
         InitializeComponent()
-#If CONFIG <> "DemoRelease" And CONFIG <> "DemoDebug" Then
-        MenuOpenProject.Enabled = false
-        MenuOpenRecent.Enabled = false
-        ToolStripOpen.Enabled = false
-        _MainSplash.lstRecent.Enabled = false
-        _MainSplash.lnkSplashOpenProject.Enabled = false
-#End If
         'ResizeMe()
         'Me.Opacity = 0
         Me._DockPanel1.Left = 0
@@ -100,12 +88,6 @@ Partial Public Class MainShell
                     End
                 End If
             End If
-
-            Try
-                xxx = des.Decrypt(xxx)
-                GuBru7Ad = des.Decrypt(GuBru7Ad)
-            Catch ex As Exception
-            End Try
 
             Try
                 If Not My.Settings.SettingsUpgraded Then
@@ -310,7 +292,7 @@ Partial Public Class MainShell
         If _selectionService IsNot Nothing Then
             RemoveHandler _selectionService.SelectionChanged, AddressOf Me._CurrentHost_SelectionChanged
             RemoveHandler _ComponentChangeService.ComponentAdded, AddressOf Me._CurrentHost_ControlAdded
-            RemoveHandler _ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
+            'RemoveHandler _ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
             RemoveHandler _ComponentChangeService.ComponentRemoved, AddressOf Me._CurrentHost_ControlRemoved
             RemoveHandler _ComponentChangeService.ComponentChanged, AddressOf Me._CurrentHost_ControlChanged
             _selectionService = Nothing
@@ -356,7 +338,7 @@ Partial Public Class MainShell
                     End If
                     If ComponentChangeService IsNot Nothing Then
                         RemoveHandler ComponentChangeService.ComponentAdded, AddressOf Me._CurrentHost_ControlAdded
-                        RemoveHandler ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
+                        'RemoveHandler ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
                         RemoveHandler ComponentChangeService.ComponentRemoved, AddressOf Me._CurrentHost_ControlRemoved
                         RemoveHandler ComponentChangeService.ComponentChanged, AddressOf Me._CurrentHost_ControlChanged
                     End If
@@ -600,7 +582,7 @@ Partial Public Class MainShell
         If _selectionService IsNot Nothing Then
             RemoveHandler _selectionService.SelectionChanged, AddressOf Me._CurrentHost_SelectionChanged
             RemoveHandler _ComponentChangeService.ComponentAdded, AddressOf Me._CurrentHost_ControlAdded
-            RemoveHandler _ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
+            'RemoveHandler _ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
             RemoveHandler _ComponentChangeService.ComponentRemoved, AddressOf Me._CurrentHost_ControlRemoved
             RemoveHandler _ComponentChangeService.ComponentChanged, AddressOf Me._CurrentHost_ControlChanged
             _selectionService = Nothing
@@ -629,7 +611,7 @@ Partial Public Class MainShell
         _ComponentChangeService = CType(_CurrentHost.HostSurface.GetService(GetType(IComponentChangeService)), IComponentChangeService)
         If _ComponentChangeService IsNot Nothing Then
             AddHandler _ComponentChangeService.ComponentAdded, AddressOf Me._CurrentHost_ControlAdded
-            AddHandler _ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
+            'AddHandler _ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
             AddHandler _ComponentChangeService.ComponentRemoved, AddressOf Me._CurrentHost_ControlRemoved
             AddHandler _ComponentChangeService.ComponentChanged, AddressOf Me._CurrentHost_ControlChanged
         End If
@@ -2158,20 +2140,6 @@ Partial Public Class MainShell
         tmrHighLightPropertyGridItem.Enabled = True
     End Sub
 
-    Private Sub _CurrentHost_ControlAdding(ByVal sender As Object, ByVal e As System.ComponentModel.Design.ComponentEventArgs)
-#If Not CONFIG = "Debug" Then
-        If TypeOf (e.Component) Is Common.IVGDDWidget Then
-            If Not Common.IsLicensed Then
-                Dim oVGDDWidget As Common.IVGDDWidget = e.Component
-                If oVGDDWidget.Instances > oVGDDWidget.DemoLimit Then
-                    e.Component.Dispose()
-                    MessageBox.Show("You cannot add more than " & oVGDDWidget.DemoLimit & " " & e.Component.ToString.Split(".")(1) & " Widgets in DEMO mode!", "Demo limit", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                End If
-            End If
-        End If
-#End If
-    End Sub
-
     Private Sub _CurrentHost_ControlAdded(ByVal sender As Object, ByVal e As System.ComponentModel.Design.ComponentEventArgs)
         If TypeOf (e.Component) Is VGDD.VGDDScreen Then
             PopulateEvents(e.Component)
@@ -2231,13 +2199,6 @@ Partial Public Class MainShell
                     If Not oVgddCustom.IsDisposed Then
                         oVgddCustom.CustomWidgetType = strCustType
                         Dim oVGDDWidget As Common.IVGDDWidget = ControlAdded
-                        If Not Common.IsLicensed Then
-                            If oVGDDWidget.Instances > oVGDDWidget.DemoLimit Then
-                                oVgddCustom.Dispose()
-                                MessageBox.Show("You cannot add more than " & oVGDDWidget.DemoLimit & " " & strCustType & " Widgets in DEMO mode!")
-                                Exit For
-                            End If
-                        End If
                         oVgddCustom.Name = strCustType & oVGDDWidget.Instances.ToString
                     End If
                 End If
@@ -4097,7 +4058,7 @@ Partial Public Class MainShell
                     End If
                     If ComponentChangeService IsNot Nothing Then
                         RemoveHandler ComponentChangeService.ComponentAdded, AddressOf Me._CurrentHost_ControlAdded
-                        RemoveHandler ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
+                        'RemoveHandler ComponentChangeService.ComponentAdding, AddressOf Me._CurrentHost_ControlAdding
                         RemoveHandler ComponentChangeService.ComponentRemoved, AddressOf Me._CurrentHost_ControlRemoved
                         RemoveHandler ComponentChangeService.ComponentChanged, AddressOf Me._CurrentHost_ControlChanged
                     End If

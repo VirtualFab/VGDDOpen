@@ -105,12 +105,6 @@ Namespace VGDDMicrochip
             End Get
         End Property
 
-        <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
-        Public ReadOnly Property Demolimit As Integer Implements IVGDDWidget.DemoLimit
-            Get
-                Return Common.DEMOCODELIMIT
-            End Get
-        End Property
 
         <EditorBrowsable(EditorBrowsableState.Never), Browsable(False)> _
         Public Shadows Property Text As String Implements IVGDDWidget.Text
