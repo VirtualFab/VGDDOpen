@@ -1134,7 +1134,7 @@ Namespace VGDDCommon
             If NameIn IsNot Nothing Then
                 For Each c As Char In NameIn
                     If c = "-"c Or c = " "c Then c = "_"c
-                    If "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_[]".IndexOf(c) >= 0 Then
+                    If "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_".IndexOf(c) >= 0 Then
                         strNameOut &= c
                     End If
                 Next
