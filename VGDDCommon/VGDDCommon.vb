@@ -16,7 +16,7 @@ Namespace VGDDCommon
 #Else
     Partial Public Class Common
 #End If
-        Public Shared VGDDVERSION As String = "11.3.0"
+        Public Shared VGDDVERSION As String = "11.3.1"
         Public Const ASSEMBLIES_VERSION As String = "11.3.*"
 
 #Region "Public Interfaces"

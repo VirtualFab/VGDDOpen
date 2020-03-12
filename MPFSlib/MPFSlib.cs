@@ -923,13 +923,13 @@ namespace Microchip
 				fout = new BinaryWriter(new FileStream(newPath, FileMode.Create), Encoding.ASCII);
             }
 
-			public void Write(byte data)
+			public override void Write(byte data)
             {
 				fout.Write(data);
 				ImageLength++;
 	        }
-			
-            public void Close()
+
+            public override void Close()
             {
                 fout.Close();
             }
@@ -958,13 +958,13 @@ namespace Microchip
 
 			}
 			//public override void Write(byte data)
-            public void Write(byte data)
+            public override void Write(byte data)
 			{				
 				fout.Write(data);
 			}
 
 			//public override void Close()
-             public void Close()
+             public override void Close()
 			 {
 					
 				fout.Close();

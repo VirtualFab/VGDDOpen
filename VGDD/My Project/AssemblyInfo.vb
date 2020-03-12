@@ -46,5 +46,5 @@ Imports System.Runtime.InteropServices
 '<Assembly: AssemblyVersion("3.1.*")> 
 '<Assembly: AssemblyFileVersion("3.0.0.3")> 
 '<Assembly: AssemblyInformationalVersion("3.0.0")> 
-<Assembly: AssemblyExceptionLoggingURLAttribute(VIRTUALFABSITE & "/lm/exception.php")> 
+<Assembly: AssemblyExceptionLoggingURLAttribute(VIRTUALFABSITE & "/lm/exception.php")>
 

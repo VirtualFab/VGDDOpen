@@ -617,6 +617,9 @@
     <EmbeddedResource Include="VGDDMicrochip\VirtualWidgets\Resources\VuMeter\VuMeterDefault.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
