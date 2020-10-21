@@ -556,6 +556,7 @@ Namespace VGDDMicrochip
             End Select
 
             Dim myText As String = ""
+            Me.Text = Me.Text.PadRight(GetMaxTextLength(Me.TextStringID), "_") ' DW
             Dim myQtext As String = CodeGen.QText(Me.Text, Me._Scheme.Font, myText)
 
             Dim MyBitmapReleased As String = String.Empty, MyPointerInitReleased As String = String.Empty

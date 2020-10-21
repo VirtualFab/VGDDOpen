@@ -598,6 +598,7 @@ Namespace VGDDMicrochip
             CodeGen.AddState(MyState, "VertAlign", Me.VertAlign.ToString)
 
             Dim myText As String = ""
+            MyBase.Text = Me.Text.PadRight(GetMaxTextLength(MyBase.TextStringID), "_") ' DW
             Dim myQtext As String = CodeGen.QText(MyBase.Text, _Scheme.Font, myText)
             Dim myCaption As String = ""
             Dim myQCaption As String = CodeGen.QText(_TextCaption, _Scheme.Font, myCaption)

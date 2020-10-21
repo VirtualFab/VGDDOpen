@@ -422,6 +422,18 @@ Namespace VGDDMicrochip
             End If
         End Sub
 
+        ' DW Find maximum length of the MultiLanguage string
+        Friend Function GetMaxTextLength(ByRef TextStringID As Integer) As Integer
+            If Common.ProjectStringPool.ContainsKey(TextStringID) Then
+                For j As Integer = 0 To VGDDCommon.Common.ProjectMultiLanguageTranslations
+                    If Common.ProjectStringPool(TextStringID).Strings(j) <> String.Empty Then
+                        GetMaxTextLength = Math.Max(Common.ProjectStringPool(TextStringID).Strings(j).Length, GetMaxTextLength)
+                    End If
+                Next
+            End If
+
+            Return GetMaxTextLength
+        End Function
         Friend Function GetText(ByRef TextStringID As Integer, ByRef Text As String) As String
             If Not Me.IsLoading AndAlso Me._CDeclType = TextCDeclType.ConstXcharArray AndAlso Common.ProjectMultiLanguageTranslations > 0 Then
                 'If TextStringID <= 0 OrElse Not Common.ProjectStringPool.ContainsKey(TextStringID) Then

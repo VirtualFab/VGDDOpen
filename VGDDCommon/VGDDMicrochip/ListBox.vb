@@ -233,10 +233,13 @@ Namespace VGDDMicrochip
                     myText &= "," & strItem
                 Next
             End If
+
             If myQtext.Length > 0 Then
                 myQtext = myQtext.Substring(1)
                 myText = myText.Substring(1)
             End If
+            myQtext = myQtext.PadRight(GetMaxTextLength(Me.TextStringID), "_") ' DW
+            myText = myText.PadRight(GetMaxTextLength(Me.TextStringID), "_") ' DW
             myQtext = CodeGen.QText(myQtext, Me._Scheme.Font, Nothing).Replace(vbLf, "\n")
 
             CodeGen.AddLines(CodeGen.Code, MyCode.Replace("[CONTROLID]", MyControlId) _

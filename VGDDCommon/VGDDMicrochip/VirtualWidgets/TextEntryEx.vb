@@ -135,7 +135,7 @@ Namespace VGDDMicrochip
                     .ForeColor = _Scheme.Textcolor1
                     .BackColor = _Scheme.Color1
                     .Text = Me.Text
-                    _BufferLength = Me.Text.Length ' DW set the bufferlenght
+                    _BufferLength = GetMaxTextLength(Me.TextStringID) ' me.Text.Length ' DW set the bufferlenght
                     .TextAlign = HorizontalAlignment.Right
                 End With
                 Me.Controls.Add(_TextBox)
@@ -869,7 +869,8 @@ Namespace VGDDMicrochip
             Dim MyControlId As String = ControlIdPrefix & "_" & Me.Name
             Dim MyControlIdNoIndex As String = ControlIdPrefix & "_" & Me.Name.Split("[")(0)
             Dim MyControlIdIndex As String = "", MyControlIdIndexPar As String = ""
-            Dim MyCodeHead As String = CodeGen.TextDeclareCodeHeadTemplate(TextCDeclType.RamXcharArray).Replace("[CHARMAX]", _BufferLength + 1)
+            Dim MyCodeHead As String = CodeGen.TextDeclareCodeHeadTemplate(TextCDeclType.RamXcharArray).Replace("[CHARMAX]", "") ' DW do not generate _BufferLength sized array, use empty (str[]) insted
+            '  Dim MyCodeHead As String = CodeGen.TextDeclareCodeHeadTemplate(TextCDeclType.RamXcharArray).Replace("[CHARMAX]", _BufferLength + 1) 
             Dim MyCode As String = "", MyState As String = ""
             Dim MyClassName As String = Me.GetType.ToString
 
@@ -901,6 +902,7 @@ Namespace VGDDMicrochip
             CodeGen.AddState(MyState, "KeysLayout", Me.KeysLayout.ToString)
 
             Dim myText As String = ""
+            Me.Text = Me.Text.PadRight(GetMaxTextLength(Me.TextStringID), "_") ' DW
             Dim myQtext As String = CodeGen.QText(Me.Text, Me._Scheme.Font, myText)
 
             If _DisplayFont = "" Then
