@@ -409,6 +409,10 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="VGDDCommonEmbedded">
+      <HintPath>Resources\Assemblies\VGDDCommonEmbedded.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -801,9 +805,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\pic\Software\Pic\VGDDDemo\Demo1-MEB\Demo1-MEB.zip">
-      <Link>Resources\Demos\Demo1-MEB.zip</Link>
-    </None>
     <None Include="app.config" />
     <EmbeddedResource Include="MPLABX\TCPIP\WebPages\leds.cgi" />
     <EmbeddedResource Include="MPLABX\TCPIP\WebPages\protect\reboot.cgi" />
@@ -818,6 +819,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Eula.php" />
+    <EmbeddedResource Include="Resources\Demo\Demo1-MEB.zip" />
     <None Include="Resources\POINT13.ICO" />
     <None Include="Resources\CollapseIcon.jpg" />
     <None Include="Resources\ExpandIcon.jpg" />
@@ -859,9 +861,6 @@
     <None Include="Resources\font_go.png" />
     <None Include="Resources\combobox_arrow_down.png" />
     <None Include="Resources\combobox_arrow_up.png" />
-    <EmbeddedResource Include="..\VGDDCommon\bin\VGDDCommonEmbedded.dll">
-      <Link>Resources\Assemblies\VGDDCommonEmbedded.dll</Link>
-    </EmbeddedResource>
     <None Include="Resources\GeneralPreferences.ico" />
     <EmbeddedResource Include="VGDDMicrochip\Info\AnalogClock_Info.png" />
     <EmbeddedResource Include="VGDDMicrochip\Info\Arc_Info.png" />
@@ -1166,15 +1165,12 @@
     <EmbeddedResource Include="..\VirtualFabUtils\bin\VirtualFabUtils.dll">
       <Link>Resources\Assemblies\VirtualFabUtils.dll</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\WinFormsUI\bin\Release\WeifenLuo.WinFormsUI.Docking.dll">
-      <Link>Resources\Assemblies\WeifenLuo.WinFormsUI.Docking.dll</Link>
-    </EmbeddedResource>
-    <Content Include="..\MPFSlib\bin\Microchip.MPFS.dll">
+    <EmbeddedResource Include="..\MPFSlib\bin\Microchip.MPFS.dll">
       <Link>Resources\Assemblies\Microchip.MPFS.dll</Link>
-    </Content>
-    <Content Include="..\TextEditor\bin\Release\ICSharpCode.TextEditor.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\TextEditor\bin\Release\ICSharpCode.TextEditor.dll">
       <Link>Resources\Assemblies\ICSharpCode.TextEditor.dll</Link>
-    </Content>
+    </EmbeddedResource>
     <Content Include="favicon.ico" />
     <EmbeddedResource Include="MPLABX\Boards\PIMs\Boards.Pim_PIC24FJ128GA010.xml">
       <SubType>Designer</SubType>
@@ -1195,6 +1191,8 @@
     <EmbeddedResource Include="MPLABX\Boards\PervasiveDisplays\Disp_EPD270_G2.png" />
     <EmbeddedResource Include="MPLABX\rtcc_MLA.c" />
     <EmbeddedResource Include="MPLABX\rtcc_MLA.h" />
+    <EmbeddedResource Include="Resources\Assemblies\VGDDCommonEmbedded.dll" />
+    <EmbeddedResource Include="Resources\Assemblies\WeifenLuo.WinFormsUI.Docking.dll" />
     <Content Include="Resources\gridOn.png" />
     <None Include="Resources\helpround.png" />
     <None Include="Resources\html.ico" />
@@ -1276,12 +1274,7 @@
     <ProjectReference Include="..\TextEditor\Src\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditor.csproj">
       <Project>{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}</Project>
       <Name>ICSharpCode.TextEditor</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\VGDDCommon\VGDDCommonEmbedded.vbproj">
-      <Project>{54AF1FD3-7FB2-4E06-9690-D31EB1351D73}</Project>
-      <Name>VGDDCommonEmbedded</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\VirtualFabUtils\VirtualFabUtils.vbproj">
       <Project>{DDAFE318-5137-4A19-9E98-F74D6B6C9161}</Project>
@@ -1291,7 +1284,7 @@
     <ProjectReference Include="..\WinFormsUI\WinFormsUI.csproj">
       <Project>{E3409852-BDB9-47BF-89EC-593DC19A472B}</Project>
       <Name>WinFormsUI</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

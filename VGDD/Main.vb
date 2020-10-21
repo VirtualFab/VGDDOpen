@@ -9,7 +9,7 @@ Module Main
     Public oMainShell As MainShell
     Public LayoutFileName As String = Path.Combine(Path.GetDirectoryName(Application.CommonAppDataPath), "VGDDLayout.vwl")
 
-    Private WithEvents oUpdateCheck As New UpdateCheck
+    Private WithEvents oUpdateCheck As UpdateCheck
 
     '<System.Diagnostics.DebuggerStepThrough()> _
     Public Sub Main()
@@ -18,7 +18,7 @@ Module Main
             Application.EnableVisualStyles()
             Application.SetCompatibleTextRenderingDefault(False)
 
-            Dim oUpdateCheck As New UpdateCheck
+            oUpdateCheck = New UpdateCheck
             oUpdateCheck.CheckNewVersion(CHECKUPDATEURL)
 
             System.Threading.Thread.Sleep(500)
@@ -122,6 +122,7 @@ Module Main
     End Function
 
     Public Sub CatchException(ex As Exception)
+        MessageBox.Show(ex.Message)
         Dim oXmlDocExcemptions As New XmlDocument
         Dim FileName As String = ""
         Dim strFileMessage As String = ""
@@ -135,18 +136,18 @@ Module Main
                     Or ex.Message.Contains("ResourceReader.DeserializeObject") _
                     Or ex.Message.Contains("创建窗体时出错。有关详细信息，请参阅") Then
                     If VGDDCommon.Common.OsVersion.StartsWith("5.") Then
-                        If MessageBox.Show(ex.Message & vbCrLf & vbCrLf & "VGDD cannot be safely run on a Windows XP system without installing at least:" & vbCrLf & _
-                                            "1) Windows XP Service Pack 3" & vbCrLf & _
-                                            "2) Microsoft Dot.Net Framework 3.5 SP1" & vbCrLf & vbCrLf & _
-                                            "Do you want to open Microsoft Site to download Dot.Net Framework 3.5 SP1?", _
+                        If MessageBox.Show(ex.Message & vbCrLf & vbCrLf & "VGDD cannot be safely run on a Windows XP system without installing at least:" & vbCrLf &
+                                            "1) Windows XP Service Pack 3" & vbCrLf &
+                                            "2) Microsoft Dot.Net Framework 3.5 SP1" & vbCrLf & vbCrLf &
+                                            "Do you want to open Microsoft Site to download Dot.Net Framework 3.5 SP1?",
                                             "Unhandled exception - Windows XP without SP3 detected", MessageBoxButtons.YesNo, MessageBoxIcon.Error) = DialogResult.Yes Then
                             VGDDCommon.Common.RunBrowser("http://www.microsoft.com/en-us/download/details.aspx?id=22")
                         End If
                     Else
-                        If MessageBox.Show(ex.Message & vbCrLf & vbCrLf & "The application encountered a system error and could not be fully functional anymore." & vbCrLf & vbCrLf & _
-                                            "Please close the application a start over. Also make a check-up of your system if you can since this kind of errors should not happen." & vbCrLf & _
-                                            "You can also try to (re)install the Microsoft Dot.Net Framework 3.5 SP1 from Microsoft site to ensure it's not corrupted." & vbCrLf & vbCrLf & _
-                                            "Do you want to open Microsoft Site to download Dot.Net Framework 3.5 SP1?", _
+                        If MessageBox.Show(ex.Message & vbCrLf & vbCrLf & "The application encountered a system error and could not be fully functional anymore." & vbCrLf & vbCrLf &
+                                            "Please close the application a start over. Also make a check-up of your system if you can since this kind of errors should not happen." & vbCrLf &
+                                            "You can also try to (re)install the Microsoft Dot.Net Framework 3.5 SP1 from Microsoft site to ensure it's not corrupted." & vbCrLf & vbCrLf &
+                                            "Do you want to open Microsoft Site to download Dot.Net Framework 3.5 SP1?",
                                             "System memory problem - Application became unstable", MessageBoxButtons.YesNo, MessageBoxIcon.Error) = DialogResult.Yes Then
                             VGDDCommon.Common.RunBrowser("http://www.microsoft.com/en-us/download/details.aspx?id=22")
                         End If

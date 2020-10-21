@@ -625,10 +625,11 @@ Namespace VGDDCommon
             If (Me.Font Is Nothing OrElse Me.Font.Font Is Nothing) AndAlso strFontNode <> "" Then
                 Dim aFont() As String = Common.XmlNodeNoNull(XmlNode, "Font").Split(",")
                 If Not aFont(1).Contains(".") Then aFont(1) &= ".00"
-                Dim oFont As New Font(aFont(0), Single.Parse(aFont(1).Replace(".", "") / 100), _
+                Dim oFont As New Font(aFont(0), Single.Parse(aFont(1).Replace(".", "") / 100),
                             CType(IIf(aFont(2).Contains("Regular"), FontStyle.Regular, 0) _
                             + IIf(aFont(2).Contains("Bold"), FontStyle.Bold, 0) _
                             + IIf(aFont(2).Contains("Italic"), FontStyle.Italic, 0), FontStyle))
+                Me.Font = New VGDDFont
                 Me.Font.Font = oFont
             End If
 
