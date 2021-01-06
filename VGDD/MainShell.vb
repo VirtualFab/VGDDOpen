@@ -223,7 +223,10 @@ Partial Public Class MainShell
 #If CHINAMASTERS Then
         strAppDescr &= " - Microchip Far East RTC Edition"
 #End If
-        Me.Text = My.Application.Info.Title & " - " & strAppDescr & " " & VGDDCommon.Common.VGDDVERSION
+
+        Dim strBuild As String = $"{Assembly.GetExecutingAssembly().GetName().Version.Build}"
+
+        Me.Text = My.Application.Info.Title & " - " & strAppDescr & " " & VGDDCommon.Common.VGDDVERSION & "." & strBuild
         'If strLicenseType <> "" And (Not strLicenseType.Contains("DEMO") OrElse (strLicenseType.Contains("DEMO") AndAlso Not Me.Text.Contains("DEMO"))) Then
         '    Me.Text &= " - " & LT()
         'End If

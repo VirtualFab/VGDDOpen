@@ -1065,6 +1065,7 @@ Public Class MplabX
         Catch ex As Exception
             Return Nothing
         End Try
+        Return Nothing
     End Function
 
     Public Shared Function MplabXIncludeFile(ByVal ConfName As String, ByVal itemPath As String) As XmlNode
@@ -1680,6 +1681,7 @@ Public Class MplabX
             End If
             Return oConfPropertyNode.Attributes("value").Value
         End If
+        Return Nothing
     End Function
 
     Public Shared Function MplabXSetConfProperty(ByVal ConfName As String, ByVal Section As String, ByVal SubSection As String, ByVal PropertyName As String, ByVal PropertyVal As String, ByRef Log As String) As XmlNode

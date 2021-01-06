@@ -529,7 +529,7 @@ Namespace VGDDCommon
                         End If
                     Next j
                     If strOutOfRangeChars <> String.Empty Then
-                        Dim strWarning As String = String.Format("Warning: the string {0} with Font {1} contains the following out-of-range chars:" & _
+                        Dim strWarning As String = String.Format("Warning: the string {0} with Font {1} contains the following out-of-range chars:" &
                                         vbCrLf & strOutOfRangeChars & vbCrLf & "Highest char code: {2} (0x{2:X4})", strIn, Font.Name, intMaxRange) & vbCrLf
                         If Not Errors.Contains(strWarning) Then
                             Errors &= strWarning

@@ -149,6 +149,7 @@ Namespace VGDDMicrochip
             End If
 
             Dim myText As String = ""
+            Me.Text = Me.Text.PadRight(GetMaxTextLength(Me.TextStringID), "_") ' DW
             Dim myQtext As String = CodeGen.QText(Me.Text, Me._Scheme.Font, myText)
 
             If Common.ProjectMultiLanguageTranslations > 0 AndAlso MyBase.TextStringID < 0 Then

@@ -1,0 +1,7 @@
+*.bak
+.vs
+obj
+bin
+
+bin
+obj

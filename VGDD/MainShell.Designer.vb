@@ -625,8 +625,8 @@ Partial Public Class MainShell
         '_DockPanel1
         '
         Me._DockPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me._DockPanel1.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingSdi
         Me._DockPanel1.Location = New System.Drawing.Point(148, 42)
         Me._DockPanel1.Name = "_DockPanel1"
@@ -850,6 +850,7 @@ Partial Public Class MainShell
         '
         'ToolStripGridSize
         '
+        Me.ToolStripGridSize.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.ToolStripGridSize.Name = "ToolStripGridSize"
         Me.ToolStripGridSize.Size = New System.Drawing.Size(100, 23)
         Me.ToolStripGridSize.Text = "10"
@@ -1032,21 +1033,21 @@ Partial Public Class MainShell
         '
         Me.ToolStripPlayNow.Image = Global.My.Resources.Resources.play1
         Me.ToolStripPlayNow.Name = "ToolStripPlayNow"
-        Me.ToolStripPlayNow.Size = New System.Drawing.Size(170, 38)
+        Me.ToolStripPlayNow.Size = New System.Drawing.Size(171, 38)
         Me.ToolStripPlayNow.Text = "Play now"
         '
         'ToolStripExportPackage
         '
         Me.ToolStripExportPackage.Image = Global.My.Resources.Resources.forwardG
         Me.ToolStripExportPackage.Name = "ToolStripExportPackage"
-        Me.ToolStripExportPackage.Size = New System.Drawing.Size(170, 38)
+        Me.ToolStripExportPackage.Size = New System.Drawing.Size(171, 38)
         Me.ToolStripExportPackage.Text = "Export Package"
         '
         'PlayerOptionsToolStripMenuItem
         '
         Me.PlayerOptionsToolStripMenuItem.Image = Global.My.Resources.Resources.edit
         Me.PlayerOptionsToolStripMenuItem.Name = "PlayerOptionsToolStripMenuItem"
-        Me.PlayerOptionsToolStripMenuItem.Size = New System.Drawing.Size(170, 38)
+        Me.PlayerOptionsToolStripMenuItem.Size = New System.Drawing.Size(171, 38)
         Me.PlayerOptionsToolStripMenuItem.Text = "Player Options"
         '
         'ToolStripSeparator3
@@ -1231,7 +1232,7 @@ Partial Public Class MainShell
         Me._WidgetInfo.AutoScroll = True
         Me._WidgetInfo.AutoScrollMinSize = New System.Drawing.Size(0, 400)
         Me._WidgetInfo.BackColor = System.Drawing.Color.White
-        Me._WidgetInfo.ClientSize = New System.Drawing.Size(38, 149)
+        Me._WidgetInfo.ClientSize = New System.Drawing.Size(21, 149)
         Me._WidgetInfo.CloseButtonVisible = False
         Me._WidgetInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._WidgetInfo.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -1293,8 +1294,8 @@ Partial Public Class MainShell
         '_SchemesChooser
         '
         Me._SchemesChooser.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me._SchemesChooser.ClientSize = New System.Drawing.Size(240, 200)
         Me._SchemesChooser.CloseButtonVisible = False
         Me._SchemesChooser.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

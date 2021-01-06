@@ -135,6 +135,7 @@ Namespace VGDDMicrochip
                     .ForeColor = _Scheme.Textcolor1
                     .BackColor = _Scheme.Color1
                     .Text = Me.Text
+                    _BufferLength = GetMaxTextLength(Me.TextStringID) ' me.Text.Length ' DW set the bufferlenght
                     .TextAlign = HorizontalAlignment.Right
                 End With
                 Me.Controls.Add(_TextBox)
@@ -868,7 +869,8 @@ Namespace VGDDMicrochip
             Dim MyControlId As String = ControlIdPrefix & "_" & Me.Name
             Dim MyControlIdNoIndex As String = ControlIdPrefix & "_" & Me.Name.Split("[")(0)
             Dim MyControlIdIndex As String = "", MyControlIdIndexPar As String = ""
-            Dim MyCodeHead As String = CodeGen.TextDeclareCodeHeadTemplate(TextCDeclType.RamXcharArray).Replace("[CHARMAX]", _BufferLength + 1)
+            Dim MyCodeHead As String = CodeGen.TextDeclareCodeHeadTemplate(TextCDeclType.RamXcharArray).Replace("[CHARMAX]", "") ' DW do not generate _BufferLength sized array, use empty (str[]) insted
+            '  Dim MyCodeHead As String = CodeGen.TextDeclareCodeHeadTemplate(TextCDeclType.RamXcharArray).Replace("[CHARMAX]", _BufferLength + 1) 
             Dim MyCode As String = "", MyState As String = ""
             Dim MyClassName As String = Me.GetType.ToString
 
@@ -900,6 +902,7 @@ Namespace VGDDMicrochip
             CodeGen.AddState(MyState, "KeysLayout", Me.KeysLayout.ToString)
 
             Dim myText As String = ""
+            Me.Text = Me.Text.PadRight(GetMaxTextLength(Me.TextStringID), "_") ' DW
             Dim myQtext As String = CodeGen.QText(Me.Text, Me._Scheme.Font, myText)
 
             If _DisplayFont = "" Then
@@ -922,17 +925,19 @@ Namespace VGDDMicrochip
             Next
             MyCommandKeyCode = "{ " & MyCommandKeyCode.Substring(2) & " }"
 
-            Dim MyParameters() As Byte = {0, _
-                            CodeGen.Int2ByteH(_Radius), CodeGen.Int2ByteL(_Radius), _
-                            CodeGen.Int2ByteH(_ButtonTexts.Count), CodeGen.Int2ByteL(_ButtonTexts.Count), _
-                            CodeGen.Int2ByteH(_ButtonTextsAlternate.Count), CodeGen.Int2ByteL(_ButtonTextsAlternate.Count), _
-                            CodeGen.Int2ByteH(_ButtonTextsShift.Count), CodeGen.Int2ByteL(_ButtonTextsShift.Count), _
-                            CodeGen.Int2ByteH(_ButtonTextsShiftAlternate.Count), CodeGen.Int2ByteL(_ButtonTextsShiftAlternate.Count), _
-                            CodeGen.Int2ByteH(_KeysHorizontal), CodeGen.Int2ByteL(_KeysHorizontal), _
-                            CodeGen.Int2ByteH(_KeysVertical), CodeGen.Int2ByteL(_KeysVertical), _
-                            CodeGen.Int2ByteH(_BufferLength), CodeGen.Int2ByteL(_BufferLength), _
-                            CodeGen.Int2ByteH(_VerticalSpacing), CodeGen.Int2ByteL(_VerticalSpacing), _
-                            CodeGen.Int2ByteH(_HorizontalSpacing), CodeGen.Int2ByteL(_HorizontalSpacing), _
+            _BufferLength = _TextBox.Text.Length  ' DW bufflength does not respect the string length => generated code array ist too small eg: GFX_XCHAR Password_TextEntryEx1_Text[11] = {0x005F,0x005F,0x005F,0x005F,0x005F,0x005F,0x005F,0x005F,0x005F,0x005F,0x005F,0x005F,0x0000}; // ____________
+
+            Dim MyParameters() As Byte = {0,
+                            CodeGen.Int2ByteH(_Radius), CodeGen.Int2ByteL(_Radius),
+                            CodeGen.Int2ByteH(_ButtonTexts.Count), CodeGen.Int2ByteL(_ButtonTexts.Count),
+                            CodeGen.Int2ByteH(_ButtonTextsAlternate.Count), CodeGen.Int2ByteL(_ButtonTextsAlternate.Count),
+                            CodeGen.Int2ByteH(_ButtonTextsShift.Count), CodeGen.Int2ByteL(_ButtonTextsShift.Count),
+                            CodeGen.Int2ByteH(_ButtonTextsShiftAlternate.Count), CodeGen.Int2ByteL(_ButtonTextsShiftAlternate.Count),
+                            CodeGen.Int2ByteH(_KeysHorizontal), CodeGen.Int2ByteL(_KeysHorizontal),
+                            CodeGen.Int2ByteH(_KeysVertical), CodeGen.Int2ByteL(_KeysVertical),
+                            CodeGen.Int2ByteH(_BufferLength), CodeGen.Int2ByteL(_BufferLength),
+                            CodeGen.Int2ByteH(_VerticalSpacing), CodeGen.Int2ByteL(_VerticalSpacing),
+                            CodeGen.Int2ByteH(_HorizontalSpacing), CodeGen.Int2ByteL(_HorizontalSpacing),
                             0}
             MyParameters(0) = MyParameters.Length - 1
             Dim cs As Byte = 0
@@ -1061,6 +1066,10 @@ Namespace VGDDMicrochip
                 Me.Scheme = "TextEntryEx"
             End If
             GenKeypad()
+        End Sub
+
+        Protected Overrides Sub Finalize()
+            MyBase.Finalize()
         End Sub
     End Class
 

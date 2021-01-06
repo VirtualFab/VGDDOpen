@@ -187,6 +187,7 @@ Namespace VGDDMicrochip
             'End If
 
             Dim myText As String = ""
+            Me.Text = Me.Text.PadRight(GetMaxTextLength(Me.TextStringID), "_") ' DW
             Dim myQtext As String = Me.Text
             If myQtext <> String.Empty Then
                 myQtext = myQtext.Substring(0, Math.Min(myQtext.Length, _CharMax - 1))

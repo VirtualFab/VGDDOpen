@@ -928,7 +928,7 @@ namespace Microchip
 				fout.Write(data);
 				ImageLength++;
 	        }
-			
+
             public void Close()
             {
                 fout.Close();

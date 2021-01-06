@@ -112,7 +112,7 @@
                         Or System.Windows.Forms.AnchorStyles.Left) _
                         Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.lstRecent.BorderStyle = System.Windows.Forms.BorderStyle.None
-            Me.lstRecent.Enabled = False
+            Me.lstRecent.Enabled = True
             Me.lstRecent.FormattingEnabled = True
             Me.lstRecent.Location = New System.Drawing.Point(23, 129)
             Me.lstRecent.Name = "lstRecent"
